@@ -8,6 +8,7 @@
 //
 // SPDX-License-Identifier: MIT
 //
+import FirebaseFirestore
 import Foundation
 
 /// Represents stool volume classifications
@@ -29,7 +30,7 @@ enum StoolColor: String, Codable {
 
 /// Stores stool data
 struct StoolEntry: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String?
 
     /// Date and time of the stool event
     var dateTime: Date

@@ -8,6 +8,7 @@
 //
 // SPDX-License-Identifier: MIT
 //
+import FirebaseFirestore
 import Foundation
 
 /// Represents method of feeding
@@ -25,38 +26,38 @@ enum MilkType: String, Codable {
 /// Stores feeding-related data
 struct FeedEntry: Identifiable, Codable {
     /// Use UUID to generate a unique identifier for Firebase
-    var id: String = UUID().uuidString
-    
+    @DocumentID var id: String?
+
     /// Date and time of the feed
     var dateTime: Date
-    
+
     /// Type of feeding (direct breastfeeding or bottle)
     var feedType: FeedType
-    
+
     /// Type of milk used if feedType = .bottle
     var milkType: MilkType?
-    
+
     /// Duration of direct breastfeeding in minutes
     var feedTimeInMinutes: Int?
-    
+
     /// Bottle feed volume in milliliters
     var feedVolumeInML: Double?
-    
+
     /// Initialize for direct breastfeeding
     init(directBreastfeeding minutes: Int, dateTime: Date = Date()) {
         self.dateTime = dateTime
-        self.feedType = .directBreastfeeding
-        self.feedTimeInMinutes = minutes
-        self.milkType = nil
-        self.feedVolumeInML = nil
+        feedType = .directBreastfeeding
+        feedTimeInMinutes = minutes
+        milkType = nil
+        feedVolumeInML = nil
     }
-    
+
     /// Initialize for bottle feeding
     init(bottle volumeML: Double, milkType: MilkType, dateTime: Date = Date()) {
         self.dateTime = dateTime
-        self.feedType = .bottle
+        feedType = .bottle
         self.milkType = milkType
-        self.feedVolumeInML = volumeML
-        self.feedTimeInMinutes = nil
+        feedVolumeInML = volumeML
+        feedTimeInMinutes = nil
     }
 }
