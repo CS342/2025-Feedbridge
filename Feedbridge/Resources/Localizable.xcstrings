@@ -31,6 +31,12 @@
         }
       }
     },
+    "Add Another Baby" : {
+
+    },
+    "Add Your Baby" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -40,6 +46,9 @@
           }
         }
       }
+    },
+    "Baby's Name" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -77,6 +86,25 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Contacts"
+          }
+        }
+      }
+    },
+    "Continue" : {
+
+    },
+    "Date of Birth" : {
+
+    },
+    "Error" : {
+
+    },
+    "Feedbridge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spezi\nFeedbridge"
           }
         }
       }
@@ -261,6 +289,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -270,6 +301,9 @@
           }
         }
       }
+    },
+    "Please enter your baby's information" : {
+
     },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
@@ -317,16 +351,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spezi Scheduler Notifications."
-          }
-        }
-      }
-    },
-    "Feedbridge" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nFeedbridge"
           }
         }
       }

@@ -45,6 +45,8 @@ struct OnboardingFlow: View {
                 AccountOnboarding()
             }
             
+            AddBabyView()
+            
             #if !(targetEnvironment(simulator) && (arch(i386) || arch(x86_64)))
                 Consent()
             #endif
