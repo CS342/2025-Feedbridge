@@ -12,6 +12,7 @@
 import FirebaseFirestore
 import Foundation
 
+// periphery:ignore
 /// Represents a baby and their associated health tracking data
 struct Baby: Identifiable, Codable {
     /// Unique identifier for the baby

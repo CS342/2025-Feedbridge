@@ -11,6 +11,7 @@
 
 import FirebaseFirestore
 
+// periphery:ignore
 /// Represents a guardian (parent or caregiver) who takes care of babies
 struct Guardian: Identifiable, Codable {
     /// Unique identifier for the guardian

@@ -11,6 +11,7 @@
 import FirebaseFirestore
 import Foundation
 
+// periphery:ignore
 /// Represents stool volume classifications
 enum StoolVolume: String, Codable {
     case light

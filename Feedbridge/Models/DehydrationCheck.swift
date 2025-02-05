@@ -11,6 +11,7 @@
 import FirebaseFirestore
 import Foundation
 
+// periphery:ignore
 /// Stores dehydration-related information
 struct DehydrationCheck: Identifiable, Codable {
     @DocumentID var id: String?

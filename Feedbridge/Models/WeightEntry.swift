@@ -11,6 +11,7 @@
 import FirebaseFirestore
 import Foundation
 
+// periphery:ignore
 /// Stores weight measurements (accepts grams, kilograms, or pounds and ounces)
 struct WeightEntry: Identifiable, Codable {
     @DocumentID var id: String?

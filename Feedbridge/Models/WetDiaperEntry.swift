@@ -11,6 +11,7 @@
 import FirebaseFirestore
 import Foundation
 
+// periphery:ignore
 /// Represents diaper volume classifications
 enum DiaperVolume: String, Codable {
     case light
