@@ -13,6 +13,7 @@ import Foundation
 
 // periphery:ignore
 /// Represents stool volume classifications
+// periphery:ignore
 enum StoolVolume: String, Codable {
     case light
     case medium

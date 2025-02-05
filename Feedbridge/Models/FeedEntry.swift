@@ -13,6 +13,7 @@ import Foundation
 
 // periphery:ignore
 /// Represents method of feeding
+// periphery:ignore
 enum FeedType: String, Codable {
     case directBreastfeeding
     case bottle
