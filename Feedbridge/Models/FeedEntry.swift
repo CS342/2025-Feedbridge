@@ -12,6 +12,7 @@ import FirebaseFirestore
 import Foundation
 
 /// Represents method of feeding
+// periphery:ignore
 enum FeedType: String, Codable {
     case directBreastfeeding
     case bottle
