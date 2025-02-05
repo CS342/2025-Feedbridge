@@ -11,8 +11,8 @@
 
 import FirebaseFirestore
 
+// Represents a guardian (parent or caregiver) who takes care of babies
 // periphery:ignore
-/// Represents a guardian (parent or caregiver) who takes care of babies
 struct Guardian: Identifiable, Codable {
     /// Unique identifier for the guardian
     @DocumentID var id: String?

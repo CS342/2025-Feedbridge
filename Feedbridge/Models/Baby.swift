@@ -12,8 +12,8 @@
 import FirebaseFirestore
 import Foundation
 
+// Represents a baby and their associated health tracking data
 // periphery:ignore
-/// Represents a baby and their associated health tracking data
 struct Baby: Identifiable, Codable {
     /// Unique identifier for the baby
     @DocumentID var id: String?
