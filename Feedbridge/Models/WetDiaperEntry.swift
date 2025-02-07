@@ -8,7 +8,7 @@
 //
 // SPDX-License-Identifier: MIT
 //
-import FirebaseFirestore
+@preconcurrency import FirebaseFirestore
 import Foundation
 
 /// Represents diaper volume classifications
@@ -26,7 +26,7 @@ enum WetDiaperColor: String, Codable {
 }
 
 /// Stores wet diaper data
-struct WetDiaperEntry: Identifiable, Codable {
+struct WetDiaperEntry: Identifiable, Codable, Sendable {
     @DocumentID var id: String?
 
     /// Date and time of the diaper event

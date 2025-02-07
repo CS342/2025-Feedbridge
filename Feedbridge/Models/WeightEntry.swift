@@ -8,11 +8,11 @@
 //
 // SPDX-License-Identifier: MIT
 //
-import FirebaseFirestore
+@preconcurrency import FirebaseFirestore
 import Foundation
 
 /// Stores weight measurements (accepts grams, kilograms, or pounds and ounces)
-struct WeightEntry: Identifiable, Codable {
+struct WeightEntry: Identifiable, Codable, Sendable {
     @DocumentID var id: String?
 
     /// Date and time the weight was measured

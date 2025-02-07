@@ -9,11 +9,11 @@
 //
 // SPDX-License-Identifier: MIT
 //
-import FirebaseFirestore
+@preconcurrency import FirebaseFirestore
 import Foundation
 
 /// Represents a baby and their associated health tracking data
-struct Baby: Identifiable, Codable {
+struct Baby: Identifiable, Codable, Sendable {
     /// Unique identifier for the baby
     @DocumentID var id: String?
 
@@ -71,27 +71,27 @@ struct Baby: Identifiable, Codable {
     }
 }
 
-struct FeedEntries: Codable, Identifiable {
+struct FeedEntries: Codable, Identifiable, Sendable {
     @DocumentID var id: String?
     var feedEntries: [FeedEntry]
 }
 
-struct WeightEntries: Codable, Identifiable {
+struct WeightEntries: Codable, Identifiable, Sendable {
     @DocumentID var id: String?
     var weightEntries: [WeightEntry]
 }
 
-struct StoolEntries: Codable, Identifiable {
+struct StoolEntries: Codable, Identifiable, Sendable {
     @DocumentID var id: String?
     var stoolEntries: [StoolEntry]
 }
 
-struct WetDiaperEntries: Codable, Identifiable {
+struct WetDiaperEntries: Codable, Identifiable, Sendable {
     @DocumentID var id: String?
     var wetDiaperEntries: [WetDiaperEntry]
 }
 
-struct DehydrationChecks: Codable, Identifiable {
+struct DehydrationChecks: Codable, Identifiable, Sendable {
     @DocumentID var id: String?
     var dehydrationChecks: [DehydrationCheck]
 }

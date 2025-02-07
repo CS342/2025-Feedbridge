@@ -161,4 +161,98 @@ actor FeedbridgeStandard: Standard,
             }
         }
     }
+
+    @MainActor
+    func getBaby(id: String) async throws -> Baby? {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            await logger.error("Could not get current user id")
+            return nil
+        }
+        
+        let fireStore = Firestore.firestore()
+        let babyDocument = fireStore.collection("users").document(userId).collection("babies").document(id)
+        
+        do {
+            let baby = try await babyDocument.getDocument(as: Baby.self)
+            return baby
+        } catch {
+            await logger.error("Could not fetch baby: \(error)")
+            throw error
+        }
+    }
+    
+    @MainActor
+    func addFeedEntry(_ entry: FeedEntry, toBabyWithId babyId: String) async throws {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            await logger.error("Could not get current user id")
+            return
+        }
+        
+        let fireStore = Firestore.firestore()
+        let babyDocument = fireStore.collection("users").document(userId)
+            .collection("babies").document(babyId)
+            .collection("feedEntries").document()
+        
+        try await babyDocument.setData(from: entry)
+    }
+    
+    @MainActor
+    func addWeightEntry(_ entry: WeightEntry, toBabyWithId babyId: String) async throws {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            await logger.error("Could not get current user id")
+            return
+        }
+        
+        let fireStore = Firestore.firestore()
+        let entryDocument = fireStore.collection("users").document(userId)
+            .collection("babies").document(babyId)
+            .collection("weightEntries").document()
+        
+        try await entryDocument.setData(from: entry)
+    }
+    
+    @MainActor
+    func addStoolEntry(_ entry: StoolEntry, toBabyWithId babyId: String) async throws {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            await logger.error("Could not get current user id")
+            return
+        }
+        
+        let fireStore = Firestore.firestore()
+        let entryDocument = fireStore.collection("users").document(userId)
+            .collection("babies").document(babyId)
+            .collection("stoolEntries").document()
+        
+        try await entryDocument.setData(from: entry)
+    }
+    
+    @MainActor
+    func addWetDiaperEntry(_ entry: WetDiaperEntry, toBabyWithId babyId: String) async throws {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            await logger.error("Could not get current user id")
+            return
+        }
+        
+        let fireStore = Firestore.firestore()
+        let entryDocument = fireStore.collection("users").document(userId)
+            .collection("babies").document(babyId)
+            .collection("wetDiaperEntries").document()
+        
+        try await entryDocument.setData(from: entry)
+    }
+    
+    @MainActor
+    func addDehydrationCheck(_ check: DehydrationCheck, toBabyWithId babyId: String) async throws {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            await logger.error("Could not get current user id")
+            return
+        }
+        
+        let fireStore = Firestore.firestore()
+        let checkDocument = fireStore.collection("users").document(userId)
+            .collection("babies").document(babyId)
+            .collection("dehydrationChecks").document()
+        
+        try await checkDocument.setData(from: check)
+    }
 }
