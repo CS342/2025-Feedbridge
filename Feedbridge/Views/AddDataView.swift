@@ -7,7 +7,6 @@
 
 import Foundation
 import SpeziAccount
-import SpeziContact
 import SwiftUI
 
 struct AddDataAView: View {
@@ -18,27 +17,27 @@ struct AddDataAView: View {
     private let dataEntries: [DataEntry] = [
         DataEntry(
             label: "Feed Entry",
-            image: Image(systemName: "flame.fill"),
+            image: Image("flame.fill", label: Text("Feed")),
             action: { /* logic to handle feed entry */ }
         ),
         DataEntry(
             label: "Wet Diaper Entry",
-            image: Image(systemName: "drop.fill"),
+            image: Image("drop.fill", label: Text("Wet diaper")),
             action: { /* logic to handle wet diaper entry */ }
         ),
         DataEntry(
             label: "Stool Entry",
-            image: Image(systemName: "plus.circle.fill"),
+            image: Image("plus.circle.fill", label: Text("Stool Entry")),
             action: { /* logic to handle stool entry */ }
         ),
         DataEntry(
             label: "Dehydration Check",
-            image: Image(systemName: "exclamationmark.triangle.fill"),
+            image: Image("exclamationmark.triangle.fill", label: Text("Dehydration Check")),
             action: { /* logic to handle dehydration check */ }
         ),
         DataEntry(
             label: "Weight Entry",
-            image: Image(systemName: "scalemass.fill"),
+            image: Image("scalemass.fill", label: Text("Weight Entry")),
             action: { /* logic to handle weight entry */ }
         )
     ]
@@ -46,33 +45,37 @@ struct AddDataAView: View {
     // MARK: - Body
     var body: some View {
         NavigationStack {
-            ContactsList(contacts: contacts)
-                .navigationTitle("Add Data")
-                .toolbar {
-                    if account != nil {
-                        AccountButton(isPresented: $presentingAccount)
+            ScrollView {
+                VStack(spacing: 16) {
+                    ForEach(dataEntries) { entry in
+                        Button(action: entry.action) {
+                            HStack(spacing: 16) {
+                                entry.image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.white)
+                                
+                                Text(entry.label)
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                            .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                        }
                     }
                 }
-        }
-    }
-    
-    private var contacts: [Contact] {
-        dataEntries.map { entry in
-            Contact(
-                name: PersonNameComponents(givenName: entry.label),
-                image: entry.image,
-                title: "Entry",
-                description: nil,
-                organization: nil,
-                address: nil,
-                contactOptions: [
-                    ContactOption(
-                        image: entry.image,
-                        title: entry.label,
-                        action: entry.action
-                    )
-                ]
-            )
+                .padding()
+            }
+            .navigationTitle("Add Data")
+            .toolbar {
+                if account != nil {
+                    AccountButton(isPresented: $presentingAccount)
+                }
+            }
         }
     }
 
@@ -84,7 +87,8 @@ struct AddDataAView: View {
 
 // MARK: - Supporting Types
 extension AddDataAView {
-    struct DataEntry {
+    struct DataEntry: Identifiable {
+        let id = UUID()
         let label: String
         let image: Image
         let action: () -> Void
@@ -96,3 +100,4 @@ extension AddDataAView {
     AddDataAView(presentingAccount: .constant(false))
 }
 #endif
+ 
