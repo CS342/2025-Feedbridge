@@ -31,6 +31,9 @@
         }
       }
     },
+    "Add Data" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -77,6 +80,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Contacts"
+          }
+        }
+      }
+    },
+    "Feedbridge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spezi\nFeedbridge"
           }
         }
       }
@@ -317,16 +330,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spezi Scheduler Notifications."
-          }
-        }
-      }
-    },
-    "Feedbridge" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nFeedbridge"
           }
         }
       }
