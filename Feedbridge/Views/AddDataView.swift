@@ -17,27 +17,27 @@ struct AddDataAView: View {
     private let dataEntries: [DataEntry] = [
         DataEntry(
             label: "Feed Entry",
-            image: Image("flame.fill", label: Text("Feed")),
+            imageName: "flame.fill",
             action: { /* logic to handle feed entry */ }
         ),
         DataEntry(
             label: "Wet Diaper Entry",
-            image: Image("drop.fill", label: Text("Wet diaper")),
+            imageName: "drop.fill",
             action: { /* logic to handle wet diaper entry */ }
         ),
         DataEntry(
             label: "Stool Entry",
-            image: Image("plus.circle.fill", label: Text("Stool Entry")),
+            imageName: "plus.circle.fill",
             action: { /* logic to handle stool entry */ }
         ),
         DataEntry(
             label: "Dehydration Check",
-            image: Image("exclamationmark.triangle.fill", label: Text("Dehydration Check")),
+            imageName: "exclamationmark.triangle.fill",
             action: { /* logic to handle dehydration check */ }
         ),
         DataEntry(
             label: "Weight Entry",
-            image: Image("scalemass.fill", label: Text("Weight Entry")),
+            imageName: "scalemass.fill",
             action: { /* logic to handle weight entry */ }
         )
     ]
@@ -50,7 +50,7 @@ struct AddDataAView: View {
                     ForEach(dataEntries) { entry in
                         Button(action: entry.action) {
                             HStack(spacing: 16) {
-                                entry.image
+                                Image(systemName: entry.imageName)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 24, height: 24)
@@ -61,6 +61,7 @@ struct AddDataAView: View {
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
+                            .accessibility(label: Text(entry.label))
                             .padding()
                             .background(Color.blue)
                             .cornerRadius(8)
@@ -90,7 +91,7 @@ extension AddDataAView {
     struct DataEntry: Identifiable {
         let id = UUID()
         let label: String
-        let image: Image
+        let imageName: String
         let action: () -> Void
     }
 }
@@ -100,4 +101,3 @@ extension AddDataAView {
     AddDataAView(presentingAccount: .constant(false))
 }
 #endif
- 
