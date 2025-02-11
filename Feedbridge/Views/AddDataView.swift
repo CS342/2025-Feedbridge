@@ -4,11 +4,16 @@
 //
 //  Created by Shamit Surana on 2/8/25.
 //
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
 
 import Foundation
 import SpeziAccount
 import SwiftUI
 
+// periphery:ignore
 struct AddDataAView: View {
     // MARK: - Properties
     @Environment(Account.self) private var account: Account?
@@ -87,6 +92,7 @@ struct AddDataAView: View {
 }
 
 // MARK: - Supporting Types
+// periphery:ignore
 extension AddDataAView {
     struct DataEntry: Identifiable {
         let id = UUID()
