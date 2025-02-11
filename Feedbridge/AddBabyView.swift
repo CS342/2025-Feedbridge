@@ -7,8 +7,8 @@
 // swiftlint:disable closure_body_length
 
 import FirebaseFirestore
-import SpeziViews
 import SpeziOnboarding
+import SpeziViews
 import SwiftUI
 
 struct AddBabyView: View {

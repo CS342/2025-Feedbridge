@@ -9,6 +9,8 @@
 //
 // SPDX-License-Identifier: MIT
 //
+// swiftlint:disable file_types_order
+
 @preconcurrency import FirebaseFirestore
 import Foundation
 
