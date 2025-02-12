@@ -1,5 +1,5 @@
 //
-//  AddBabyView.swift
+//  AddWeightEntryView.swift
 //  Feedbridge
 //
 //  Created by Calvin Xu on 2/10/25.
@@ -17,12 +17,12 @@ struct AddWeightEntryView: View {
         case kilograms = "Kilograms"
         case poundsOunces = "Pounds & Ounces"
     }
-    
+
     @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.dismiss) private var dismiss
-    
+
     let babyId: String
-    
+
     @State private var weightUnit = WeightUnit.kilograms
     @State private var kilograms = ""
     @State private var pounds = ""
@@ -30,7 +30,7 @@ struct AddWeightEntryView: View {
     @State private var date = Date()
     @State private var isLoading = false
     @State private var errorMessage: String?
-    
+
     var body: some View {
         NavigationStack {
             Form {
@@ -40,7 +40,7 @@ struct AddWeightEntryView: View {
                             Text($0.rawValue)
                         }
                     }
-                    
+
                     if weightUnit == .kilograms {
                         TextField("Weight in Kilograms", text: $kilograms)
                             .keyboardType(.decimalPad)
@@ -50,10 +50,10 @@ struct AddWeightEntryView: View {
                         TextField("Ounces", text: $ounces)
                             .keyboardType(.decimalPad)
                     }
-                    
+
                     DatePicker("Date & Time", selection: $date)
                 }
-                
+
                 if let error = errorMessage {
                     Section {
                         Text(error)
@@ -80,7 +80,7 @@ struct AddWeightEntryView: View {
             }
         }
     }
-    
+
     private var isValid: Bool {
         if weightUnit == .kilograms {
             return Double(kilograms) != nil
@@ -88,11 +88,11 @@ struct AddWeightEntryView: View {
             return Double(pounds) != nil && Double(ounces) != nil
         }
     }
-    
+
     private func saveWeight() async {
         isLoading = true
         errorMessage = nil
-        
+
         do {
             let entry: WeightEntry
             if weightUnit == .kilograms {
@@ -102,24 +102,24 @@ struct AddWeightEntryView: View {
                 entry = WeightEntry(kilograms: kilosWeight, dateTime: date)
             } else {
                 guard let poundsWeight = Double(pounds),
-                      let ouncesWeight = Double(ounces) else {
+                      let ouncesWeight = Double(ounces)
+                else {
                     return
                 }
                 entry = WeightEntry(pounds: poundsWeight, ounces: ouncesWeight, dateTime: date)
             }
-            
+
             try await standard.addWeightEntry(entry, toBabyWithId: babyId)
             dismiss()
         } catch {
             errorMessage = error.localizedDescription
         }
-        
+
         isLoading = false
     }
 }
 
 #Preview {
     AddWeightEntryView(babyId: "preview")
-        .previewWith(standard: FeedbridgeStandard()) {
-        }
+        .previewWith(standard: FeedbridgeStandard()) {}
 }

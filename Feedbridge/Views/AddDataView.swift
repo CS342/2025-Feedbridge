@@ -15,34 +15,36 @@ import SwiftUI
 
 struct AddDataView: View {
     // MARK: - Type Definitions
+
     private enum DataEntrySheet: Identifiable {
         case weight
-        
+
         var id: Int {
             switch self {
             case .weight: return 1
             }
         }
     }
-    
+
     struct DataEntry: Identifiable {
         let id = UUID()
         let label: String
         let imageName: String
         let action: () -> Void
     }
-    
+
     // MARK: - Properties
+
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeStandard.self) private var standard
     @Binding var presentingAccount: Bool
-    
+
     @State private var babies: [Baby] = []
     @State private var selectedBabyId: String?
     @State private var isLoading = true
     @State private var errorMessage: String?
     @State private var presentedSheet: DataEntrySheet?
-    
+
     private var dataEntries: [DataEntry] {
         [
             DataEntry(
@@ -72,8 +74,9 @@ struct AddDataView: View {
             )
         ]
     }
-    
+
     // MARK: - View Body
+
     var body: some View {
         NavigationStack {
             Group {
@@ -102,8 +105,9 @@ struct AddDataView: View {
             }
         }
     }
-    
+
     // MARK: - View Components
+
     @ViewBuilder private var mainContent: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -113,7 +117,7 @@ struct AddDataView: View {
             .padding()
         }
     }
-    
+
     @ViewBuilder private var babyPicker: some View {
         Menu {
             ForEach(babies) { baby in
@@ -126,7 +130,7 @@ struct AddDataView: View {
                         Spacer()
                         if baby.id == selectedBabyId {
                             Image(systemName: "checkmark")
-                            .accessibilityLabel("Selected")
+                                .accessibilityLabel("Selected")
                         }
                     }
                 }
@@ -155,7 +159,7 @@ struct AddDataView: View {
             .shadow(radius: 2)
         }
     }
-    
+
     @ViewBuilder private var dataEntriesList: some View {
         ForEach(dataEntries) { entry in
             Button(action: entry.action) {
@@ -165,7 +169,7 @@ struct AddDataView: View {
                         .scaledToFit()
                         .frame(width: 24, height: 24)
                         .foregroundColor(.white)
-                    
+
                     Text(entry.label)
                         .font(.headline)
                         .foregroundColor(.white)
@@ -180,17 +184,19 @@ struct AddDataView: View {
             .disabled(selectedBabyId == nil)
         }
     }
-    
+
     // MARK: - Initializer
+
     init(presentingAccount: Binding<Bool>) {
-        self._presentingAccount = presentingAccount
+        _presentingAccount = presentingAccount
     }
-    
+
     // MARK: - Helper Methods
+
     private func loadBabies() async {
         isLoading = true
         errorMessage = nil
-        
+
         do {
             babies = try await standard.getBabies()
             if let savedId = UserDefaults.standard.selectedBabyId,
@@ -203,15 +209,16 @@ struct AddDataView: View {
         } catch {
             errorMessage = "Failed to load babies: \(error.localizedDescription)"
         }
-        
+
         isLoading = false
     }
 }
 
 // MARK: - Extensions
+
 extension UserDefaults {
     static let selectedBabyIdKey = "selectedBabyId"
-    
+
     var selectedBabyId: String? {
         get { string(forKey: Self.selectedBabyIdKey) }
         set { setValue(newValue, forKey: Self.selectedBabyIdKey) }
