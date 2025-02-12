@@ -8,12 +8,11 @@
 //
 // SPDX-License-Identifier: MIT
 //
-import FirebaseFirestore
+@preconcurrency import FirebaseFirestore
 import Foundation
 
-// Stores dehydration-related information
-// periphery:ignore
-struct DehydrationCheck: Identifiable, Codable {
+/// Stores dehydration-related information
+struct DehydrationCheck: Identifiable, Codable, Sendable {
     @DocumentID var id: String?
 
     /// Date and time of the check

@@ -31,7 +31,10 @@
         }
       }
     },
-    "Add Data" : {
+    "Add Another Baby" : {
+
+    },
+    "Add Your Baby" : {
 
     },
     "Allow Notifications" : {
@@ -43,6 +46,9 @@
           }
         }
       }
+    },
+    "Baby's Name" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -83,6 +89,15 @@
           }
         }
       }
+    },
+    "Continue" : {
+
+    },
+    "Date of Birth" : {
+
+    },
+    "Error" : {
+
     },
     "Feedbridge" : {
       "localizations" : {
@@ -274,6 +289,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -283,6 +301,9 @@
           }
         }
       }
+    },
+    "Please enter your baby's information" : {
+
     },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {

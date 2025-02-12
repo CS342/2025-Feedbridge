@@ -8,7 +8,7 @@
 //
 // SPDX-License-Identifier: MIT
 //
-import FirebaseFirestore
+@preconcurrency import FirebaseFirestore
 import Foundation
 
 // Represents method of feeding
@@ -25,9 +25,9 @@ enum MilkType: String, Codable {
     case formula
 }
 
-// Stores feeding-related data
+/// Stores feeding-related data
 // periphery:ignore
-struct FeedEntry: Identifiable, Codable {
+struct FeedEntry: Identifiable, Codable, Sendable {
     /// Use UUID to generate a unique identifier for Firebase
     @DocumentID var id: String?
 
