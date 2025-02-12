@@ -104,14 +104,15 @@ struct AddDataView: View {
             }
         }
         .sheet(item: $presentedSheet) { sheet in
-            if case .weight = sheet, let babyId = selectedBabyId {
-                AddWeightEntryView(babyId: babyId)
-            }
-            if case .dehydration = sheet, let babyId = selectedBabyId {
-                DehydrationView(babyId: babyId)
-            }
-            if case .feed = sheet, let babyId = selectedBabyId {
-                FeedEntryView(babyId: babyId)
+            if let babyId = selectedBabyId {
+                switch sheet {
+                case .weight:
+                    AddWeightEntryView(babyId: babyId)
+                case .dehydration:
+                    AddDehydrationCheckView(babyId: babyId)
+                case .feed:
+                    AddFeedEntryView(babyId: babyId)
+                }
             }
         }
     }
