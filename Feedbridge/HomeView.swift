@@ -12,12 +12,15 @@ import SwiftUI
 
 struct HomeView: View {
     enum Tabs: String {
-        case schedule
-        case contact
+        case addEntries
+        case debug
+//        case addBabies
+//        case schedule
+//        case contact
     }
 
 
-    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.schedule
+    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.addEntries
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
@@ -25,14 +28,23 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
-                ScheduleView(presentingAccount: $presentingAccount)
+            Tab("Add Entries", systemImage: "plus", value: .addEntries) {
+                AddDataView(presentingAccount: $presentingAccount)
             }
-                .customizationID("home.schedule")
-            Tab("Contacts", systemImage: "person.fill", value: .contact) {
-                Contacts(presentingAccount: $presentingAccount)
+            Tab("Baby Debug View", systemImage: "figure.2.and.child.holdinghands", value: .debug) {
+                BabyDebugDisplayView()
             }
-                .customizationID("home.contacts")
+//            Tab("Add Babies", systemImage: "figure.2.and.child.holdinghands", value: .addBabies) {
+//                AddBabyView()
+//            }
+//            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
+//                ScheduleView(presentingAccount: $presentingAccount)
+//            }
+//                .customizationID("home.schedule")
+//            Tab("Contacts", systemImage: "person.fill", value: .contact) {
+//                Contacts(presentingAccount: $presentingAccount)
+//            }
+//                .customizationID("home.contacts")
         }
             .tabViewStyle(.sidebarAdaptable)
             .tabViewCustomization($tabViewCustomization)

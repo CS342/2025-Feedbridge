@@ -1,6 +1,15 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%.1f kg" : {
+
+    },
+    "⚠️ Dehydration Alert" : {
+
+    },
+    "⚠️ Medical Alert" : {
+
+    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -34,7 +43,25 @@
     "Add Another Baby" : {
 
     },
+    "Add Baby" : {
+
+    },
+    "Add Data" : {
+
+    },
+    "Add Entries" : {
+
+    },
+    "Add New Baby" : {
+
+    },
+    "Add Weight Entry" : {
+
+    },
     "Add Your Baby" : {
+
+    },
+    "Age" : {
 
     },
     "Allow Notifications" : {
@@ -47,7 +74,22 @@
         }
       }
     },
+    "Amount: %lfml" : {
+
+    },
+    "Baby Debug View" : {
+
+    },
+    "Baby icon" : {
+
+    },
     "Baby's Name" : {
+
+    },
+    "Basic Info" : {
+
+    },
+    "Cancel" : {
 
     },
     "Close" : {
@@ -59,6 +101,9 @@
           }
         }
       }
+    },
+    "Color: %@" : {
+
     },
     "CONSENT_LOADING_ERROR" : {
       "localizations" : {
@@ -93,10 +138,28 @@
     "Continue" : {
 
     },
+    "Current Weight" : {
+
+    },
+    "Date & Time" : {
+
+    },
     "Date of Birth" : {
 
     },
+    "Dehydration Checks" : {
+
+    },
+    "Dry Mucous Membranes: %@" : {
+
+    },
+    "Duration: %lld minutes" : {
+
+    },
     "Error" : {
+
+    },
+    "Feed Entries" : {
 
     },
     "Feedbridge" : {
@@ -118,6 +181,9 @@
           }
         }
       }
+    },
+    "Has Active Alerts" : {
+
     },
     "HealthKit Access" : {
       "localizations" : {
@@ -168,6 +234,9 @@
           }
         }
       }
+    },
+    "ID" : {
+
     },
     "Interesting Modules" : {
       "localizations" : {
@@ -259,6 +328,15 @@
         }
       }
     },
+    "Menu dropdown" : {
+
+    },
+    "Milk Type: %@" : {
+
+    },
+    "Name" : {
+
+    },
     "Next" : {
       "localizations" : {
         "en" : {
@@ -268,6 +346,12 @@
           }
         }
       }
+    },
+    "No baby selected" : {
+
+    },
+    "No weight entries" : {
+
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
       "localizations" : {
@@ -302,6 +386,9 @@
         }
       }
     },
+    "Ounces" : {
+
+    },
     "Please enter your baby's information" : {
 
     },
@@ -314,6 +401,15 @@
           }
         }
       }
+    },
+    "Poor Skin Elasticity: %@" : {
+
+    },
+    "Pounds" : {
+
+    },
+    "Save" : {
+
     },
     "Schedule" : {
       "localizations" : {
@@ -365,6 +461,9 @@
         }
       }
     },
+    "Stool Entries" : {
+
+    },
     "Swift Package Manager" : {
       "localizations" : {
         "en" : {
@@ -395,6 +494,12 @@
         }
       }
     },
+    "Type: %@" : {
+
+    },
+    "Unit" : {
+
+    },
     "Unsupported Event" : {
       "localizations" : {
         "en" : {
@@ -404,6 +509,15 @@
           }
         }
       }
+    },
+    "Volume: %@" : {
+
+    },
+    "Weight Entries" : {
+
+    },
+    "Weight in Kilograms" : {
+
     },
     "WELCOME_AREA1_DESCRIPTION" : {
       "localizations" : {
@@ -444,6 +558,9 @@
           }
         }
       }
+    },
+    "Wet Diaper Entries" : {
+
     },
     "Your Account" : {
       "localizations" : {
