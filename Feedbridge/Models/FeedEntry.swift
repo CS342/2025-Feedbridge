@@ -18,13 +18,15 @@ enum FeedType: String, Codable {
     case bottle
 }
 
-/// Represents the type of milk used
+// Represents the type of milk used
+// periphery:ignore
 enum MilkType: String, Codable {
     case breastmilk
     case formula
 }
 
-/// Stores feeding-related data
+// Stores feeding-related data
+// periphery:ignore
 struct FeedEntry: Identifiable, Codable {
     /// Use UUID to generate a unique identifier for Firebase
     @DocumentID var id: String?

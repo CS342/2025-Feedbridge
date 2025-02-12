@@ -19,14 +19,16 @@ enum DiaperVolume: String, Codable {
     case heavy
 }
 
-/// Represents color variations for wet diaper entries
+// Represents color variations for wet diaper entries
+// periphery:ignore
 enum WetDiaperColor: String, Codable {
     case yellow
     case pink
     case redTingled
 }
 
-/// Stores wet diaper data
+// Stores wet diaper data
+// periphery:ignore
 struct WetDiaperEntry: Identifiable, Codable {
     @DocumentID var id: String?
 
