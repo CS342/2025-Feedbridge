@@ -43,10 +43,16 @@
     "Add Another Baby" : {
 
     },
+    "Add babies later" : {
+
+    },
     "Add Baby" : {
 
     },
     "Add Data" : {
+
+    },
+    "Add Dehydration Check" : {
 
     },
     "Add Entries" : {
@@ -486,6 +492,9 @@
           }
         }
       }
+    },
+    "This name is already taken" : {
+
     },
     "This type of event is currently unsupported. Please contact the developer of this app." : {
       "localizations" : {

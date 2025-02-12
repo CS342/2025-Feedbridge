@@ -27,8 +27,8 @@ enum WetDiaperColor: String, Codable {
     case redTingled
 }
 
-/// Stores wet diaper data
 // periphery:ignore
+/// Stores wet diaper data
 struct WetDiaperEntry: Identifiable, Codable, Sendable {
     @DocumentID var id: String?
 

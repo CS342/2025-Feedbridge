@@ -51,9 +51,9 @@ struct OnboardingFlow: View {
                 Consent()
             #endif
             
-            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
-                HealthKitPermissions()
-            }
+//            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
+//                HealthKitPermissions()
+//            }
             
             if !localNotificationAuthorization {
                 NotificationPermissions()
