@@ -13,6 +13,7 @@
 import Foundation
 
 /// Represents a baby and their associated health tracking data
+// periphery:ignore
 struct Baby: Identifiable, Codable, Sendable {
     /// Unique identifier for the baby
     @DocumentID var id: String?

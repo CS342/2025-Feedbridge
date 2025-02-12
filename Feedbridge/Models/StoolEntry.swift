@@ -11,7 +11,8 @@
 @preconcurrency import FirebaseFirestore
 import Foundation
 
-/// Represents stool volume classifications
+// Represents stool volume classifications
+// periphery:ignore
 enum StoolVolume: String, Codable {
     case light
     case medium
