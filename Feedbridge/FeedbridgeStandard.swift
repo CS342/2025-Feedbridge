@@ -230,6 +230,7 @@ actor FeedbridgeStandard: Standard,
                 let checks = try documents.map { try $0.data(as: DehydrationCheck.self) }
                 baby.dehydrationChecks = DehydrationChecks(dehydrationChecks: checks)
             }
+
             return baby
         } catch {
             await logger.error("Could not fetch baby: \(error)")

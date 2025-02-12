@@ -117,9 +117,18 @@ struct AddDataView: View {
     @ViewBuilder private var babyPicker: some View {
         Menu {
             ForEach(babies) { baby in
-                Button(baby.name) {
+                Button {
                     selectedBabyId = baby.id
                     UserDefaults.standard.selectedBabyId = baby.id
+                } label: {
+                    HStack {
+                        Text(baby.name)
+                        Spacer()
+                        if baby.id == selectedBabyId {
+                            Image(systemName: "checkmark")
+                            .accessibilityLabel("Selected")
+                        }
+                    }
                 }
             }
             Divider()
