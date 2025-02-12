@@ -7,7 +7,7 @@
 // SPDX-FileCopyrightText: 2025 Stanford University
 //
 // SPDX-License-Identifier: MIT
-//
+// 
 import FirebaseFirestore
 import SwiftUI
 
@@ -66,19 +66,18 @@ struct AddDehydrationCheckView: View {
         isLoading = true
         errorMessage = nil
 
-//        let check = DehydrationCheck(
-//            id: nil,
-//            dateTime: date,
-//            poorSkinElasticity: poorSkinElasticity,
-//            dryMucousMembranes: dryMucousMembranes
-//        )
-//
-//        do {
-//            try await standard.addDehydrationCheck(check, toBabyWithId: babyId)
-//            dismiss()
-//        } catch {
-//            errorMessage = error.localizedDescription
-//        }
+        let entry = DehydrationCheck(
+            dateTime: date,
+            poorSkinElasticity: poorSkinElasticity,
+            dryMucousMembranes: dryMucousMembranes
+        )
+
+        do {
+            try await standard.addDehydrationCheck(entry, toBabyWithId: babyId)
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
 
         isLoading = false
     }

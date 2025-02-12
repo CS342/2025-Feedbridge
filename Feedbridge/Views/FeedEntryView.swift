@@ -8,8 +8,8 @@
 //
 // SPDX-License-Identifier: MIT
 //
-import SwiftUI
 import FirebaseFirestore
+import SwiftUI
 
 struct AddFeedEntryView: View {
     @Environment(FeedbridgeStandard.self) private var standard
@@ -25,6 +25,7 @@ struct AddFeedEntryView: View {
     @State private var isLoading = false
     @State private var errorMessage: String?
     
+    // swiftlint: disable closure_body_length
     var body: some View {
         NavigationStack {
             Form {
