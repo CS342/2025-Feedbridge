@@ -18,10 +18,14 @@ struct AddDataView: View {
 
     private enum DataEntrySheet: Identifiable {
         case weight
+        case dehydration
+        case feed
 
         var id: Int {
             switch self {
             case .weight: return 1
+            case .dehydration: return 2
+            case .feed: return 3
             }
         }
     }
@@ -50,7 +54,7 @@ struct AddDataView: View {
             DataEntry(
                 label: "Feed Entry",
                 imageName: "flame.fill",
-                action: { /* logic to handle feed entry */ }
+                action: { presentedSheet = .feed }
             ),
             DataEntry(
                 label: "Wet Diaper Entry",
@@ -65,7 +69,7 @@ struct AddDataView: View {
             DataEntry(
                 label: "Dehydration Check",
                 imageName: "exclamationmark.triangle.fill",
-                action: { /* logic to handle dehydration check */ }
+                action: { presentedSheet = .dehydration }
             ),
             DataEntry(
                 label: "Weight Entry",
@@ -102,6 +106,12 @@ struct AddDataView: View {
         .sheet(item: $presentedSheet) { sheet in
             if case .weight = sheet, let babyId = selectedBabyId {
                 AddWeightEntryView(babyId: babyId)
+            }
+            if case .dehydration = sheet, let babyId = selectedBabyId {
+                DehydrationView(babyId: babyId)
+            }
+            if case .feed = sheet, let babyId = selectedBabyId {
+                FeedEntryView(babyId: babyId)
             }
         }
     }
