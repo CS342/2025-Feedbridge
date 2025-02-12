@@ -2,7 +2,7 @@
 //  DehydrationView.swift
 //  Feedbridge
 //
-//  Created by Shamit Surana on 2/8/25.
+//  Created by Shreya D'Souza on 2/8/25.
 //
 // SPDX-FileCopyrightText: 2025 Stanford University
 //
@@ -28,6 +28,11 @@ struct AddDehydrationCheckView: View {
             Form {
                 Section {
                     DatePicker("Date & Time", selection: $date)
+                }
+
+                Section(header: Text("Dehydration Symptoms")) {
+                    Toggle("Poor Skin Elasticity", isOn: $poorSkinElasticity)
+                    Toggle("Dry Mucous Membranes", isOn: $dryMucousMembranes)
                 }
 
                 if let error = errorMessage {
