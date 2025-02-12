@@ -11,19 +11,22 @@
 @preconcurrency import FirebaseFirestore
 import Foundation
 
-/// Represents method of feeding
+// Represents method of feeding
+// periphery:ignore
 enum FeedType: String, Codable {
     case directBreastfeeding
     case bottle
 }
 
-/// Represents the type of milk used
+// Represents the type of milk used
+// periphery:ignore
 enum MilkType: String, Codable {
     case breastmilk
     case formula
 }
 
 /// Stores feeding-related data
+// periphery:ignore
 struct FeedEntry: Identifiable, Codable, Sendable {
     /// Use UUID to generate a unique identifier for Firebase
     @DocumentID var id: String?
