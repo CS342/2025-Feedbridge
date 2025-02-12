@@ -11,14 +11,16 @@
 @preconcurrency import FirebaseFirestore
 import Foundation
 
-/// Represents diaper volume classifications
+// Represents diaper volume classifications
+// periphery:ignore
 enum DiaperVolume: String, Codable {
     case light
     case medium
     case heavy
 }
 
-/// Represents color variations for wet diaper entries
+// Represents color variations for wet diaper entries
+// periphery:ignore
 enum WetDiaperColor: String, Codable {
     case yellow
     case pink
@@ -26,6 +28,7 @@ enum WetDiaperColor: String, Codable {
 }
 
 /// Stores wet diaper data
+// periphery:ignore
 struct WetDiaperEntry: Identifiable, Codable, Sendable {
     @DocumentID var id: String?
 

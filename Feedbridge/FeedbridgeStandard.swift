@@ -74,8 +74,8 @@ actor FeedbridgeStandard: Standard,
 
         do {
             try await configuration.userDocumentReference
-                .collection("QuestionnaireResponse") // Add all HealthKit sources in a /QuestionnaireResponse collection.
-                .document(id) // Set the document identifier to the id of the response.
+                .collection("QuestionnaireResponse")  // Add all HealthKit sources in a /QuestionnaireResponse collection.
+                .document(id)  // Set the document identifier to the id of the response.
                 .setData(from: response)
         } catch {
             await logger.error("Could not store questionnaire response: \(error)")
@@ -84,8 +84,8 @@ actor FeedbridgeStandard: Standard,
 
     private func healthKitDocument(id uuid: UUID) async throws -> DocumentReference {
         try await configuration.userDocumentReference
-            .collection("HealthKit") // Add all HealthKit sources in a /HealthKit collection.
-            .document(uuid.uuidString) // Set the document identifier to the UUID of the document.
+            .collection("HealthKit")  // Add all HealthKit sources in a /HealthKit collection.
+            .document(uuid.uuidString)  // Set the document identifier to the UUID of the document.
     }
 
     func respondToEvent(_ event: AccountNotifications.Event) async {
