@@ -133,4 +133,22 @@ actor FeedbridgeStandard: Standard,
             await logger.error("Could not store consent form: \(error)")
         }
     }
+    
+//    @MainActor
+//    func addDehydrationCheck(_ check: DehydrationCheck, toBabyWithId babyId: String) async throws {
+//        guard let userId = Auth.auth().currentUser?.uid else {
+//            await logger.error("Could not get current user id")
+//            return
+//        }
+//
+//        let fireStore = Firestore.firestore()
+//        let checksCollection = fireStore
+//            .collection("users")
+//            .document(userId)
+//            .collection("babies")
+//            .document(babyId)
+//            .collection("dehydrationChecks")
+//
+//        try await checksCollection.document().setData(from: check)
+//    }
 }
