@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "⚠️ Dehydration Alert" : {
+
+    },
+    "⚠️ Medical Alert" : {
+
+    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -31,6 +37,39 @@
         }
       }
     },
+    "Add Another Baby" : {
+
+    },
+    "Add babies later" : {
+
+    },
+    "Add Baby" : {
+
+    },
+    "Add Data" : {
+
+    },
+    "Add Dehydration Check" : {
+
+    },
+    "Add Entries" : {
+
+    },
+    "Add Feed Entry" : {
+
+    },
+    "Add New Baby" : {
+
+    },
+    "Add Weight Entry" : {
+
+    },
+    "Add Your Baby" : {
+
+    },
+    "Age" : {
+
+    },
     "Allow Notifications" : {
       "localizations" : {
         "en" : {
@@ -41,6 +80,30 @@
         }
       }
     },
+    "Amount: %lldml" : {
+
+    },
+    "Baby Debug View" : {
+
+    },
+    "Baby icon" : {
+
+    },
+    "Baby's Name" : {
+
+    },
+    "Basic Info" : {
+
+    },
+    "Bottle" : {
+
+    },
+    "Breastmilk" : {
+
+    },
+    "Cancel" : {
+
+    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -50,6 +113,9 @@
           }
         }
       }
+    },
+    "Color: %@" : {
+
     },
     "CONSENT_LOADING_ERROR" : {
       "localizations" : {
@@ -81,6 +147,64 @@
         }
       }
     },
+    "Continue" : {
+
+    },
+    "Current Weight" : {
+
+    },
+    "Date & Time" : {
+
+    },
+    "Date of Birth" : {
+
+    },
+    "Dehydration Checks" : {
+
+    },
+    "Dehydration Symptoms" : {
+
+    },
+    "Direct Breastfeeding" : {
+
+    },
+    "Dry Mucous Membranes" : {
+
+    },
+    "Dry Mucous Membranes: %@" : {
+
+    },
+    "Duration: %lld min" : {
+
+    },
+    "Duration: %lld minutes" : {
+
+    },
+    "Error" : {
+
+    },
+    "Feed Entries" : {
+
+    },
+    "Feedbridge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spezi\nFeedbridge"
+          }
+        }
+      }
+    },
+    "Feeding Details" : {
+
+    },
+    "Feeding Method" : {
+
+    },
+    "Formula" : {
+
+    },
     "Grant Access" : {
       "localizations" : {
         "en" : {
@@ -90,6 +214,9 @@
           }
         }
       }
+    },
+    "Has Active Alerts" : {
+
     },
     "HealthKit Access" : {
       "localizations" : {
@@ -140,6 +267,9 @@
           }
         }
       }
+    },
+    "ID" : {
+
     },
     "Interesting Modules" : {
       "localizations" : {
@@ -231,6 +361,18 @@
         }
       }
     },
+    "Menu dropdown" : {
+
+    },
+    "Milk Type" : {
+
+    },
+    "Milk Type: %@" : {
+
+    },
+    "Name" : {
+
+    },
     "Next" : {
       "localizations" : {
         "en" : {
@@ -240,6 +382,12 @@
           }
         }
       }
+    },
+    "No baby selected" : {
+
+    },
+    "No weight entries" : {
+
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
       "localizations" : {
@@ -261,6 +409,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Onboarding" : {
       "localizations" : {
         "en" : {
@@ -270,6 +421,12 @@
           }
         }
       }
+    },
+    "Ounces" : {
+
+    },
+    "Please enter your baby's information" : {
+
     },
     "Please fill out the Social Support Questionnaire every day." : {
       "localizations" : {
@@ -281,6 +438,18 @@
         }
       }
     },
+    "Poor Skin Elasticity" : {
+
+    },
+    "Poor Skin Elasticity: %@" : {
+
+    },
+    "Pounds" : {
+
+    },
+    "Save" : {
+
+    },
     "Schedule" : {
       "localizations" : {
         "en" : {
@@ -290,6 +459,9 @@
           }
         }
       }
+    },
+    "Selected" : {
+
     },
     "Social Support Questionnaire" : {
       "localizations" : {
@@ -321,16 +493,6 @@
         }
       }
     },
-    "Feedbridge" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nFeedbridge"
-          }
-        }
-      }
-    },
     "Start Questionnaire" : {
       "localizations" : {
         "en" : {
@@ -340,6 +502,9 @@
           }
         }
       }
+    },
+    "Stool Entries" : {
+
     },
     "Swift Package Manager" : {
       "localizations" : {
@@ -361,6 +526,9 @@
         }
       }
     },
+    "This name is already taken" : {
+
+    },
     "This type of event is currently unsupported. Please contact the developer of this app." : {
       "localizations" : {
         "en" : {
@@ -371,6 +539,12 @@
         }
       }
     },
+    "Type: %@" : {
+
+    },
+    "Unit" : {
+
+    },
     "Unsupported Event" : {
       "localizations" : {
         "en" : {
@@ -380,6 +554,18 @@
           }
         }
       }
+    },
+    "Volume: %@" : {
+
+    },
+    "Volume: %lld mL" : {
+
+    },
+    "Weight Entries" : {
+
+    },
+    "Weight in Kilograms" : {
+
     },
     "WELCOME_AREA1_DESCRIPTION" : {
       "localizations" : {
@@ -420,6 +606,9 @@
           }
         }
       }
+    },
+    "Wet Diaper Entries" : {
+
     },
     "Your Account" : {
       "localizations" : {

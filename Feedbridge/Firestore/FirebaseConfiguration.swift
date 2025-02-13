@@ -12,7 +12,6 @@ import Spezi
 import SpeziAccount
 import SpeziFirebaseAccount
 
-
 final class FirebaseConfiguration: Module, DefaultInitializable, @unchecked Sendable {
     enum ConfigurationError: Error {
         case userNotAuthenticatedYet
@@ -21,7 +20,6 @@ final class FirebaseConfiguration: Module, DefaultInitializable, @unchecked Send
     static var userCollection: CollectionReference {
         Firestore.firestore().collection("users")
     }
-
 
     @MainActor var userDocumentReference: DocumentReference {
         get throws {
@@ -54,13 +52,11 @@ final class FirebaseConfiguration: Module, DefaultInitializable, @unchecked Send
         Self.userCollection.document(accountId)
     }
 
-
     func configure() {
         Task {
             await setupTestAccount()
         }
     }
-
 
     private func setupTestAccount() async {
         guard let accountService, FeatureFlags.setupTestAccount else {
@@ -72,7 +68,8 @@ final class FirebaseConfiguration: Module, DefaultInitializable, @unchecked Send
             return
         } catch {
             guard let accountError = error as? FirebaseAccountError,
-                  case .invalidCredentials = accountError else {
+                  case .invalidCredentials = accountError
+            else {
                 logger.error("Failed to login into test account: \(error)")
                 return
             }
