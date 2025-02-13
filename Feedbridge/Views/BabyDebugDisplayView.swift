@@ -131,7 +131,7 @@ private struct WeightEntriesSection: View {
                         Text(entry.dateTime.formatted())
                             .font(.caption)
                             .foregroundColor(.secondary)
-                        Text("\(entry.weightInGrams / 1000, specifier: "%.1f") kg")
+                        Text(entry.asKilograms.formatted())
                             .font(.body)
                     }
                 }

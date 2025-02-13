@@ -44,7 +44,7 @@ struct FeedEntry: Identifiable, Codable, Sendable {
     var feedTimeInMinutes: Int?
 
     /// Bottle feed volume in milliliters
-    var feedVolumeInML: Double?
+    var feedVolumeInML: Int?
 
     /// Initialize for direct breastfeeding
     init(directBreastfeeding minutes: Int, dateTime: Date = Date()) {
@@ -56,7 +56,7 @@ struct FeedEntry: Identifiable, Codable, Sendable {
     }
 
     /// Initialize for bottle feeding
-    init(bottle volumeML: Double, milkType: MilkType, dateTime: Date = Date()) {
+    init(bottle volumeML: Int, milkType: MilkType, dateTime: Date = Date()) {
         self.dateTime = dateTime
         feedType = .bottle
         self.milkType = milkType

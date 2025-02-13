@@ -20,31 +20,30 @@ struct WeightEntry: Identifiable, Codable, Sendable {
     var dateTime: Date
 
     /// Weight in grams (primary storage)
-    var weightInGrams: Double
+    var weightInGrams: Int
 
     var asKilograms: Measurement<UnitMass> {
-        Measurement(value: weightInGrams, unit: UnitMass.grams).converted(to: .kilograms)
+        Measurement(value: Double(weightInGrams), unit: UnitMass.grams).converted(to: .kilograms)
     }
 
     var asPounds: Measurement<UnitMass> {
-        Measurement(value: weightInGrams, unit: UnitMass.grams).converted(to: .pounds)
+        Measurement(value: Double(weightInGrams), unit: UnitMass.grams).converted(to: .pounds)
     }
 
-    init(grams: Double, dateTime: Date = Date()) {
+    init(grams: Int, dateTime: Date = Date()) {
         self.dateTime = dateTime
-        weightInGrams = grams
+        self.weightInGrams = grams
     }
 
     init(kilograms: Double, dateTime: Date = Date()) {
         let measurement = Measurement(value: kilograms, unit: UnitMass.kilograms)
         self.dateTime = dateTime
-        weightInGrams = measurement.converted(to: .grams).value
+        self.weightInGrams = Int(round(measurement.converted(to: .grams).value))
     }
 
-    init(pounds: Double, ounces: Double = 0, dateTime: Date = Date()) {
-        let totalPounds = pounds + (ounces / 16.0)
-        let measurement = Measurement(value: totalPounds, unit: UnitMass.pounds)
+    init(pounds: Int, ounces: Int = 0, dateTime: Date = Date()) {
+        let measurement = Measurement(value: Double(pounds) + (Double(ounces) / 16.0), unit: UnitMass.pounds)
         self.dateTime = dateTime
-        weightInGrams = measurement.converted(to: .grams).value
+        self.weightInGrams = Int(round(measurement.converted(to: .grams).value))
     }
 }
