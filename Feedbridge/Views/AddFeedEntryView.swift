@@ -20,7 +20,7 @@ struct AddFeedEntryView: View {
     @State private var feedType: FeedType = .directBreastfeeding
     @State private var milkType: MilkType = .breastmilk
     @State private var feedTimeInMinutes: Int = 0
-    @State private var feedVolumeInML: Double = 0.0
+    @State private var feedVolumeInML: Int = 0
     @State private var date = Date()
     @State private var isLoading = false
     @State private var errorMessage: String?
@@ -48,7 +48,7 @@ struct AddFeedEntryView: View {
                         .pickerStyle(SegmentedPickerStyle())
                         
                         Stepper(value: $feedVolumeInML, in: 0...500, step: 10) {
-                            Text("Volume: \(feedVolumeInML, specifier: "%.0f") mL")
+                            Text("Volume: \(feedVolumeInML) mL")
                         }
                     } else {
                         Stepper(value: $feedTimeInMinutes, in: 0...60, step: 1) {
