@@ -46,9 +46,9 @@ struct AddWeightEntryView: View {
                             .keyboardType(.decimalPad)
                     } else {
                         TextField("Pounds", text: $pounds)
-                            .keyboardType(.decimalPad)
+                            .keyboardType(.numberPad)
                         TextField("Ounces", text: $ounces)
-                            .keyboardType(.decimalPad)
+                            .keyboardType(.numberPad)
                     }
 
                     DatePicker("Date & Time", selection: $date)
@@ -85,7 +85,7 @@ struct AddWeightEntryView: View {
         if weightUnit == .kilograms {
             return Double(kilograms) != nil
         } else {
-            return Double(pounds) != nil && Double(ounces) != nil
+            return Int(pounds) != nil && Int(ounces) != nil
         }
     }
 
@@ -101,8 +101,8 @@ struct AddWeightEntryView: View {
                 }
                 entry = WeightEntry(kilograms: kilosWeight, dateTime: date)
             } else {
-                guard let poundsWeight = Double(pounds),
-                      let ouncesWeight = Double(ounces)
+                guard let poundsWeight = Int(pounds),
+                      let ouncesWeight = Int(ounces)
                 else {
                     return
                 }

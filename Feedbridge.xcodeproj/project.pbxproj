@@ -53,10 +53,10 @@
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
-		5B0E57782D5C311B002AC4BB /* DehydrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57712D5C311B002AC4BB /* DehydrationView.swift */; };
-		5B0E57792D5C311B002AC4BB /* StoolEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57732D5C311B002AC4BB /* StoolEntryView.swift */; };
-		5B0E577A2D5C311B002AC4BB /* WetDiaperEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57752D5C311B002AC4BB /* WetDiaperEntryView.swift */; };
-		5B0E577B2D5C311B002AC4BB /* FeedEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57722D5C311B002AC4BB /* FeedEntryView.swift */; };
+		5B0E57782D5C311B002AC4BB /* AddDehydrationCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57712D5C311B002AC4BB /* AddDehydrationCheckView.swift */; };
+		5B0E57792D5C311B002AC4BB /* AddStoolEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */; };
+		5B0E577A2D5C311B002AC4BB /* AddWetDiaperEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */; };
+		5B0E577B2D5C311B002AC4BB /* AddFeedEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */; };
 		5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */; };
 		5BB4CDEA2D5AF2AF00DA4CF7 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */; };
 		5BB4CE0C2D5AFB8000DA4CF7 /* AddWeightEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */; };
@@ -127,10 +127,10 @@
 		2FE5DCAC29EE6107004B9AB4 /* AccountOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
 		2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbridgeStandard.swift; sourceTree = "<group>"; };
 		5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsTest.swift; sourceTree = "<group>"; };
-		5B0E57712D5C311B002AC4BB /* DehydrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DehydrationView.swift; sourceTree = "<group>"; };
-		5B0E57722D5C311B002AC4BB /* FeedEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedEntryView.swift; sourceTree = "<group>"; };
-		5B0E57732D5C311B002AC4BB /* StoolEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolEntryView.swift; sourceTree = "<group>"; };
-		5B0E57752D5C311B002AC4BB /* WetDiaperEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiaperEntryView.swift; sourceTree = "<group>"; };
+		5B0E57712D5C311B002AC4BB /* AddDehydrationCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDehydrationCheckView.swift; sourceTree = "<group>"; };
+		5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedEntryView.swift; sourceTree = "<group>"; };
+		5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStoolEntryView.swift; sourceTree = "<group>"; };
+		5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWetDiaperEntryView.swift; sourceTree = "<group>"; };
 		5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBabyView.swift; sourceTree = "<group>"; };
 		5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightEntryView.swift; sourceTree = "<group>"; };
@@ -290,10 +290,10 @@
 				5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */,
 				5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */,
 				5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */,
-				5B0E57712D5C311B002AC4BB /* DehydrationView.swift */,
-				5B0E57722D5C311B002AC4BB /* FeedEntryView.swift */,
-				5B0E57732D5C311B002AC4BB /* StoolEntryView.swift */,
-				5B0E57752D5C311B002AC4BB /* WetDiaperEntryView.swift */,
+				5B0E57712D5C311B002AC4BB /* AddDehydrationCheckView.swift */,
+				5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */,
+				5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */,
+				5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -597,10 +597,10 @@
 				2FF53D8D2A8729D600042B76 /* FeedbridgeStandard.swift in Sources */,
 				5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */,
 				5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */,
-				5B0E57782D5C311B002AC4BB /* DehydrationView.swift in Sources */,
-				5B0E57792D5C311B002AC4BB /* StoolEntryView.swift in Sources */,
-				5B0E577A2D5C311B002AC4BB /* WetDiaperEntryView.swift in Sources */,
-				5B0E577B2D5C311B002AC4BB /* FeedEntryView.swift in Sources */,
+				5B0E57782D5C311B002AC4BB /* AddDehydrationCheckView.swift in Sources */,
+				5B0E57792D5C311B002AC4BB /* AddStoolEntryView.swift in Sources */,
+				5B0E577A2D5C311B002AC4BB /* AddWetDiaperEntryView.swift in Sources */,
+				5B0E577B2D5C311B002AC4BB /* AddFeedEntryView.swift in Sources */,
 				5BB4CE0C2D5AFB8000DA4CF7 /* AddWeightEntryView.swift in Sources */,
 				A9720E432ABB68CC00872D23 /* AccountSetupHeader.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,

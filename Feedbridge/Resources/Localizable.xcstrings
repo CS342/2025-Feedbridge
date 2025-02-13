@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%.1f kg" : {
-
-    },
     "⚠️ Dehydration Alert" : {
 
     },
@@ -58,6 +55,9 @@
     "Add Entries" : {
 
     },
+    "Add Feed Entry" : {
+
+    },
     "Add New Baby" : {
 
     },
@@ -80,7 +80,7 @@
         }
       }
     },
-    "Amount: %lfml" : {
+    "Amount: %lldml" : {
 
     },
     "Baby Debug View" : {
@@ -93,6 +93,12 @@
 
     },
     "Basic Info" : {
+
+    },
+    "Bottle" : {
+
+    },
+    "Breastmilk" : {
 
     },
     "Cancel" : {
@@ -156,7 +162,19 @@
     "Dehydration Checks" : {
 
     },
+    "Dehydration Symptoms" : {
+
+    },
+    "Direct Breastfeeding" : {
+
+    },
+    "Dry Mucous Membranes" : {
+
+    },
     "Dry Mucous Membranes: %@" : {
+
+    },
+    "Duration: %lld min" : {
 
     },
     "Duration: %lld minutes" : {
@@ -177,6 +195,15 @@
           }
         }
       }
+    },
+    "Feeding Details" : {
+
+    },
+    "Feeding Method" : {
+
+    },
+    "Formula" : {
+
     },
     "Grant Access" : {
       "localizations" : {
@@ -337,6 +364,9 @@
     "Menu dropdown" : {
 
     },
+    "Milk Type" : {
+
+    },
     "Milk Type: %@" : {
 
     },
@@ -407,6 +437,9 @@
           }
         }
       }
+    },
+    "Poor Skin Elasticity" : {
+
     },
     "Poor Skin Elasticity: %@" : {
 
@@ -523,6 +556,9 @@
       }
     },
     "Volume: %@" : {
+
+    },
+    "Volume: %lld mL" : {
 
     },
     "Weight Entries" : {
