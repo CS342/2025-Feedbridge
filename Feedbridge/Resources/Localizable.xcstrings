@@ -61,7 +61,13 @@
     "Add New Baby" : {
 
     },
+    "Add Stool Entry" : {
+
+    },
     "Add Weight Entry" : {
+
+    },
+    "Add Wet Diaper Entry" : {
 
     },
     "Add Your Baby" : {
@@ -95,10 +101,19 @@
     "Basic Info" : {
 
     },
+    "Beige" : {
+
+    },
+    "Black" : {
+
+    },
     "Bottle" : {
 
     },
     "Breastmilk" : {
+
+    },
+    "Brown" : {
 
     },
     "Cancel" : {
@@ -113,6 +128,9 @@
           }
         }
       }
+    },
+    "Color" : {
+
     },
     "Color: %@" : {
 
@@ -151,6 +169,9 @@
 
     },
     "Current Weight" : {
+
+    },
+    "Dark Green" : {
 
     },
     "Date & Time" : {
@@ -215,6 +236,9 @@
         }
       }
     },
+    "Green" : {
+
+    },
     "Has Active Alerts" : {
 
     },
@@ -257,6 +281,9 @@
           }
         }
       }
+    },
+    "Heavy" : {
+
     },
     "HL7 FHIR" : {
       "localizations" : {
@@ -361,6 +388,12 @@
         }
       }
     },
+    "Light" : {
+
+    },
+    "Medium" : {
+
+    },
     "Menu dropdown" : {
 
     },
@@ -425,6 +458,9 @@
     "Ounces" : {
 
     },
+    "Pink" : {
+
+    },
     "Please enter your baby's information" : {
 
     },
@@ -445,6 +481,9 @@
 
     },
     "Pounds" : {
+
+    },
+    "Red-Tinged" : {
 
     },
     "Save" : {
@@ -526,6 +565,12 @@
         }
       }
     },
+    "This color may indicate a medical concern" : {
+
+    },
+    "This color may indicate dehydration" : {
+
+    },
     "This name is already taken" : {
 
     },
@@ -554,6 +599,9 @@
           }
         }
       }
+    },
+    "Volume" : {
+
     },
     "Volume: %@" : {
 
@@ -608,6 +656,9 @@
       }
     },
     "Wet Diaper Entries" : {
+
+    },
+    "Yellow" : {
 
     },
     "Your Account" : {
