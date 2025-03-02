@@ -28,6 +28,9 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
+            Tab("Dashboard", systemImage: "house", value: .addEntries) {
+                DashboardView(presentingAccount: $presentingAccount)
+            }
             Tab("Add Entries", systemImage: "plus", value: .addEntries) {
                 AddDataView(presentingAccount: $presentingAccount)
             }
