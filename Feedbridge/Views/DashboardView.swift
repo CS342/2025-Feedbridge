@@ -1,57 +1,19 @@
-//
-//  DashboardView.swift
-//  Feedbridge
-//
-//  Created by Shreya D'Souza on 3/1/25.
-//
-
-
-import Foundation
+import Charts
 import SpeziAccount
 import SwiftUI
 
-
 struct DashboardView: View {
     
-    // MARK: - Type Definitions
-
-    private enum DataEntrySheet: Identifiable {
-        case weight
-        case dehydration
-        case feed
-
-        var id: Int {
-            switch self {
-            case .weight: return 1
-            case .dehydration: return 2
-            case .feed: return 3
-            }
-        }
-    }
-
-    struct DataEntry: Identifiable {
-        let id = UUID()
-        let label: String
-        let imageName: String
-        let action: () -> Void
-    }
-
-    // MARK: - Properties
-
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeStandard.self) private var standard
     @Binding var presentingAccount: Bool
-
+    
     @State private var babies: [Baby] = []
     @State private var selectedBabyId: String?
     @State private var isLoading = true
     @State private var errorMessage: String?
-    @State private var presentedSheet: DataEntrySheet?
-
+    @State private var baby: Baby?
     
-
-    // MARK: - View Body
-
     var body: some View {
         NavigationStack {
             Group {
@@ -64,7 +26,7 @@ struct DashboardView: View {
                     mainContent
                 }
             }
-            .navigationTitle("Add Data")
+            .navigationTitle("Dashboard")
             .toolbar {
                 if account != nil {
                     AccountButton(isPresented: $presentingAccount)
@@ -72,34 +34,23 @@ struct DashboardView: View {
             }
             .task {
                 await loadBabies()
+                await loadBaby()
             }
         }
-//        .sheet(item: $presentedSheet) { sheet in
-//            if let babyId = selectedBabyId {
-//                switch sheet {
-//                case .weight:
-//                    AddWeightEntryView(babyId: babyId)
-//                case .dehydration:
-//                    AddDehydrationCheckView(babyId: babyId)
-//                case .feed:
-//                    AddFeedEntryView(babyId: babyId)
-//                }
-//            }
-//        }
     }
-
-    // MARK: - View Components
-
+    
     @ViewBuilder private var mainContent: some View {
         ScrollView {
             VStack(spacing: 16) {
                 babyPicker
-//                dataEntriesList
+                if let baby {
+                    WeightChart(entries: baby.weightEntries.weightEntries)
+                }
             }
             .padding()
         }
     }
-
+    
     @ViewBuilder private var babyPicker: some View {
         Menu {
             ForEach(babies) { baby in
@@ -141,44 +92,56 @@ struct DashboardView: View {
             .shadow(radius: 2)
         }
     }
+    
+    struct WeightChart: View {
+        let entries: [WeightEntry]
 
-//    @ViewBuilder private var dataEntriesList: some View {
-//        ForEach(dataEntries) { entry in
-//            Button(action: entry.action) {
-//                HStack(spacing: 16) {
-//                    Image(systemName: entry.imageName)
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 24, height: 24)
-//                        .foregroundColor(.white)
-//
-//                    Text(entry.label)
-//                        .font(.headline)
-//                        .foregroundColor(.white)
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                }
-//                .accessibility(label: Text(entry.label))
-//                .padding()
-//                .background(Color.blue)
-//                .cornerRadius(8)
-//                .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
-//            }
-//            .disabled(selectedBabyId == nil)
-//        }
-//    }
+        var body: some View {
+            VStack {
+                Text("Weight")
+                    .font(.headline)
+                    .padding(.top)
+                
+                if entries.isEmpty {
+                    Text("No data added")
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.systemGray6))
+                            .frame(height: 220)
+                            .shadow(radius: 4)
 
-    // MARK: - Initializer
+                        Chart(entries.sorted(by: { $0.dateTime < $1.dateTime })) {
+                            LineMark(
+                                x: .value("Date", $0.dateTime),
+                                y: .value("Weight (kg)", $0.asKilograms.value)
+                            )
+                            .interpolationMethod(.catmullRom) // Smooth curve
+                            .foregroundStyle(.blue)
+                            .lineStyle(StrokeStyle(lineWidth: 2))
 
-    init(presentingAccount: Binding<Bool>) {
-        _presentingAccount = presentingAccount
+                            PointMark(
+                                x: .value("Date", $0.dateTime),
+                                y: .value("Weight (kg)", $0.asKilograms.value)
+                            )
+//                            .symbol(Circle().fill(Color.blue))
+                        }
+                        .frame(height: 200)
+                        .padding()
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .padding()
+        }
     }
-
-    // MARK: - Helper Methods
-
+    
     private func loadBabies() async {
         isLoading = true
         errorMessage = nil
-
+        
         do {
             babies = try await standard.getBabies()
             if let savedId = UserDefaults.standard.selectedBabyId,
@@ -191,24 +154,25 @@ struct DashboardView: View {
         } catch {
             errorMessage = "Failed to load babies: \(error.localizedDescription)"
         }
-
+        
         isLoading = false
     }
-}
-
-// MARK: - Extensions
-
-//extension UserDefaults {
-//    static let selectedBabyIdKey = "selectedBabyId"
-//
-//    var selectedBabyId: String? {
-//        get { string(forKey: Self.selectedBabyIdKey) }
-//        set { setValue(newValue, forKey: Self.selectedBabyIdKey) }
-//    }
-//}
-
-#Preview {
-    AddDataView(presentingAccount: .constant(false))
-        .previewWith(standard: FeedbridgeStandard()) {}
-
+    
+    private func loadBaby() async {
+        guard let babyId = selectedBabyId else {
+            baby = nil
+            return
+        }
+        
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            baby = try await standard.getBaby(id: babyId)
+        } catch {
+            errorMessage = "Failed to load baby: \(error.localizedDescription)"
+        }
+        
+        isLoading = false
+    }
 }

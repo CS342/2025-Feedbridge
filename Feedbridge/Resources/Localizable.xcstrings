@@ -156,6 +156,9 @@
     "Dashboard" : {
 
     },
+    "Date" : {
+
+    },
     "Date & Time" : {
 
     },
@@ -389,6 +392,9 @@
     "No baby selected" : {
 
     },
+    "No data added" : {
+
+    },
     "No weight entries" : {
 
     },
@@ -564,10 +570,16 @@
     "Volume: %lld mL" : {
 
     },
+    "Weight (kg)" : {
+
+    },
     "Weight Entries" : {
 
     },
     "Weight in Kilograms" : {
+
+    },
+    "Weight Over Time" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {

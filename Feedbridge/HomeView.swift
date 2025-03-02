@@ -12,6 +12,7 @@ import SwiftUI
 
 struct HomeView: View {
     enum Tabs: String {
+        case dashboard
         case addEntries
         case debug
 //        case addBabies
@@ -20,7 +21,7 @@ struct HomeView: View {
     }
 
 
-    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.addEntries
+    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.dashboard
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
@@ -28,7 +29,7 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Dashboard", systemImage: "house", value: .addEntries) {
+            Tab("Dashboard", systemImage: "house", value: .dashboard) {
                 DashboardView(presentingAccount: $presentingAccount)
             }
             Tab("Add Entries", systemImage: "plus", value: .addEntries) {
