@@ -180,9 +180,6 @@
     "Dry Mucous Membranes: %@" : {
 
     },
-    "Duration (mins)" : {
-
-    },
     "Duration: %lld min" : {
 
     },
@@ -209,9 +206,6 @@
 
     },
     "Feeding Method" : {
-
-    },
-    "Feeding Trends Over Time" : {
 
     },
     "Formula" : {
@@ -570,13 +564,13 @@
         }
       }
     },
-    "Volume (ml)" : {
-
-    },
     "Volume: %@" : {
 
     },
     "Volume: %lld mL" : {
+
+    },
+    "Weight" : {
 
     },
     "Weight (kg)" : {
@@ -586,9 +580,6 @@
 
     },
     "Weight in Kilograms" : {
-
-    },
-    "Weight Over Time" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {

@@ -94,79 +94,68 @@ struct DashboardView: View {
             .shadow(radius: 2)
         }
     }
-
     struct WeightChart: View {
         let entries: [WeightEntry]
 
         var body: some View {
             VStack {
-                Text("Weight Over Time")
-                    .font(.headline)
-                    .padding(.top)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.systemGray6))
+                        .shadow(radius: 4)
 
-                if entries.isEmpty {
-                    Text("No data added")
-                        .foregroundColor(.gray)
-                        .padding()
-                } else {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color(.systemGray6))
-                            .frame(height: 220)
-                            .shadow(radius: 4)
+                    VStack {
+                        Text("Weight")
+                            .font(.title3.bold())
+                            .listRowSeparator(.hidden)
+                            .padding(.top, 8)
 
-                        Chart {
-                            let averagedEntries = averageWeightsPerDay()
+                        if entries.isEmpty {
+                            Text("No data added")
+                                .foregroundColor(.gray)
+                                .padding()
+                        } else {
+                            Chart {
+                                let averagedEntries = averageWeightsPerDay()
 
-                            // Plot individual weight measurements as dots (aligned per day)
-                            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                                let day = Calendar.current.startOfDay(for: entry.dateTime)
-                                PointMark(
-                                    x: .value("Date", day),
-                                    y: .value("Weight (kg)", entry.asKilograms.value)
-                                )
-                                .foregroundStyle(.gray)
-                                .symbol {
-                                    Circle()
-                                        .fill(Color.black.opacity(0.6)) // Dark gray for individual measurements
-                                        .frame(width: 8)
+                                // Plot individual weight measurements as dots (aligned per day)
+                                ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
+                                    let day = Calendar.current.startOfDay(for: entry.dateTime)
+                                    PointMark(
+                                        x: .value("Date", day),
+                                        y: .value("Weight (kg)", entry.asKilograms.value)
+                                    )
+                                    .foregroundStyle(.gray)
+                                    .symbol {
+                                        Circle()
+                                            .fill(Color.cyan.opacity(0.6))
+                                            .frame(width: 8)
+                                    }
+                                }
+
+                                // Trend line
+                                ForEach(averagedEntries) { entry in
+                                    LineMark(
+                                        x: .value("Date", entry.date),
+                                        y: .value("Weight (kg)", entry.averageWeight)
+                                    )
+                                    .interpolationMethod(.catmullRom)
+                                    .foregroundStyle(.purple)
+                                    .lineStyle(StrokeStyle(lineWidth: 2))
                                 }
                             }
-
-                            // Draw trend line for daily average weight
-                            ForEach(averagedEntries) { entry in
-                                LineMark(
-                                    x: .value("Date", entry.date),
-                                    y: .value("Weight (kg)", entry.averageWeight)
-                                )
-                                .interpolationMethod(.catmullRom)
-                                .foregroundStyle(.blue)
-                                .lineStyle(StrokeStyle(lineWidth: 2))
-
-                                PointMark(
-                                    x: .value("Date", entry.date),
-                                    y: .value("Weight (kg)", entry.averageWeight)
-                                )
-                                .symbol {
-                                    Circle()
-                                        .fill(Color.blue.opacity(0.6)) // Blue for trend line points
-                                        .frame(width: 8)
-                                }
-                            }
+                            .frame(height: 200)
+                            .padding()
                         }
-                        .frame(height: 200)
-                        .padding()
                     }
-                    .padding(.horizontal)
                 }
             }
-            .padding()
         }
 
         /// Groups weights by day and calculates the average weight per day
         private func averageWeightsPerDay() -> [DailyAverageWeight] {
             let grouped = Dictionary(grouping: entries) { entry in
-                Calendar.current.startOfDay(for: entry.dateTime) // Normalize to date only
+                Calendar.current.startOfDay(for: entry.dateTime)
             }
 
             return grouped.map { (date, entries) in
@@ -185,7 +174,6 @@ struct DashboardView: View {
         let averageWeight: Double
     }
 
-    
     private func loadBabies() async {
         isLoading = true
         errorMessage = nil
