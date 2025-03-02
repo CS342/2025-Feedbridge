@@ -92,16 +92,16 @@ struct DashboardView: View {
             .shadow(radius: 2)
         }
     }
-    
+
     struct WeightChart: View {
         let entries: [WeightEntry]
 
         var body: some View {
             VStack {
-                Text("Weight")
+                Text("Weight Over Time")
                     .font(.headline)
                     .padding(.top)
-                
+
                 if entries.isEmpty {
                     Text("No data added")
                         .foregroundColor(.gray)
@@ -113,18 +113,18 @@ struct DashboardView: View {
                             .frame(height: 220)
                             .shadow(radius: 4)
 
-                        Chart(entries.sorted(by: { $0.dateTime < $1.dateTime })) {
+                        Chart(averageWeightsPerDay()) { entry in
                             LineMark(
-                                x: .value("Date", $0.dateTime),
-                                y: .value("Weight (kg)", $0.asKilograms.value)
+                                x: .value("Date", entry.date),
+                                y: .value("Weight (kg)", entry.averageWeight)
                             )
-                            .interpolationMethod(.catmullRom) // Smooth curve
+                            .interpolationMethod(.catmullRom)
                             .foregroundStyle(.blue)
                             .lineStyle(StrokeStyle(lineWidth: 2))
 
                             PointMark(
-                                x: .value("Date", $0.dateTime),
-                                y: .value("Weight (kg)", $0.asKilograms.value)
+                                x: .value("Date", entry.date),
+                                y: .value("Weight (kg)", entry.averageWeight)
                             )
 //                            .symbol(Circle().fill(Color.blue))
                         }
@@ -136,7 +136,29 @@ struct DashboardView: View {
             }
             .padding()
         }
+
+        /// Groups weights by day and calculates the average weight per day
+        private func averageWeightsPerDay() -> [DailyAverageWeight] {
+            let grouped = Dictionary(grouping: entries) { entry in
+                Calendar.current.startOfDay(for: entry.dateTime) // Normalize to date only
+            }
+
+            return grouped.map { (date, entries) in
+                let totalWeight = entries.reduce(0) { $0 + $1.asKilograms.value }
+                let averageWeight = totalWeight / Double(entries.count)
+                return DailyAverageWeight(date: date, averageWeight: averageWeight)
+            }
+            .sorted { $0.date < $1.date } // Ensure sorted order
+        }
     }
+
+    /// Represents the average weight for a specific date
+    struct DailyAverageWeight: Identifiable {
+        let id = UUID()
+        let date: Date
+        let averageWeight: Double
+    }
+
     
     private func loadBabies() async {
         isLoading = true
@@ -175,4 +197,9 @@ struct DashboardView: View {
         
         isLoading = false
     }
+}
+
+#Preview {
+    DashboardView(presentingAccount: .constant(false))
+        .previewWith(standard: FeedbridgeStandard()) {}
 }
