@@ -104,6 +104,9 @@
     "Cancel" : {
 
     },
+    "Circle with plus" : {
+
+    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -206,6 +209,12 @@
 
     },
     "Feeding Method" : {
+
+    },
+    "Feeds" : {
+
+    },
+    "Flame" : {
 
     },
     "Formula" : {
@@ -459,6 +468,9 @@
     "Save" : {
 
     },
+    "Scale" : {
+
+    },
     "Schedule" : {
       "localizations" : {
         "en" : {
@@ -513,6 +525,9 @@
       }
     },
     "Stool Entries" : {
+
+    },
+    "Stools" : {
 
     },
     "Swift Package Manager" : {
@@ -570,9 +585,6 @@
     "Volume: %lld mL" : {
 
     },
-    "Weight" : {
-
-    },
     "Weight (kg)" : {
 
     },
@@ -580,6 +592,9 @@
 
     },
     "Weight in Kilograms" : {
+
+    },
+    "Weights" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {

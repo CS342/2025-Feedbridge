@@ -47,6 +47,8 @@ struct DashboardView: View {
                 babyPicker
                 if let baby {
                     WeightChart(entries: baby.weightEntries.weightEntries)
+                    StoolChart(entries: baby.stoolEntries.stoolEntries)
+                    FeedChart(entries: baby.feedEntries.feedEntries)
                 }
             }
             .padding()
@@ -102,13 +104,22 @@ struct DashboardView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemGray6))
-                        .shadow(radius: 4)
+                        .opacity(0.8)
 
                     VStack {
-                        Text("Weight")
-                            .font(.title3.bold())
-                            .listRowSeparator(.hidden)
-                            .padding(.top, 8)
+                        HStack {
+                            Image(systemName: "scalemass")                   .accessibilityLabel("Scale")
+                                .font(.title3)
+                                .foregroundColor(.orange)
+                                .padding(.leading, 8)
+
+                            Text("Weights")
+                                .font(.title3.bold())
+                                .foregroundColor(.orange)
+                            
+                            Spacer() // Ensures left alignment
+                        }
+                        .padding()
 
                         if entries.isEmpty {
                             Text("No data added")
@@ -128,7 +139,7 @@ struct DashboardView: View {
                                     .foregroundStyle(.gray)
                                     .symbol {
                                         Circle()
-                                            .fill(Color.cyan.opacity(0.6))
+                                            .fill(Color.gray.opacity(0.6))
                                             .frame(width: 8)
                                     }
                                 }
@@ -140,11 +151,11 @@ struct DashboardView: View {
                                         y: .value("Weight (kg)", entry.averageWeight)
                                     )
                                     .interpolationMethod(.catmullRom)
-                                    .foregroundStyle(.purple)
+                                    .foregroundStyle(.orange)
                                     .lineStyle(StrokeStyle(lineWidth: 2))
                                 }
                             }
-                            .frame(height: 200)
+                            .frame(height: 170)
                             .padding()
                         }
                     }
@@ -172,6 +183,84 @@ struct DashboardView: View {
         let id = UUID()
         let date: Date
         let averageWeight: Double
+    }
+    
+    struct StoolChart: View {
+        let entries: [StoolEntry]
+
+        var body: some View {
+            VStack {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.systemGray6))
+                        .opacity(0.8)
+
+                    VStack {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")                   .accessibilityLabel("Circle with plus")
+                                .font(.title3)
+                                .foregroundColor(.cyan)
+                                .padding(.leading, 8)
+
+                            Text("Stools")
+                                .font(.title3.bold())
+                                .foregroundColor(.cyan)
+                            
+                            Spacer() // Ensures left alignment
+                        }
+                        .padding()
+
+                        if entries.isEmpty {
+                            Text("No data added")
+                                .foregroundColor(.gray)
+                                .padding()
+                        } else {
+                        }
+//                            .frame(height: 170)
+//                            .padding()
+                    }
+                }
+            }
+        }
+    }
+    
+    struct FeedChart: View {
+        let entries: [FeedEntry]
+
+        var body: some View {
+            VStack {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.systemGray6))
+                        .opacity(0.8)
+
+                    VStack {
+                        HStack {
+                            Image(systemName: "flame.fill")                   .accessibilityLabel("Flame")
+                                .font(.title3)
+                                .foregroundColor(.pink)
+                                .padding(.leading, 8)
+
+                            Text("Feeds")
+                                .font(.title3.bold())
+                                .foregroundColor(.pink)
+                            
+                            Spacer() // Ensures left alignment
+                        }
+                        .padding()
+
+                        if entries.isEmpty {
+                            Text("No data added")
+                                .foregroundColor(.gray)
+                                .padding()
+                        } else {
+                        }
+//                            .frame(height: 170)
+//                            .padding()
+                    }
+                }
+            }
+        }
     }
 
     private func loadBabies() async {
