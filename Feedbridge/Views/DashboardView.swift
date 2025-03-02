@@ -2,8 +2,10 @@ import Charts
 import SpeziAccount
 import SwiftUI
 
+// swiftlint:disable closure_body_length
+// swiftlint:disable type_body_length
+
 struct DashboardView: View {
-    
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeStandard.self) private var standard
     @Binding var presentingAccount: Bool
@@ -113,20 +115,44 @@ struct DashboardView: View {
                             .frame(height: 220)
                             .shadow(radius: 4)
 
-                        Chart(averageWeightsPerDay()) { entry in
-                            LineMark(
-                                x: .value("Date", entry.date),
-                                y: .value("Weight (kg)", entry.averageWeight)
-                            )
-                            .interpolationMethod(.catmullRom)
-                            .foregroundStyle(.blue)
-                            .lineStyle(StrokeStyle(lineWidth: 2))
+                        Chart {
+                            let averagedEntries = averageWeightsPerDay()
 
-                            PointMark(
-                                x: .value("Date", entry.date),
-                                y: .value("Weight (kg)", entry.averageWeight)
-                            )
-//                            .symbol(Circle().fill(Color.blue))
+                            // Plot individual weight measurements as dots (aligned per day)
+                            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
+                                let day = Calendar.current.startOfDay(for: entry.dateTime)
+                                PointMark(
+                                    x: .value("Date", day),
+                                    y: .value("Weight (kg)", entry.asKilograms.value)
+                                )
+                                .foregroundStyle(.gray)
+                                .symbol {
+                                    Circle()
+                                        .fill(Color.black.opacity(0.6)) // Dark gray for individual measurements
+                                        .frame(width: 8)
+                                }
+                            }
+
+                            // Draw trend line for daily average weight
+                            ForEach(averagedEntries) { entry in
+                                LineMark(
+                                    x: .value("Date", entry.date),
+                                    y: .value("Weight (kg)", entry.averageWeight)
+                                )
+                                .interpolationMethod(.catmullRom)
+                                .foregroundStyle(.blue)
+                                .lineStyle(StrokeStyle(lineWidth: 2))
+
+                                PointMark(
+                                    x: .value("Date", entry.date),
+                                    y: .value("Weight (kg)", entry.averageWeight)
+                                )
+                                .symbol {
+                                    Circle()
+                                        .fill(Color.blue.opacity(0.6)) // Blue for trend line points
+                                        .frame(width: 8)
+                                }
+                            }
                         }
                         .frame(height: 200)
                         .padding()
@@ -199,7 +225,7 @@ struct DashboardView: View {
     }
 }
 
-#Preview {
-    DashboardView(presentingAccount: .constant(false))
-        .previewWith(standard: FeedbridgeStandard()) {}
-}
+//#Preview {
+//    DashboardView(presentingAccount: .constant(false))
+//        .previewWith(standard: FeedbridgeStandard()) {}
+//}

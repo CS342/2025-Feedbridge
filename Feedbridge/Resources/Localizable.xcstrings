@@ -180,6 +180,9 @@
     "Dry Mucous Membranes: %@" : {
 
     },
+    "Duration (mins)" : {
+
+    },
     "Duration: %lld min" : {
 
     },
@@ -206,6 +209,9 @@
 
     },
     "Feeding Method" : {
+
+    },
+    "Feeding Trends Over Time" : {
 
     },
     "Formula" : {
@@ -563,6 +569,9 @@
           }
         }
       }
+    },
+    "Volume (ml)" : {
+
     },
     "Volume: %@" : {
 
