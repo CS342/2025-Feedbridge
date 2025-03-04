@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%.2f kg" : {
+
+    },
     "⚠️ Dehydration Alert" : {
 
     },
@@ -402,6 +405,9 @@
 
     },
     "No data added" : {
+
+    },
+    "No weight data available" : {
 
     },
     "No weight entries" : {
