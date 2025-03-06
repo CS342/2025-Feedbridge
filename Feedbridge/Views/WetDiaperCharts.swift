@@ -9,9 +9,10 @@ import Charts
 import SwiftUI
 
 // swiftlint:disable closure_body_length
-// swiftlint:disable type_body_length
 struct WetDiaperChart: View {
     let entries: [WetDiaperEntry]
+    // Flag to determine whether it's a mini chart or a full chart
+    var isMini: Bool
     
     var body: some View {
         Chart {
@@ -23,8 +24,8 @@ struct WetDiaperChart: View {
                 .foregroundStyle(diaperColor(entry.color))
             }
         }
-        .chartXAxis(.hidden)
-        .chartYAxis(.hidden)
+        .chartXAxis(isMini ? .hidden : .visible)
+        .chartYAxis(isMini ? .hidden : .visible)
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
@@ -90,7 +91,7 @@ struct WetDiapersSummaryView: View {
                         Spacer()
                         
                         HStack {
-                            Text(entry.volume.rawValue.capitalized)
+                            Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                                 .font(.title2)
                                 .foregroundColor(.primary)
                             Spacer()
@@ -116,14 +117,7 @@ struct MiniWetDiaperChart: View {
     let entries: [WetDiaperEntry]
     
     var body: some View {
-        WetDiaperChart(entries: entries)
+        WetDiaperChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
-            .chartPlotStyle { plotArea in
-                plotArea.background(Color.clear)
-            }
     }
 }
-
-

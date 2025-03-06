@@ -7,10 +7,10 @@
 
 import Charts
 import SwiftUI
-// swiftlint:disable closure_body_length
-// swiftlint:disable type_body_length
 struct FeedChart: View {
     let entries: [FeedEntry]
+    // Flag to determine whether it's a mini chart or a full chart
+    var isMini: Bool
     
     var body: some View {
         Chart {
@@ -20,15 +20,17 @@ struct FeedChart: View {
                 .sorted(by: { $0.dateTime < $1.dateTime })
 
             if !bottleEntries.isEmpty {
-                ForEach(bottleEntries) { entry in
-                    PointMark(
-                        x: .value("Time", entry.dateTime),
-                        y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
-                    )
-                    .symbol {
-                        Circle()
-                            .fill(Color.blue.opacity(0.6))
-                            .frame(width: 6)
+                if !isMini {
+                    ForEach(bottleEntries) { entry in
+                        PointMark(
+                            x: .value("Time", entry.dateTime),
+                            y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
+                        )
+                        .symbol {
+                            Circle()
+                                .fill(Color.blue.opacity(0.6))
+                                .frame(width: 6)
+                        }
                     }
                 }
                 ForEach(bottleEntries) { entry in
@@ -46,29 +48,30 @@ struct FeedChart: View {
                 .sorted(by: { $0.dateTime < $1.dateTime })
 
             if !breastfeedingEntries.isEmpty {
-                ForEach(breastfeedingEntries) { entry in
-                    PointMark(
-                        x: .value("Time", entry.dateTime),
-                        y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
-                    )
-                    .symbol {
-                        Rectangle()
-                            .fill(Color.pink.opacity(0.6))
-                            .frame(width: 6, height: 6)
+                if !isMini {
+                    ForEach(breastfeedingEntries) { entry in
+                        PointMark(
+                            x: .value("Time", entry.dateTime),
+                            y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
+                        )
+                        .symbol {
+                            Rectangle()
+                                .fill(Color.pink.opacity(0.6))
+                                .frame(width: 6, height: 6)
+                        }
+                    }
+                    ForEach(breastfeedingEntries) { entry in
+                        LineMark(
+                            x: .value("Time", entry.dateTime),
+                            y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
+                        )
+                        .foregroundStyle(.pink)
                     }
                 }
-                
-                ForEach(breastfeedingEntries) { entry in
-                            LineMark(
-                                x: .value("Time", entry.dateTime),
-                                y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
-                            )
-                            .foregroundStyle(.pink)
-                        }
             }
         }
-        .chartXAxis(.hidden)
-        .chartYAxis(.hidden)
+        .chartXAxis(isMini ? .hidden : .visible)
+        .chartYAxis(isMini ? .hidden : .visible)
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
@@ -148,7 +151,7 @@ struct MiniFeedChart: View {
     let entries: [FeedEntry]
     
     var body: some View {
-        FeedChart(entries: entries)
+        FeedChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
             .opacity(0.5)
     }

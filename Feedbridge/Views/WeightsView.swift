@@ -5,9 +5,8 @@
 //  Created by Shamit Surana on 3/3/25.
 //
 
-import SwiftUI
 import Charts
-
+import SwiftUI
 struct WeightsView: View {
     @Environment(\.presentationMode) var presentationMode
     let entries: [WeightEntry]
@@ -15,7 +14,9 @@ struct WeightsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                fullWeightChart
+                WeightChart(entries: entries, isMini: false)
+                    .frame(height: 300)
+                    .padding()
                 weightEntriesList
             }
             .navigationTitle("Weights")

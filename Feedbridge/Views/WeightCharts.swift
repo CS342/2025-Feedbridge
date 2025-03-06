@@ -8,28 +8,59 @@
 
 import SwiftUI
 import Charts
-
 // swiftlint:disable closure_body_length
 // swiftlint:disable type_body_length
 struct WeightChart: View {
     let entries: [WeightEntry]
+    var isMini: Bool
     
     var body: some View {
         Chart {
-            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                let day = Calendar.current.startOfDay(for: entry.dateTime)
+            let averagedEntries = averageWeightsPerDay()
+
+            if !isMini {
+                ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
+                    let day = Calendar.current.startOfDay(for: entry.dateTime)
+                    PointMark(
+                        x: .value("Date", day),
+                        y: .value("Weight (kg)", entry.asKilograms.value)
+                    )
+                    .foregroundStyle(.gray)
+                    .symbol {
+                        Circle()
+                            .fill(Color.gray.opacity(0.6))
+                            .frame(width: 8)
+                    }
+                }
+            }
+            ForEach(averagedEntries) { entry in
                 LineMark(
-                    x: .value("Date", day),
-                    y: .value("Pounds (lb)", entry.asPounds.value)
+                    x: .value("Date", entry.date),
+                    y: .value("Weight (kg)", entry.averageWeight)
                 )
+                .interpolationMethod(.catmullRom)
                 .foregroundStyle(.orange)
+                .lineStyle(StrokeStyle(lineWidth: 2))
             }
         }
-        .chartXAxis(.hidden)
-        .chartYAxis(.hidden)
+        .chartXAxis(isMini ? .hidden : .visible)
+        .chartYAxis(isMini ? .hidden : .visible)
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
+    }
+    
+    private func averageWeightsPerDay() -> [DailyAverageWeight] {
+        let grouped = Dictionary(grouping: entries) { entry in
+            Calendar.current.startOfDay(for: entry.dateTime)
+        }
+
+        return grouped.map { (date, entries) in
+            let totalWeight = entries.reduce(0) { $0 + $1.asKilograms.value }
+            let averageWeight = totalWeight / Double(entries.count)
+            return DailyAverageWeight(date: date, averageWeight: averageWeight)
+        }
+        .sorted { $0.date < $1.date }
     }
 }
 
@@ -100,7 +131,7 @@ struct MiniWeightChart: View {
     let entries: [WeightEntry]
 
     var body: some View {
-        WeightChart(entries: entries)
+        WeightChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
     }
 }

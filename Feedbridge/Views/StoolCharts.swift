@@ -8,9 +8,10 @@ import SwiftUI
 import Charts
 
 // swiftlint:disable closure_body_length
-// swiftlint:disable type_body_length
 struct StoolChart: View {
     let entries: [StoolEntry]
+    // Flag to determine whether it's a mini chart or a full chart
+    var isMini: Bool
     
     var body: some View {
         Chart {
@@ -22,8 +23,8 @@ struct StoolChart: View {
                 .foregroundStyle(stoolColor(entry.color))
             }
         }
-        .chartXAxis(.hidden)
-        .chartYAxis(.hidden)
+        .chartXAxis(isMini ? .hidden : .visible)
+        .chartYAxis(isMini ? .hidden : .visible)
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
@@ -90,7 +91,7 @@ struct StoolsSummaryView: View {
                         Spacer()
                         
                         HStack {
-                            Text(entry.volume.rawValue.capitalized)
+                            Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                                 .font(.title2)
                                 .foregroundColor(.primary)
                             Spacer()
@@ -116,12 +117,7 @@ struct MiniStoolChart: View {
     let entries: [StoolEntry]
     
     var body: some View {
-        StoolChart(entries: entries)
+        StoolChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
-            .chartPlotStyle { plotArea in
-                plotArea.background(Color.clear)
-            }
     }
 }

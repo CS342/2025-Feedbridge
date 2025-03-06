@@ -2,8 +2,6 @@ import Charts
 import SpeziAccount
 import SwiftUI
 
-// swiftlint:disable closure_body_length
-// swiftlint:disable type_body_length
 struct DashboardView: View {
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeStandard.self) private var standard
@@ -45,10 +43,10 @@ struct DashboardView: View {
             VStack(spacing: 16) {
                 babyPicker
                 if let baby {
-                    WeightsSummaryView(entries: baby.weightEntries.weightEntries)
-                    StoolsSummaryView(entries: baby.stoolEntries.stoolEntries)
                     FeedsSummaryView(entries: baby.feedEntries.feedEntries)
                     WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries)
+                    StoolsSummaryView(entries: baby.stoolEntries.stoolEntries)
+                    WeightsSummaryView(entries: baby.weightEntries.weightEntries)
                 }
             }
             .padding()
