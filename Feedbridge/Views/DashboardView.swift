@@ -134,3 +134,18 @@ struct DashboardView: View {
         isLoading = false
     }
 }
+
+// Define the enum for chart types
+enum ChartType: Identifiable {
+    case weight
+    case dehydration
+    case feed
+    
+    var id: String {
+        switch self {
+        case .weight: return "weight"
+        case .dehydration: return "dehydration"
+        case .feed: return "feed"
+        }
+    }
+}

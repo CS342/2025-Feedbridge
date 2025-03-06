@@ -11,7 +11,7 @@ import SwiftUI
 struct FeedsView: View {
     @Environment(\.presentationMode) var presentationMode
     let entries: [FeedEntry]
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -21,14 +21,14 @@ struct FeedsView: View {
             .navigationTitle("Feeds")
         }
     }
-
+    
     private var fullFeedChart: some View {
         Chart {
             // Grouped points for Bottle Feeds
             let bottleEntries = entries
                 .filter { $0.feedType == .bottle }
                 .sorted(by: { $0.dateTime < $1.dateTime })
-
+            
             if !bottleEntries.isEmpty {
                 ForEach(bottleEntries) { entry in
                     PointMark(
@@ -42,19 +42,19 @@ struct FeedsView: View {
                     }
                 }
                 ForEach(bottleEntries) { entry in
-                            LineMark(
-                                x: .value("Time", entry.dateTime),
-                                y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
-                            )
-                            .foregroundStyle(.blue)
+                    LineMark(
+                        x: .value("Time", entry.dateTime),
+                        y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
+                    )
+                    .foregroundStyle(.blue)
                 }
             }
-
+            
             // Grouped points for Breastfeeding
             let breastfeedingEntries = entries
                 .filter { $0.feedType == .directBreastfeeding }
                 .sorted(by: { $0.dateTime < $1.dateTime })
-
+            
             if !breastfeedingEntries.isEmpty {
                 ForEach(breastfeedingEntries) { entry in
                     PointMark(
@@ -68,20 +68,20 @@ struct FeedsView: View {
                     }
                 }
                 ForEach(breastfeedingEntries) { entry in
-                            LineMark(
-                                x: .value("Time", entry.dateTime),
-                                y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
-                            )
-                            .foregroundStyle(.pink)
+                    LineMark(
+                        x: .value("Time", entry.dateTime),
+                        y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
+                    )
+                    .foregroundStyle(.pink)
                 }
             }
         }
         .frame(height: 300)
         .padding()
     }
-
-
-
+    
+    
+    
     private var feedEntriesList: some View {
         List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
@@ -93,3 +93,4 @@ struct FeedsView: View {
             }
         }
     }
+}
