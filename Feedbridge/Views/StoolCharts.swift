@@ -15,9 +15,8 @@ struct StoolChart: View {
     var body: some View {
         Chart {
             ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                let day = Calendar.current.startOfDay(for: entry.dateTime)
                 BarMark(
-                    x: .value("Date", day),
+                    x: .value("Date", entry.dateTime),
                     y: .value("Volume", stoolVolumeValue(entry.volume))
                 )
                 .foregroundStyle(stoolColor(entry.color))
@@ -119,5 +118,10 @@ struct MiniStoolChart: View {
     var body: some View {
         StoolChart(entries: entries)
             .frame(width: 60, height: 40)
+            .chartXAxis(.hidden)
+            .chartYAxis(.hidden)
+            .chartPlotStyle { plotArea in
+                plotArea.background(Color.clear)
+            }
     }
 }

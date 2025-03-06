@@ -20,12 +20,16 @@ struct AddDataView: View {
         case weight
         case dehydration
         case feed
+        case wetDiaper
+        case stool
 
         var id: Int {
             switch self {
             case .weight: return 1
             case .dehydration: return 2
             case .feed: return 3
+            case .wetDiaper: return 4
+            case .stool: return 5
             }
         }
     }
@@ -59,12 +63,12 @@ struct AddDataView: View {
             DataEntry(
                 label: "Wet Diaper Entry",
                 imageName: "drop.fill",
-                action: { /* logic to handle wet diaper entry */ }
+                action: { presentedSheet = .wetDiaper }
             ),
             DataEntry(
                 label: "Stool Entry",
                 imageName: "plus.circle.fill",
-                action: { /* logic to handle stool entry */ }
+                action: { presentedSheet = .stool }
             ),
             DataEntry(
                 label: "Dehydration Check",
@@ -112,6 +116,10 @@ struct AddDataView: View {
                     AddDehydrationCheckView(babyId: babyId)
                 case .feed:
                     AddFeedEntryView(babyId: babyId)
+                case .wetDiaper:
+                    AddWetDiaperEntryView(babyId: babyId)
+                case .stool:
+                    AddStoolEntryView(babyId: babyId)
                 }
             }
         }

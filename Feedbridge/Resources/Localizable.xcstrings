@@ -7,11 +7,15 @@
     "%.2f lbs" : {
 
     },
-    "%@ Color" : {
-
-    },
-    "%@ Volume" : {
-
+    "%@ and %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ and %2$@"
+          }
+        }
+      }
     },
     "⚠️ Dehydration Alert" : {
 
@@ -73,10 +77,13 @@
     "Add New Baby" : {
 
     },
-    "Add Stools" : {
+    "Add Stool Entry" : {
 
     },
     "Add Weight Entry" : {
+
+    },
+    "Add Wet Diaper Entry" : {
 
     },
     "Add Your Baby" : {
@@ -98,9 +105,6 @@
     "Amount: %lldml" : {
 
     },
-    "Average Volume" : {
-
-    },
     "Baby Debug View" : {
 
     },
@@ -111,6 +115,12 @@
 
     },
     "Basic Info" : {
+
+    },
+    "Beige" : {
+
+    },
+    "Black" : {
 
     },
     "Bottle" : {
@@ -128,6 +138,9 @@
     "Breastmilk" : {
 
     },
+    "Brown" : {
+
+    },
     "Cancel" : {
 
     },
@@ -140,6 +153,9 @@
           }
         }
       }
+    },
+    "Color" : {
+
     },
     "Color: %@" : {
 
@@ -178,6 +194,9 @@
 
     },
     "Current Weight" : {
+
+    },
+    "Dark Green" : {
 
     },
     "Dashboard" : {
@@ -257,6 +276,9 @@
         }
       }
     },
+    "Green" : {
+
+    },
     "Has Active Alerts" : {
 
     },
@@ -299,6 +321,9 @@
           }
         }
       }
+    },
+    "Heavy" : {
+
     },
     "HL7 FHIR" : {
       "localizations" : {
@@ -403,6 +428,12 @@
         }
       }
     },
+    "Light" : {
+
+    },
+    "Medium" : {
+
+    },
     "Menu dropdown" : {
 
     },
@@ -470,6 +501,9 @@
     "Ounces" : {
 
     },
+    "Pink" : {
+
+    },
     "Please enter your baby's information" : {
 
     },
@@ -493,6 +527,9 @@
 
     },
     "Pounds (lb)" : {
+
+    },
+    "Red-Tinged" : {
 
     },
     "Save" : {
@@ -582,6 +619,12 @@
           }
         }
       }
+    },
+    "This color may indicate a medical concern" : {
+
+    },
+    "This color may indicate dehydration" : {
+
     },
     "This name is already taken" : {
 
@@ -680,6 +723,9 @@
       }
     },
     "Wet Diaper Entries" : {
+
+    },
+    "Yellow" : {
 
     },
     "Your Account" : {

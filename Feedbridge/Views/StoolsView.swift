@@ -22,46 +22,48 @@ struct StoolsView: View {
             .navigationTitle("Stools")
         }
     }
+    
+//    StoolChart
 
     private var fullStoolChart: some View {
         Chart {
-            let groupedEntries = groupStoolEntriesByDay()
-            
             ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                let day = Calendar.current.startOfDay(for: entry.dateTime)
-                PointMark(
-                    x: .value("Date", day),
-                    y: .value("Volume", stoolVolumeValue(entry.volume))
+                BarMark(
+                    x: .value("Date", entry.dateTime),
+                    y: .value("Volume", stoolVolumeVal(entry.volume))
                 )
-                .foregroundStyle(.gray)
-                .symbol {
-                    Circle()
-                        .fill(Color.gray.opacity(0.6))
-                        .frame(width: 8)
-                }
-            }
-            
-            ForEach(groupedEntries) { entry in
-                LineMark(
-                    x: .value("Date", entry.date),
-                    y: .value("Average Volume", entry.averageVolume)
-                )
-                .interpolationMethod(.catmullRom)
-                .foregroundStyle(.cyan)
-                .lineStyle(StrokeStyle(lineWidth: 2))
+                .foregroundStyle(stoolColor(entry.color))
             }
         }
+        .chartYScale(domain: [0, 3]) // Set the Y-axis scale range from 0 to 3
         .frame(height: 300)
         .padding()
+    }
+    
+    private func stoolVolumeVal(_ volume: StoolVolume) -> Int {
+        switch volume {
+        case .light: return 1
+        case .medium: return 2
+        case .heavy: return 3
+        }
+    }
+    
+    private func stoolColor(_ color: StoolColor) -> Color {
+        switch color {
+        case .black: return .black
+        case .darkGreen: return .green
+        case .green: return .mint
+        case .brown: return .brown
+        case .yellow: return .yellow
+        case .beige: return .orange
+        }
     }
 
     private var stoolEntriesList: some View {
         List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
-                Text("\(entry.volume.rawValue.capitalized) Volume")
+                Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                     .font(.headline)
-                Text("\(entry.color.rawValue.capitalized) Color")
-                    .font(.subheadline)
                     .foregroundColor(.gray)
                 Text(entry.dateTime, style: .date)
                     .font(.subheadline)
@@ -70,18 +72,7 @@ struct StoolsView: View {
         }
     }
 
-    private func groupStoolEntriesByDay() -> [DailyAverageStoolVolume] {
-        let grouped = Dictionary(grouping: entries) { entry in
-            Calendar.current.startOfDay(for: entry.dateTime)
-        }
-
-        return grouped.map { (date, entries) in
-            let totalVolume = entries.reduce(0) { $0 + stoolVolumeValue($1.volume) }
-            let averageVolume = totalVolume / Double(entries.count)
-            return DailyAverageStoolVolume(date: date, averageVolume: averageVolume)
-        }
-        .sorted { $0.date < $1.date }
-    }
+    
 
     private func stoolVolumeValue(_ volume: StoolVolume) -> Double {
         switch volume {
