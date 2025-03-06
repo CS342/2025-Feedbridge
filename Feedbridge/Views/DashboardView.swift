@@ -46,7 +46,7 @@ struct DashboardView: View {
             VStack(spacing: 16) {
                 babyPicker
                 if let baby {
-                    WeightChart(entries: baby.weightEntries.weightEntries)
+                    WeightsSummaryView(entries: baby.weightEntries.weightEntries)
                     StoolChart(entries: baby.stoolEntries.stoolEntries)
                     FeedChart(entries: baby.feedEntries.feedEntries)
                 }
@@ -96,88 +96,113 @@ struct DashboardView: View {
             .shadow(radius: 2)
         }
     }
-    struct WeightChart: View {
+    
+    struct WeightsSummaryView: View {
         let entries: [WeightEntry]
-
+        
+        // Get the most recent weight entry if it exists.
+        private var lastEntry: WeightEntry? {
+            entries.sorted(by: { $0.dateTime > $1.dateTime }).first
+        }
+            
+        // Format the date/time of the last entry.
+        private var formattedTime: String {
+            guard let date = lastEntry?.dateTime else { return "" }
+            let formatter = DateFormatter()
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            return formatter.string(from: date)
+        }
+        
         var body: some View {
-            VStack {
+            NavigationLink(destination: WeightsView(entries: entries)) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemGray6))
                         .opacity(0.8)
-
-                    VStack {
-                        HStack {
-                            Image(systemName: "scalemass")                   .accessibilityLabel("Scale")
-                                .font(.title3)
-                                .foregroundColor(.orange)
-                                .padding(.leading, 8)
-
-                            Text("Weights")
-                                .font(.title3.bold())
-                                .foregroundColor(.orange)
-                            
-                            Spacer() // Ensures left alignment
-                        }
-                        .padding()
-
-                        if entries.isEmpty {
-                            Text("No data added")
-                                .foregroundColor(.gray)
-                                .padding()
-                        } else {
-                            Chart {
-                                let averagedEntries = averageWeightsPerDay()
-
-                                // Plot individual weight measurements as dots (aligned per day)
-                                ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                                    let day = Calendar.current.startOfDay(for: entry.dateTime)
-                                    PointMark(
-                                        x: .value("Date", day),
-                                        y: .value("Weight (kg)", entry.asKilograms.value)
-                                    )
-                                    .foregroundStyle(.gray)
-                                    .symbol {
-                                        Circle()
-                                            .fill(Color.gray.opacity(0.6))
-                                            .frame(width: 8)
-                                    }
+                    
+                    if lastEntry != nil {
+                        VStack {
+                            // Top row: Label, time, and chevron
+                            HStack {
+                                HStack {
+                                    Image(systemName: "scalemass")                   .accessibilityLabel("Scale")
+                                        .font(.title3)
+                                        .foregroundColor(.orange)
+                                    
+                                    Text("Weights")
+                                        .font(.title3.bold())
+                                        .foregroundColor(.orange)
+                                    
+                                    Spacer() // Ensures left alignment
                                 }
-
-                                // Trend line
-                                ForEach(averagedEntries) { entry in
-                                    LineMark(
-                                        x: .value("Date", entry.date),
-                                        y: .value("Weight (kg)", entry.averageWeight)
-                                    )
-                                    .interpolationMethod(.catmullRom)
-                                    .foregroundStyle(.orange)
-                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                
+                                Spacer()
+                                
+                                HStack(spacing: 4) {
+                                    Text(formattedTime)
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.gray)
                                 }
                             }
-                            .frame(height: 170)
-                            .padding()
+                            .padding([.top, .horizontal])
+                            
+                            Spacer()
+                            
+                            // Bottom row: Current weight and a small chart
+                            HStack {
+                                if let entry = lastEntry {
+                                    Text("\(entry.asKilograms.value, specifier: "%.2f") kg")
+                                        .font(.title2)
+                                        .foregroundColor(.primary)
+                                }
+                                
+                                Spacer()
+                                
+                                MiniWeightChart(entries: entries)
+                                    .frame(width: 60, height: 40)
+                                    .opacity(0.5)
+                            }
+                            .padding([.bottom, .horizontal])
                         }
+                    } else {
+                        // Fallback view when no data is available.
+                        Text("No weight data available")
+                            .foregroundColor(.gray)
+                            .padding()
                     }
                 }
+                .frame(height: 120)
             }
-        }
-
-        /// Groups weights by day and calculates the average weight per day
-        private func averageWeightsPerDay() -> [DailyAverageWeight] {
-            let grouped = Dictionary(grouping: entries) { entry in
-                Calendar.current.startOfDay(for: entry.dateTime)
-            }
-
-            return grouped.map { (date, entries) in
-                let totalWeight = entries.reduce(0) { $0 + $1.asKilograms.value }
-                let averageWeight = totalWeight / Double(entries.count)
-                return DailyAverageWeight(date: date, averageWeight: averageWeight)
-            }
-            .sorted { $0.date < $1.date } // Ensure sorted order
+            .buttonStyle(PlainButtonStyle())
         }
     }
 
+    struct MiniWeightChart: View {
+        let entries: [WeightEntry]
+
+        var body: some View {
+            Chart {
+                ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
+                    let day = Calendar.current.startOfDay(for: entry.dateTime)
+                    BarMark(
+                        x: .value("Date", day),
+                        y: .value("Weight (kg)", entry.asKilograms.value)
+                    )
+                    .foregroundStyle(.gray)
+                }
+            }
+            .chartXAxis(.hidden)
+            .chartYAxis(.hidden)
+            .chartPlotStyle { plotArea in
+                plotArea.background(Color.clear)
+            }
+        }
+    }
+
+    
     /// Represents the average weight for a specific date
     struct DailyAverageWeight: Identifiable {
         let id = UUID()
@@ -301,8 +326,3 @@ struct DashboardView: View {
         isLoading = false
     }
 }
-
-//#Preview {
-//    DashboardView(presentingAccount: .constant(false))
-//        .previewWith(standard: FeedbridgeStandard()) {}
-//}
