@@ -4,6 +4,15 @@
     "%.2f kg" : {
 
     },
+    "%.2f lbs" : {
+
+    },
+    "%@ Color" : {
+
+    },
+    "%@ Volume" : {
+
+    },
     "⚠️ Dehydration Alert" : {
 
     },
@@ -86,6 +95,9 @@
     "Amount: %lldml" : {
 
     },
+    "Average Volume" : {
+
+    },
     "Baby Debug View" : {
 
     },
@@ -101,13 +113,19 @@
     "Bottle" : {
 
     },
+    "Bottle Feed: %lld ml" : {
+
+    },
+    "Bottle: %lld ml" : {
+
+    },
+    "Breastfeeding: %lld min" : {
+
+    },
     "Breastmilk" : {
 
     },
     "Cancel" : {
-
-    },
-    "Circle with plus" : {
 
     },
     "Close" : {
@@ -184,6 +202,9 @@
 
     },
     "Dry Mucous Membranes: %@" : {
+
+    },
+    "Duration (min)" : {
 
     },
     "Duration: %lld min" : {
@@ -468,6 +489,9 @@
     "Pounds" : {
 
     },
+    "Pounds (lb)" : {
+
+    },
     "Save" : {
 
     },
@@ -527,6 +551,9 @@
         }
       }
     },
+    "Stool Drop" : {
+
+    },
     "Stool Entries" : {
 
     },
@@ -566,6 +593,9 @@
         }
       }
     },
+    "Time" : {
+
+    },
     "Type: %@" : {
 
     },
@@ -581,6 +611,12 @@
           }
         }
       }
+    },
+    "Volume" : {
+
+    },
+    "Volume (ml)" : {
+
     },
     "Volume: %@" : {
 
