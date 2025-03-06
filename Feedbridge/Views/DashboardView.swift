@@ -4,7 +4,6 @@ import SwiftUI
 
 // swiftlint:disable closure_body_length
 // swiftlint:disable type_body_length
-
 struct DashboardView: View {
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeStandard.self) private var standard
@@ -97,14 +96,37 @@ struct DashboardView: View {
         }
     }
     
-    struct WeightsSummaryView: View {
+    struct WeightChart: View {
         let entries: [WeightEntry]
         
+        var body: some View {
+            Chart {
+                ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
+                    let day = Calendar.current.startOfDay(for: entry.dateTime)
+                    LineMark(
+                        x: .value("Date", day),
+                        y: .value("Weight (kg)", entry.asKilograms.value)
+                    )
+                    .foregroundStyle(.orange)
+                }
+            }
+            .chartXAxis(.hidden)
+            .chartYAxis(.hidden)
+            .chartPlotStyle { plotArea in
+                plotArea.background(Color.clear)
+            }
+        }
+    }
+
+    
+    struct WeightsSummaryView: View {
+        let entries: [WeightEntry]
+
         // Get the most recent weight entry if it exists.
         private var lastEntry: WeightEntry? {
             entries.sorted(by: { $0.dateTime > $1.dateTime }).first
         }
-            
+
         // Format the date/time of the last entry.
         private var formattedTime: String {
             guard let date = lastEntry?.dateTime else { return "" }
@@ -113,65 +135,49 @@ struct DashboardView: View {
             formatter.timeStyle = .short
             return formatter.string(from: date)
         }
-        
+
         var body: some View {
             NavigationLink(destination: WeightsView(entries: entries)) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemGray6))
                         .opacity(0.8)
-                    
-                    if lastEntry != nil {
-                        VStack {
-                            // Top row: Label, time, and chevron
-                            HStack {
-                                HStack {
-                                    Image(systemName: "scalemass")                   .accessibilityLabel("Scale")
-                                        .font(.title3)
-                                        .foregroundColor(.orange)
-                                    
-                                    Text("Weights")
-                                        .font(.title3.bold())
-                                        .foregroundColor(.orange)
-                                    
-                                    Spacer() // Ensures left alignment
-                                }
-                                
-                                Spacer()
-                                
-                                HStack(spacing: 4) {
-                                    Text(formattedTime)
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                            .padding([.top, .horizontal])
-                            
+
+                    VStack {
+                        // Header with icon and title
+                        HStack {
+                            Image(systemName: "scalemass")
+                                .accessibilityLabel("Scale")
+                                .font(.title3)
+                                .foregroundColor(.orange)
+
+                            Text("Weights")
+                                .font(.title3.bold())
+                                .foregroundColor(.orange)
+
+                            Spacer()
+                        }
+                        .padding()
+
+                        // Content
+                        if let entry = lastEntry {
                             Spacer()
                             
-                            // Bottom row: Current weight and a small chart
                             HStack {
-                                if let entry = lastEntry {
-                                    Text("\(entry.asKilograms.value, specifier: "%.2f") kg")
-                                        .font(.title2)
-                                        .foregroundColor(.primary)
-                                }
-                                
+                                Text("\(entry.asKilograms.value, specifier: "%.2f") kg")
+                                    .font(.title2)
+                                    .foregroundColor(.primary)
                                 Spacer()
-                                
                                 MiniWeightChart(entries: entries)
                                     .frame(width: 60, height: 40)
                                     .opacity(0.5)
                             }
                             .padding([.bottom, .horizontal])
+                        } else {
+                            Text("No data added")
+                                .foregroundColor(.gray)
+                                .padding()
                         }
-                    } else {
-                        // Fallback view when no data is available.
-                        Text("No weight data available")
-                            .foregroundColor(.gray)
-                            .padding()
                     }
                 }
                 .frame(height: 120)
@@ -184,23 +190,12 @@ struct DashboardView: View {
         let entries: [WeightEntry]
 
         var body: some View {
-            Chart {
-                ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                    let day = Calendar.current.startOfDay(for: entry.dateTime)
-                    BarMark(
-                        x: .value("Date", day),
-                        y: .value("Weight (kg)", entry.asKilograms.value)
-                    )
-                    .foregroundStyle(.gray)
-                }
-            }
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
-            .chartPlotStyle { plotArea in
-                plotArea.background(Color.clear)
-            }
+            WeightChart(entries: entries)
+                .frame(width: 60, height: 40) // Small version
+                .opacity(0.5)
         }
     }
+
 
     
     /// Represents the average weight for a specific date
