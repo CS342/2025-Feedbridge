@@ -15,7 +15,6 @@ struct HomeView: View {
         case dashboard
         case addEntries
         case debug
-        case addStools
 //        case schedule
 //        case contact
     }
@@ -37,9 +36,6 @@ struct HomeView: View {
             }
             Tab("Baby Debug View", systemImage: "figure.2.and.child.holdinghands", value: .debug) {
                 BabyDebugDisplayView()
-            }
-            Tab("Add Stools", systemImage: "figure.2.and.child.holdinghands", value: .addStools) {
-                AddStoolEntryView()
             }
 //            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
 //                ScheduleView(presentingAccount: $presentingAccount)

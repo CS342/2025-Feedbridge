@@ -48,6 +48,7 @@ struct DashboardView: View {
                     WeightsSummaryView(entries: baby.weightEntries.weightEntries)
                     StoolsSummaryView(entries: baby.stoolEntries.stoolEntries)
                     FeedsSummaryView(entries: baby.feedEntries.feedEntries)
+                    WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries)
                 }
             }
             .padding()
