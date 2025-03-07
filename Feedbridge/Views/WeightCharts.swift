@@ -39,7 +39,7 @@ struct WeightChart: View {
                     y: .value("Pounds (lb)", entry.averageWeight)
                 )
                 .interpolationMethod(.catmullRom)
-                .foregroundStyle(.orange)
+                .foregroundStyle(.indigo)
                 .lineStyle(StrokeStyle(lineWidth: 2))
             }
         }
@@ -92,11 +92,11 @@ struct WeightsSummaryView: View {
                         Image(systemName: "scalemass")
                             .accessibilityLabel("Scale")
                             .font(.title3)
-                            .foregroundColor(.orange)
+                            .foregroundColor(.indigo)
 
                         Text("Weights")
                             .font(.title3.bold())
-                            .foregroundColor(.orange)
+                            .foregroundColor(.indigo)
 
                         Spacer()
                         

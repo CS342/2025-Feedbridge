@@ -46,7 +46,7 @@ struct WeightsView: View {
                     y: .value("Weight (lb)", entry.averageWeight)
                 )
                 .interpolationMethod(.catmullRom)
-                .foregroundStyle(.orange)
+                .foregroundStyle(.indigo)
                 .lineStyle(StrokeStyle(lineWidth: 2))
             }
         }

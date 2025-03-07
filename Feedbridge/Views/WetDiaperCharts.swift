@@ -39,7 +39,7 @@ struct WetDiaperChart: View {
     
     
     private func miniColor(entry: WetDiaperEntry, isMini: Bool, lastDay: String) -> Color {
-        return isMini ? (dateString(entry.dateTime) == lastDay ? .indigo : Color(.greyChart)) : diaperColor(entry.color)
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .orange : Color(.greyChart)) : diaperColor(entry.color)
     }
 
     /// Determines the last recorded date as a string
@@ -109,11 +109,11 @@ struct WetDiapersSummaryView: View {
                         Image(systemName: "drop.fill")
                             .accessibilityLabel("Wet Diaper Drop")
                             .font(.title3)
-                            .foregroundColor(.indigo)
+                            .foregroundColor(.orange)
                         
                         Text("Voids")
                             .font(.title3.bold())
-                            .foregroundColor(.indigo)
+                            .foregroundColor(.orange)
                         
                         Spacer()
                         
