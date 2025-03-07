@@ -3,41 +3,69 @@
 //
 //  Created by Shreya D'Souza on 3/5/25.
 //
-
-import SwiftUI
 import Charts
+import SwiftUI
 
 // swiftlint:disable closure_body_length
 struct StoolChart: View {
     let entries: [StoolEntry]
-    // Flag to determine whether it's a mini chart or a full chart
     var isMini: Bool
     
     var body: some View {
+        let indexedEntries = indexEntriesPerDay(entries)
+        let lastDay = lastEntryDate(entries) // Get the last recorded date
+
         Chart {
-            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                BarMark(
-                    x: .value("Date", entry.dateTime),
-                    y: .value("Volume", stoolVolumeValue(entry.volume))
+            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
+                PointMark(
+                    x: .value("Date", indexedEntry.entry.dateTime),
+                    y: .value("Stool #", indexedEntry.index)
                 )
-                .foregroundStyle(stoolColor(entry.color))
+                .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini))
+                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
     }
     
-    private func stoolVolumeValue(_ volume: StoolVolume) -> Int {
-        switch volume {
-        case .light: return 1
-        case .medium: return 2
-        case .heavy: return 3
+    private func miniColor(entry: StoolEntry, isMini: Bool, lastDay: String) -> Color{
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .brown: Color(.greyChart)) : stoolColor(entry.color)
+    }
+    
+    /// Determines the last recorded date as a string
+    private func lastEntryDate(_ entries: [StoolEntry]) -> String {
+        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
+            return ""
+        }
+        return dateString(lastEntry.dateTime)
+    }
+    
+    /// Assigns a sequential index to each entry within its respective day
+    private func indexEntriesPerDay(_ entries: [StoolEntry]) -> [(entry: StoolEntry, index: Int)] {
+        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
+        var dailyIndex: [String: Int] = [:]
+
+        return sortedEntries.map { entry in
+            let dayKey = dateString(entry.dateTime)
+            let index = (dailyIndex[dayKey] ?? 0) + 1
+            dailyIndex[dayKey] = index
+            return (entry, index)
         }
     }
     
+    private func bubbleSize(_ volume: StoolVolume, _ isMini: Bool) -> Double {
+        switch volume {
+        case .light: return isMini ? 30 : 100
+        case .medium:  return isMini ? 60 : 300
+        case .heavy: return isMini ? 100 : 650
+        }
+    }
+
     private func stoolColor(_ color: StoolColor) -> Color {
         switch color {
         case .black: return .black
@@ -84,6 +112,12 @@ struct StoolsSummaryView: View {
                             .foregroundColor(.brown)
                         
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
                     
@@ -97,7 +131,6 @@ struct StoolsSummaryView: View {
                             Spacer()
                             MiniStoolChart(entries: entries)
                                 .frame(width: 60, height: 40)
-                                .opacity(0.5)
                         }
                         .padding([.bottom, .horizontal])
                     } else {
@@ -119,5 +152,6 @@ struct MiniStoolChart: View {
     var body: some View {
         StoolChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
+            .opacity(0.8)
     }
 }

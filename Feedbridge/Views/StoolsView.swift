@@ -11,16 +11,13 @@ struct StoolsView: View {
     let entries: [StoolEntry]
 
     var body: some View {
-        NavigationView {
-            VStack {
+        NavigationStack {
                 StoolChart(entries: entries, isMini: false)
-                    .chartYScale(domain: [0, 3]) // Set the Y-axis scale range from 0 to 3
-                    .frame(height: 300)
-                    .padding()
-                stoolEntriesList
-            }
-            .navigationTitle("Stools")
+                .frame(height: 300)
+                .padding()
+            stoolEntriesList
         }
+        .navigationTitle("Stools")
     }
 
     private var stoolEntriesList: some View {
@@ -28,7 +25,7 @@ struct StoolsView: View {
             VStack(alignment: .leading) {
                 Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                     .font(.headline)
-                Text(entry.dateTime, style: .date)
+                Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }

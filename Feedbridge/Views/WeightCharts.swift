@@ -23,7 +23,7 @@ struct WeightChart: View {
                     let day = Calendar.current.startOfDay(for: entry.dateTime)
                     PointMark(
                         x: .value("Date", day),
-                        y: .value("Weight (kg)", entry.asKilograms.value)
+                        y: .value("Pounds (lb)", entry.asPounds.value)
                     )
                     .foregroundStyle(.gray)
                     .symbol {
@@ -36,15 +36,16 @@ struct WeightChart: View {
             ForEach(averagedEntries) { entry in
                 LineMark(
                     x: .value("Date", entry.date),
-                    y: .value("Weight (kg)", entry.averageWeight)
+                    y: .value("Pounds (lb)", entry.averageWeight)
                 )
                 .interpolationMethod(.catmullRom)
-                .foregroundStyle(.orange)
+                .foregroundStyle(.indigo)
                 .lineStyle(StrokeStyle(lineWidth: 2))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
@@ -56,7 +57,7 @@ struct WeightChart: View {
         }
 
         return grouped.map { (date, entries) in
-            let totalWeight = entries.reduce(0) { $0 + $1.asKilograms.value }
+            let totalWeight = entries.reduce(0) { $0 + $1.asPounds.value }
             let averageWeight = totalWeight / Double(entries.count)
             return DailyAverageWeight(date: date, averageWeight: averageWeight)
         }
@@ -91,13 +92,19 @@ struct WeightsSummaryView: View {
                         Image(systemName: "scalemass")
                             .accessibilityLabel("Scale")
                             .font(.title3)
-                            .foregroundColor(.orange)
+                            .foregroundColor(.indigo)
 
                         Text("Weights")
                             .font(.title3.bold())
-                            .foregroundColor(.orange)
+                            .foregroundColor(.indigo)
 
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
 
@@ -133,5 +140,6 @@ struct MiniWeightChart: View {
     var body: some View {
         WeightChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
+            .opacity(0.8)
     }
 }

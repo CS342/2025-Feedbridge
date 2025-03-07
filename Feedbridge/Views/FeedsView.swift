@@ -11,23 +11,34 @@ struct FeedsView: View {
     let entries: [FeedEntry]
     
     var body: some View {
-        NavigationView {
-            VStack {
+        NavigationStack {
                 FeedChart(entries: entries, isMini: false)
                 .frame(height: 300)
                 .padding()
                 feedEntriesList
-            }
-            .navigationTitle("Feeds")
         }
+        .navigationTitle("Feeds")
     }
 
     private var feedEntriesList: some View {
         List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
-                Text(entry.feedType == .bottle ? "Bottle Feed: \(entry.feedVolumeInML ?? 0) ml" : "Breastfeeding: \(entry.feedTimeInMinutes ?? 0) min")
-                    .font(.headline)
-                Text(entry.dateTime, style: .date)
+                if entry.feedType == .bottle, let volume = entry.feedVolumeInML {
+                    if entry.milkType == .breastmilk {
+                        Text("Bottle (Breastmilk): \(volume) ml")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                    } else {
+                        Text("Bottle (Formula): \(volume) ml")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                    }
+                } else if entry.feedType == .directBreastfeeding, let time = entry.feedTimeInMinutes {
+                    Text("Breastfeeding: \(time) min")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                }
+                Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
