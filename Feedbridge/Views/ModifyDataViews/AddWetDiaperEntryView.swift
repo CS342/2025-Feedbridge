@@ -42,7 +42,6 @@ struct AddWetDiaperEntryView: View {
             Text("Red-Tinged").tag(WetDiaperColor.redTinged)
           }
         }
-
         if color == .pink || color == .redTinged {
           Section {
             HStack {
