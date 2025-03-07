@@ -11,16 +11,13 @@ struct WetDiapersView: View {
     let entries: [WetDiaperEntry]
 
     var body: some View {
-        NavigationView {
-            VStack {
-                WetDiaperChart(entries: entries, isMini: false)
-                    .chartYScale(domain: [0, 3])
-                    .frame(height: 300)
-                    .padding()
-                wetDiaperEntriesList
-            }
-            .navigationTitle("Wet Diapers")
+        NavigationStack {
+            WetDiaperChart(entries: entries, isMini: false)
+                .frame(height: 300)
+                .padding()
+            wetDiaperEntriesList
         }
+        .navigationTitle("Voids")
     }
 
     // List of Wet Diaper Entries
@@ -29,7 +26,7 @@ struct WetDiapersView: View {
             VStack(alignment: .leading) {
                 Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                     .font(.headline)
-                Text(entry.dateTime, style: .date)
+                Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }

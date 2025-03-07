@@ -11,41 +11,71 @@ import SwiftUI
 // swiftlint:disable closure_body_length
 struct WetDiaperChart: View {
     let entries: [WetDiaperEntry]
-    // Flag to determine whether it's a mini chart or a full chart
     var isMini: Bool
-    
+    @State private var scrollPosition: Date? // Tracks the initial scroll position
+
+
     var body: some View {
+        let indexedEntries = indexEntriesPerDay(entries)
+        let lastDay = lastEntryDate(entries) // Get the last recorded date
+        
         Chart {
-            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                BarMark(
-                    x: .value("Date", entry.dateTime),
-                    y: .value("Volume", diaperVolumeValue(entry.volume))
+            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
+                PointMark(
+                    x: .value("Date", indexedEntry.entry.dateTime, unit: .day),
+                    y: .value("Diaper #", indexedEntry.index) // Use the sequential index
                 )
-                .foregroundStyle(diaperColor(entry.color))
+                .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini))
+                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
     }
     
-    // Convert DiaperVolume to a numeric value for the Y-axis
-    private func diaperVolumeValue(_ volume: DiaperVolume) -> Int {
-        switch volume {
-        case .light: return 1
-        case .medium: return 2
-        case .heavy: return 3
+    
+    private func miniColor(entry: WetDiaperEntry, isMini: Bool, lastDay: String) -> Color {
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .orange : Color(.greyChart)) : diaperColor(entry.color)
+    }
+
+    /// Determines the last recorded date as a string
+    private func lastEntryDate(_ entries: [WetDiaperEntry]) -> String {
+        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
+            return ""
+        }
+        return dateString(lastEntry.dateTime)
+    }
+    
+    /// Assigns a sequential index to each entry within its respective day
+    private func indexEntriesPerDay(_ entries: [WetDiaperEntry]) -> [(entry: WetDiaperEntry, index: Int)] {
+        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
+        var dailyIndex: [String: Int] = [:]
+
+        return sortedEntries.map { entry in
+            let dayKey = dateString(entry.dateTime)
+            let index = (dailyIndex[dayKey] ?? 0) + 1
+            dailyIndex[dayKey] = index
+            return (entry, index)
         }
     }
     
-    // Convert WetDiaperColor to a SwiftUI Color
+    private func bubbleSize(_ volume: DiaperVolume, _ isMini: Bool) -> Double {
+        switch volume {
+        case .light: return isMini ? 30 : 100
+        case .medium:  return isMini ? 60 : 300
+        case .heavy: return isMini ? 100 : 650
+        }
+    }
+
     private func diaperColor(_ color: WetDiaperColor) -> Color {
         switch color {
         case .yellow: return .yellow
-        case .pink: return .pink
-        case .redTingled: return .red
+        case .pink: return Color(.pinkDiaper)
+        case .redTinged: return .red
         }
     }
 }
@@ -58,7 +88,9 @@ struct WetDiapersSummaryView: View {
     }
     
     private var formattedTime: String {
-        guard let date = lastEntry?.dateTime else { return "" }
+        guard let date = lastEntry?.dateTime else {
+            return ""
+        }
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .short
@@ -77,13 +109,19 @@ struct WetDiapersSummaryView: View {
                         Image(systemName: "drop.fill")
                             .accessibilityLabel("Wet Diaper Drop")
                             .font(.title3)
-                            .foregroundColor(.blue)
+                            .foregroundColor(.orange)
                         
-                        Text("Wet Diapers")
+                        Text("Voids")
                             .font(.title3.bold())
-                            .foregroundColor(.blue)
+                            .foregroundColor(.orange)
                         
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
                     
@@ -97,7 +135,6 @@ struct WetDiapersSummaryView: View {
                             Spacer()
                             MiniWetDiaperChart(entries: entries)
                                 .frame(width: 60, height: 40)
-                                .opacity(0.5)
                         }
                         .padding([.bottom, .horizontal])
                     } else {
@@ -119,5 +156,6 @@ struct MiniWetDiaperChart: View {
     var body: some View {
         WetDiaperChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
+            .opacity(0.8)
     }
 }

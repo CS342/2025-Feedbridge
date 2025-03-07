@@ -1,7 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%.2f kg" : {
+    "%.2f lb" : {
 
     },
     "%.2f lbs" : {
@@ -132,7 +132,10 @@
     "Bottle" : {
 
     },
-    "Bottle Feed: %lld ml" : {
+    "Bottle (Breastmilk): %lld ml" : {
+
+    },
+    "Bottle (Formula): %lld ml" : {
 
     },
     "Bottle volume (ml)" : {
@@ -235,6 +238,9 @@
     "Dehydration Symptoms" : {
 
     },
+    "Diaper #" : {
+
+    },
     "Direct Breastfeeding" : {
 
     },
@@ -242,9 +248,6 @@
 
     },
     "Dry Mucous Membranes: %@" : {
-
-    },
-    "Duration (min)" : {
 
     },
     "Duration: %lld min" : {
@@ -260,6 +263,9 @@
 
     },
     "Feed Details" : {
+
+    },
+    "Feed #" : {
 
     },
     "Feed Entries" : {
@@ -499,6 +505,9 @@
         }
       }
     },
+    "Next page" : {
+
+    },
     "No baby selected" : {
 
     },
@@ -567,6 +576,9 @@
 
     },
     "Pounds" : {
+
+    },
+    "Pounds (lb)" : {
 
     },
     "Red" : {
@@ -641,6 +653,9 @@
     "Stool Details" : {
 
     },
+    "Stool #" : {
+
+    },
     "Stool Drop" : {
 
     },
@@ -694,9 +709,6 @@
         }
       }
     },
-    "Time" : {
-
-    },
     "Track Progress" : {
 
     },
@@ -719,10 +731,10 @@
     "Void Details" : {
 
     },
-    "Volume" : {
-
+    "Voids" : {
+    
     },
-    "Volume (ml)" : {
+    "Volume" : {
 
     },
     "Volume: %@" : {
@@ -734,7 +746,7 @@
     "Warning" : {
 
     },
-    "Weight (kg)" : {
+    "Weight (lb)" : {
 
     },
     "Weight Details" : {
@@ -803,9 +815,6 @@
 
     },
     "Wet Diaper Entries" : {
-
-    },
-    "Wet Diapers" : {
 
     },
     "What entry would you like to enter?" : {

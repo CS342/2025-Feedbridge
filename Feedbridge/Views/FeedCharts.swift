@@ -11,71 +11,85 @@ import SwiftUI
 
 struct FeedChart: View {
     let entries: [FeedEntry]
-    // Flag to determine whether it's a mini chart or a full chart
     var isMini: Bool
     
     var body: some View {
+        let indexedEntries = indexEntriesPerDay(entries)
+        let lastDay = lastEntryDate(entries) // Get the last recorded date
+        
         Chart {
-            // Grouped points for Bottle Feeds
-            let bottleEntries = entries
-                .filter { $0.feedType == .bottle }
-                .sorted(by: { $0.dateTime < $1.dateTime })
-
-            if !bottleEntries.isEmpty {
-                if !isMini {
-                    ForEach(bottleEntries) { entry in
-                        PointMark(
-                            x: .value("Time", entry.dateTime),
-                            y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
-                        )
-                        .symbol {
-                            Circle()
-                                .fill(Color.blue.opacity(0.6))
-                                .frame(width: 6)
-                        }
-                    }
-                }
-                ForEach(bottleEntries) { entry in
-                            LineMark(
-                                x: .value("Time", entry.dateTime),
-                                y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
-                            )
-                            .foregroundStyle(.blue)
-                        }
-            }
-
-            // Grouped points for Breastfeeding
-            let breastfeedingEntries = entries
-                .filter { $0.feedType == .directBreastfeeding }
-                .sorted(by: { $0.dateTime < $1.dateTime })
-
-            if !breastfeedingEntries.isEmpty {
-                if !isMini {
-                    ForEach(breastfeedingEntries) { entry in
-                        PointMark(
-                            x: .value("Time", entry.dateTime),
-                            y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
-                        )
-                        .symbol {
-                            Rectangle()
-                                .fill(Color.pink.opacity(0.6))
-                                .frame(width: 6, height: 6)
-                        }
-                    }
-                    ForEach(breastfeedingEntries) { entry in
-                        LineMark(
-                            x: .value("Time", entry.dateTime),
-                            y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
-                        )
-                        .foregroundStyle(.pink)
-                    }
-                }
+            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
+                PointMark(
+                    x: .value("Date", indexedEntry.entry.dateTime),
+                    y: .value("Feed #", indexedEntry.index)
+                )
+                .symbolSize(bubbleSize(indexedEntry.entry))
+                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
+        }
+    }
+    
+    
+    private func miniColor(entry : FeedEntry, isMini : Bool, lastDay : String) -> Color{
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .pink : Color(.greyChart)) : feedColor(entry.feedType, entry.milkType)
+    }
+
+    /// Determines the last recorded date as a string
+    private func lastEntryDate(_ entries: [FeedEntry]) -> String {
+        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
+            return ""
+        }
+        return dateString(lastEntry.dateTime)
+    }
+    
+    private func indexEntriesPerDay(_ entries: [FeedEntry]) -> [(entry: FeedEntry, index: Int)] {
+        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
+        var dailyIndex: [String: Int] = [:]
+        
+        return sortedEntries.map { entry in
+            let dayKey = dateString(entry.dateTime)
+            let index = (dailyIndex[dayKey] ?? 0) + 1
+            dailyIndex[dayKey] = index
+            return (entry, index)
+        }
+    }
+    
+    private func bubbleSize(_ entry: FeedEntry) -> Double {
+        switch entry.feedType {
+        case .directBreastfeeding:
+            guard let duration = entry.feedTimeInMinutes else { return 30 }
+            switch duration {
+            case 0..<10: return isMini ? 30 : 100
+            case 10..<20: return isMini ? 60 : 300
+            default: return isMini ? 100 : 650
+            }
+        case .bottle:
+            guard let volume = entry.feedVolumeInML else { return 30 }
+            switch volume {
+            case 0..<10: return isMini ? 30 : 100
+            case 10..<30: return isMini ? 60 : 300
+            default: return isMini ? 100 : 650
+            }
+        }
+    }
+    
+    private func feedColor(_ type: FeedType, _ milk: MilkType?) -> Color {
+        switch type {
+        case .directBreastfeeding:
+            return .pink
+        case .bottle:
+            switch milk {
+            case .breastmilk:
+                return .purple
+            default:
+                return .blue
+            }
         }
     }
 }
@@ -114,6 +128,12 @@ struct FeedsSummaryView: View {
                             .foregroundColor(.pink)
                         
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
                     
@@ -133,7 +153,6 @@ struct FeedsSummaryView: View {
                             Spacer()
                             MiniFeedChart(entries: entries)
                                 .frame(width: 60, height: 40)
-                                .opacity(0.5)
                         }
                         .padding([.bottom, .horizontal])
                     } else {
@@ -155,6 +174,6 @@ struct MiniFeedChart: View {
     var body: some View {
         FeedChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
-            .opacity(0.5)
+            .opacity(0.8)
     }
 }
