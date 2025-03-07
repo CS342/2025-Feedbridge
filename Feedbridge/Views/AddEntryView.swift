@@ -36,6 +36,12 @@ struct ValidationError: LocalizedError {
   }
 }
 
+/// Represents the weight units
+private enum WeightUnit: String, CaseIterable {
+    case kilograms = "Kilograms"
+    case poundsOunces = "Pounds & Ounces"
+}
+
 // MARK: - [ Main Type ]
 
 struct AddEntryView: View {
@@ -64,6 +70,7 @@ struct AddEntryView: View {
   @State private var entryKind: EntryKind?
 
   // Weight Entry Fields
+  @State private var weightUnit: WeightUnit = .kilograms
   @State private var weightKg: String = ""
   @State private var weightLb: String = ""
   @State private var weightOz: String = ""
@@ -91,7 +98,8 @@ struct AddEntryView: View {
 
   // Error handling
   @State private var errorMessage: String?
-
+  @State private var showSuccessMessage: Bool = false
+    
   // MARK: [ View Lifecycle Method ]
 
   var body: some View {
@@ -117,7 +125,6 @@ struct AddEntryView: View {
                 .padding()
                 .background(.thinMaterial)
                 .cornerRadius(12)
-                .shadow(radius: 3)
                 .padding()
                 // Faster, more distinct insertion/removal transitions
                 .transition(
@@ -135,6 +142,16 @@ struct AddEntryView: View {
               confirmButton
                 .padding(.horizontal)
             }
+              
+            
+            Text("Success saving")
+              .foregroundColor(.green)
+              .padding()
+              .background(Color.green.opacity(0.1))
+              .cornerRadius(8)
+              .transition(.opacity)
+              .padding(.horizontal)
+              .opacity(showSuccessMessage ? 1 : 0)
 
             // Error message
             if let error = errorMessage {
@@ -245,35 +262,47 @@ extension AddEntryView {
     VStack(alignment: .leading, spacing: 12) {
       Text("Enter Weight")
         .font(.headline)
-
-      TextField("Kilograms", text: $weightKg)
-        .keyboardType(.decimalPad)
-        .focused($focusedField, equals: .weightKg)
-        .onSubmit {
-          focusedField = .weightLb
+        
+        Picker("Unit", selection: $weightUnit) {
+            ForEach(WeightUnit.allCases, id: \.self) {
+                Text($0.rawValue)
+            }
         }
-        .textFieldStyle(.roundedBorder)
+        .pickerStyle(.segmented)
 
-      HStack {
-        TextField("Pounds", text: $weightLb)
-          .keyboardType(.numberPad)
-          .focused($focusedField, equals: .weightLb)
-          .onSubmit {
-            focusedField = .weightOz
-          }
-          .textFieldStyle(.roundedBorder)
-
-        TextField("Ounces", text: $weightOz)
-          .keyboardType(.numberPad)
-          .focused($focusedField, equals: .weightOz)
-          .onSubmit {
-            // done
-          }
-          .textFieldStyle(.roundedBorder)
-      }
-    }
-    .onAppear {
-      focusedField = .weightKg
+        if weightUnit == .kilograms {
+            TextField("Kilograms", text: $weightKg)
+              .keyboardType(.decimalPad)
+              .focused($focusedField, equals: .weightKg)
+              .onSubmit {
+                focusedField = .weightLb
+              }
+              .textFieldStyle(.roundedBorder).onAppear {
+                  focusedField = .weightKg
+                }
+        } else {
+            HStack {
+                TextField("Pounds", text: $weightLb)
+                    .keyboardType(.numberPad)
+                    .focused($focusedField, equals: .weightLb)
+                    .onSubmit {
+                        focusedField = .weightOz
+                    }
+                    .textFieldStyle(.roundedBorder)
+                
+                TextField("Ounces", text: $weightOz)
+                    .keyboardType(.numberPad)
+                    .focused($focusedField, equals: .weightOz)
+                    .onSubmit {
+                        // done
+                    }
+                    .textFieldStyle(.roundedBorder)
+                
+                    .onAppear {
+                        focusedField = .weightLb
+                    }
+            }
+        }
     }
   }
 
@@ -382,17 +411,15 @@ extension AddEntryView {
   // MARK: - Confirm Button
 
   private var confirmButton: some View {
-    Button("Confirm") {
+    Button {
       Task {
         await saveEntry()
       }
+    } label: {
+        Text("Confirm")
+            .frame(maxWidth: .infinity)
     }
     .buttonStyle(.borderedProminent)
-    // Make bigger for easier tapping:
-    .frame(maxWidth: .infinity, minHeight: 56)
-    .font(.headline)
-    .cornerRadius(12)
-    .padding(.vertical, 8)
     .disabled(selectedBabyId == nil)
   }
 }
@@ -499,6 +526,11 @@ extension AddEntryView {
       resetAllFields()
       entryKind = nil
       date = Date()
+        
+      showSuccessMessage = true
+      DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        showSuccessMessage = false
+      }
     } catch {
       errorMessage = error.localizedDescription
     }
@@ -546,7 +578,6 @@ extension AddEntryView {
       .frame(maxWidth: .infinity)
       .background(Color(.systemBackground))
       .cornerRadius(8)
-      .shadow(radius: 2)
     }
   }
 }
