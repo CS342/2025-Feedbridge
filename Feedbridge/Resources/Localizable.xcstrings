@@ -23,6 +23,9 @@
     "⚠️ Medical Alert" : {
 
     },
+    "About Us" : {
+
+    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -48,7 +51,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Feedbridge demonstrates the usage of the Firebase Account Module."
+            "value" : "Log in to Feedbridge"
           }
         }
       }
@@ -160,6 +163,9 @@
     "Color: %@" : {
 
     },
+    "Confirm" : {
+
+    },
     "CONSENT_LOADING_ERROR" : {
       "localizations" : {
         "en" : {
@@ -211,6 +217,9 @@
     "Date of Birth" : {
 
     },
+    "Dehydration Check" : {
+
+    },
     "Dehydration Checks" : {
 
     },
@@ -235,10 +244,19 @@
     "Duration: %lld minutes" : {
 
     },
+    "Early Alerts" : {
+
+    },
+    "Enter Weight" : {
+
+    },
     "Error" : {
 
     },
     "Feed Entries" : {
+
+    },
+    "Feed time (minutes)" : {
 
     },
     "Feedbridge" : {
@@ -246,7 +264,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi\nFeedbridge"
+            "value" : "Feedbridge"
           }
         }
       }
@@ -398,7 +416,11 @@
         }
       }
     },
+    "Kilograms" : {
+
+    },
     "Learn More" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -441,6 +463,9 @@
 
     },
     "Milk Type: %@" : {
+
+    },
+    "Monitor Your Baby" : {
 
     },
     "Name" : {
@@ -545,6 +570,9 @@
         }
       }
     },
+    "Select Date & Time" : {
+
+    },
     "Selected" : {
 
     },
@@ -559,6 +587,7 @@
       }
     },
     "Spezi Modules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -598,6 +627,7 @@
 
     },
     "Swift Package Manager" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -608,6 +638,7 @@
       }
     },
     "The Spezi Framework" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -684,7 +715,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Spezi Framework builds the foundation of this application."
+            "value" : "Track your baby's feeds, diapers, and weight to ensure healthy development"
           }
         }
       }
@@ -694,7 +725,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi uses the Swift Package Manager to import it as a dependency."
+            "value" : "Monitor your baby's growth and feeding patterns with easy-to-use tracking tools"
           }
         }
       }
@@ -704,7 +735,17 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi offers several modules including HealthKit integration, questionnaires, and more ..."
+            "value" : "Receive timely alerts if your baby shows signs of feeding concerns"
+          }
+        }
+      }
+    },
+    "WELCOME_AREA4_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dr. Meera Sankar, Clinical Professor of Pediatrics.\nPinlin [Calvin] Xu, Shamit Surana, Shreya D'Souza\n2025 Stanford University"
           }
         }
       }
@@ -714,7 +755,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This application demonstrates several Spezi features & modules."
+            "value" : "Supporting healthy feeding for your newborn"
           }
         }
       }

@@ -32,14 +32,15 @@ struct HomeView: View {
                 DashboardView(presentingAccount: $presentingAccount)
             }
             Tab("Add Entries", systemImage: "plus", value: .addEntries) {
-                AddDataView(presentingAccount: $presentingAccount)
+//               AddDataView(presentingAccount: $presentingAccount)
+                AddEntryView()
             }
             Tab("Baby Debug View", systemImage: "figure.2.and.child.holdinghands", value: .debug) {
                 BabyDebugDisplayView()
             }
 //            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
 //                ScheduleView(presentingAccount: $presentingAccount)
-//            }
+//            }fe
 //                .customizationID("home.schedule")
 //            Tab("Contacts", systemImage: "person.fill", value: .contact) {
 //                Contacts(presentingAccount: $presentingAccount)
