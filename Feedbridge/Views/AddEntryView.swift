@@ -335,7 +335,7 @@ extension AddEntryView {
       Picker("Color", selection: $wetColor) {
         Text("Yellow").tag(WetDiaperColor.yellow)
         Text("Pink").tag(WetDiaperColor.pink)
-        Text("Red").tag(WetDiaperColor.redTingled)
+        Text("Red").tag(WetDiaperColor.redTinged)
       }
       .pickerStyle(.segmented)
     }

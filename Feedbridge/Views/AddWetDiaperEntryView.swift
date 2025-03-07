@@ -39,11 +39,11 @@ struct AddWetDiaperEntryView: View {
           Picker("Color", selection: $color) {
             Text("Yellow").tag(WetDiaperColor.yellow)
             Text("Pink").tag(WetDiaperColor.pink)
-            Text("Red-Tinged").tag(WetDiaperColor.redTingled)
+            Text("Red-Tinged").tag(WetDiaperColor.redTinged)
           }
         }
 
-        if color == .pink || color == .redTingled {
+        if color == .pink || color == .redTinged {
           Section {
             HStack {
               Image(systemName: "exclamationmark.triangle.fill")

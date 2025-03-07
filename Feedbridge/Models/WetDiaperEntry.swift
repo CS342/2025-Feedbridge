@@ -24,7 +24,7 @@ enum DiaperVolume: String, Codable {
 enum WetDiaperColor: String, Codable {
     case yellow
     case pink
-    case redTingled
+    case redTinged
 }
 
 // periphery:ignore
@@ -43,6 +43,6 @@ struct WetDiaperEntry: Identifiable, Codable, Sendable {
 
     /// Whether an alert has been triggered
     var dehydrationAlert: Bool {
-        color == .pink || color == .redTingled
+        color == .pink || color == .redTinged
     }
 }

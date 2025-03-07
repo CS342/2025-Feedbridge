@@ -11,44 +11,88 @@ import SwiftUI
 // swiftlint:disable closure_body_length
 struct WetDiaperChart: View {
     let entries: [WetDiaperEntry]
-    // Flag to determine whether it's a mini chart or a full chart
     var isMini: Bool
-    
+    @State private var scrollPosition: Date? // Tracks the initial scroll position
+
+
     var body: some View {
+        let indexedEntries = indexEntriesPerDay(entries)
+
         Chart {
-            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                BarMark(
-                    x: .value("Date", entry.dateTime),
-                    y: .value("Volume", diaperVolumeValue(entry.volume))
+            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
+                PointMark(
+                    x: .value("Date", indexedEntry.entry.dateTime, unit: .day),
+                    y: .value("Diaper #", indexedEntry.index) // Use the sequential index
                 )
-                .foregroundStyle(diaperColor(entry.color))
+                .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini))
+                .foregroundStyle(diaperColor(indexedEntry.entry.color))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange()) // Restrict initial view to last 7 days
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
     }
     
-    // Convert DiaperVolume to a numeric value for the Y-axis
-    private func diaperVolumeValue(_ volume: DiaperVolume) -> Int {
-        switch volume {
-        case .light: return 1
-        case .medium: return 2
-        case .heavy: return 3
+    /// Defines the x-axis range for the last 7 days
+        private func last7DaysRange() -> ClosedRange<Date> {
+            let today = Date()
+            let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today) ?? today
+            return sevenDaysAgo...today
+        }
+
+    /// Assigns a sequential index to each entry within its respective day
+    private func indexEntriesPerDay(_ entries: [WetDiaperEntry]) -> [(entry: WetDiaperEntry, index: Int)] {
+        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
+        var dailyIndex: [String: Int] = [:]
+
+        return sortedEntries.map { entry in
+            let dayKey = dateString(entry.dateTime)
+            let index = (dailyIndex[dayKey] ?? 0) + 1
+            dailyIndex[dayKey] = index
+            return (entry, index)
         }
     }
-    
-    // Convert WetDiaperColor to a SwiftUI Color
+
+    /// Formats a date into a string (e.g., "2025-03-06") for grouping
+    private func dateString(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+
+    private func bubbleSize(_ volume: DiaperVolume, _ isMini: Bool) -> Double {
+        switch volume {
+        case .light:
+            if isMini {
+                return 30
+            }
+            return 150
+        case .medium:
+            if isMini {
+                return 60
+            }
+            return 300
+        case .heavy:
+            if isMini {
+                return 90
+            }
+            return 450
+        }
+    }
+
     private func diaperColor(_ color: WetDiaperColor) -> Color {
         switch color {
         case .yellow: return .yellow
         case .pink: return .pink
-        case .redTingled: return .red
+        case .redTinged: return .red
         }
     }
 }
+
+
 
 struct WetDiapersSummaryView: View {
     let entries: [WetDiaperEntry]
