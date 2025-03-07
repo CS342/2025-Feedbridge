@@ -226,10 +226,13 @@
     "Date of Birth" : {
 
     },
-    "Dehydration Check" : {
+    "Dehydration Checks" : {
 
     },
-    "Dehydration Checks" : {
+    "Dehydration Details" : {
+
+    },
+    "Dehydration Heart" : {
 
     },
     "Dehydration Symptoms" : {
@@ -256,10 +259,10 @@
     "Early Alerts" : {
 
     },
-    "Enter Weight" : {
+    "Error" : {
 
     },
-    "Error" : {
+    "Feed Details" : {
 
     },
     "Feed #" : {
@@ -647,7 +650,7 @@
         }
       }
     },
-    "Stool" : {
+    "Stool Details" : {
 
     },
     "Stool #" : {
@@ -725,8 +728,11 @@
         }
       }
     },
-    "Voids" : {
+    "Void Details" : {
 
+    },
+    "Voids" : {
+    
     },
     "Volume" : {
 
@@ -741,6 +747,9 @@
 
     },
     "Weight (lb)" : {
+
+    },
+    "Weight Details" : {
 
     },
     "Weight Entries" : {
@@ -801,9 +810,6 @@
           }
         }
       }
-    },
-    "Wet Diaper" : {
-
     },
     "Wet Diaper Drop" : {
 
