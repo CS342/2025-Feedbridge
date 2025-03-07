@@ -13,9 +13,8 @@ func last7DaysRange() -> ClosedRange<Date> {
     return sevenDaysAgo...today
 }
 
-/// Formats a date into a string (e.g., "2025-03-06 AM" or "2025-03-06 PM") for grouping
 func dateString(_ date: Date) -> String {
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd a" // 'a' adds AM/PM
+    formatter.dateFormat = "yyyy-MM-dd"
     return formatter.string(from: date)
 }

@@ -33,7 +33,7 @@ struct StoolChart: View {
         }
     }
     
-    private func miniColor(entry : StoolEntry, isMini : Bool, lastDay : String) -> Color{
+    private func miniColor(entry: StoolEntry, isMini: Bool, lastDay: String) -> Color{
         return isMini ? (dateString(entry.dateTime) == lastDay ? .brown: Color(.greyChart)) : stoolColor(entry.color)
     }
     
@@ -145,7 +145,6 @@ struct StoolsSummaryView: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
-
 
 struct MiniStoolChart: View {
     let entries: [StoolEntry]
