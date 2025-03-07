@@ -244,9 +244,6 @@
     "Dry Mucous Membranes: %@" : {
 
     },
-    "Duration (min)" : {
-
-    },
     "Duration: %lld min" : {
 
     },
@@ -260,6 +257,9 @@
 
     },
     "Error" : {
+
+    },
+    "Feed #" : {
 
     },
     "Feed Entries" : {
@@ -569,6 +569,9 @@
     "Pounds" : {
 
     },
+    "Pounds (lb)" : {
+
+    },
     "Red" : {
 
     },
@@ -641,6 +644,9 @@
     "Stool" : {
 
     },
+    "Stool #" : {
+
+    },
     "Stool Drop" : {
 
     },
@@ -691,9 +697,6 @@
         }
       }
     },
-    "Time" : {
-
-    },
     "Track Progress" : {
 
     },
@@ -714,9 +717,6 @@
       }
     },
     "Volume" : {
-
-    },
-    "Volume (ml)" : {
 
     },
     "Volume: %@" : {

@@ -14,7 +14,6 @@ struct StoolsView: View {
         NavigationView {
             VStack {
                 StoolChart(entries: entries, isMini: false)
-                    .chartYScale(domain: [0, 3]) // Set the Y-axis scale range from 0 to 3
                     .frame(height: 300)
                     .padding()
                 stoolEntriesList

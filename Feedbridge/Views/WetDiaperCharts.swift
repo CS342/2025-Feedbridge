@@ -35,13 +35,6 @@ struct WetDiaperChart: View {
             plotArea.background(Color.clear)
         }
     }
-    
-    /// Defines the x-axis range for the last 7 days
-        private func last7DaysRange() -> ClosedRange<Date> {
-            let today = Date()
-            let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today) ?? today
-            return sevenDaysAgo...today
-        }
 
     /// Assigns a sequential index to each entry within its respective day
     private func indexEntriesPerDay(_ entries: [WetDiaperEntry]) -> [(entry: WetDiaperEntry, index: Int)] {
@@ -65,21 +58,9 @@ struct WetDiaperChart: View {
 
     private func bubbleSize(_ volume: DiaperVolume, _ isMini: Bool) -> Double {
         switch volume {
-        case .light:
-            if isMini {
-                return 30
-            }
-            return 150
-        case .medium:
-            if isMini {
-                return 60
-            }
-            return 300
-        case .heavy:
-            if isMini {
-                return 90
-            }
-            return 450
+        case .light: return isMini ? 30 : 100
+        case .medium:  return isMini ? 60 : 300
+        case .heavy: return isMini ? 100 : 650
         }
     }
 
@@ -92,8 +73,6 @@ struct WetDiaperChart: View {
     }
 }
 
-
-
 struct WetDiapersSummaryView: View {
     let entries: [WetDiaperEntry]
     
@@ -102,7 +81,9 @@ struct WetDiapersSummaryView: View {
     }
     
     private var formattedTime: String {
-        guard let date = lastEntry?.dateTime else { return "" }
+        guard let date = lastEntry?.dateTime else {
+            return ""
+        }
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .short
@@ -121,11 +102,11 @@ struct WetDiapersSummaryView: View {
                         Image(systemName: "drop.fill")
                             .accessibilityLabel("Wet Diaper Drop")
                             .font(.title3)
-                            .foregroundColor(.blue)
+                            .foregroundColor(.indigo)
                         
                         Text("Wet Diapers")
                             .font(.title3.bold())
-                            .foregroundColor(.blue)
+                            .foregroundColor(.indigo)
                         
                         Spacer()
                     }

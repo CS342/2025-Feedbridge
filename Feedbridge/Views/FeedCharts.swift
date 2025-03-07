@@ -11,71 +11,72 @@ import SwiftUI
 
 struct FeedChart: View {
     let entries: [FeedEntry]
-    // Flag to determine whether it's a mini chart or a full chart
     var isMini: Bool
     
     var body: some View {
+        let indexedEntries = indexEntriesPerDay(entries)
+        
         Chart {
-            // Grouped points for Bottle Feeds
-            let bottleEntries = entries
-                .filter { $0.feedType == .bottle }
-                .sorted(by: { $0.dateTime < $1.dateTime })
-
-            if !bottleEntries.isEmpty {
-                if !isMini {
-                    ForEach(bottleEntries) { entry in
-                        PointMark(
-                            x: .value("Time", entry.dateTime),
-                            y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
-                        )
-                        .symbol {
-                            Circle()
-                                .fill(Color.blue.opacity(0.6))
-                                .frame(width: 6)
-                        }
-                    }
-                }
-                ForEach(bottleEntries) { entry in
-                            LineMark(
-                                x: .value("Time", entry.dateTime),
-                                y: .value("Volume (ml)", entry.feedVolumeInML ?? 0)
-                            )
-                            .foregroundStyle(.blue)
-                        }
-            }
-
-            // Grouped points for Breastfeeding
-            let breastfeedingEntries = entries
-                .filter { $0.feedType == .directBreastfeeding }
-                .sorted(by: { $0.dateTime < $1.dateTime })
-
-            if !breastfeedingEntries.isEmpty {
-                if !isMini {
-                    ForEach(breastfeedingEntries) { entry in
-                        PointMark(
-                            x: .value("Time", entry.dateTime),
-                            y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
-                        )
-                        .symbol {
-                            Rectangle()
-                                .fill(Color.pink.opacity(0.6))
-                                .frame(width: 6, height: 6)
-                        }
-                    }
-                    ForEach(breastfeedingEntries) { entry in
-                        LineMark(
-                            x: .value("Time", entry.dateTime),
-                            y: .value("Duration (min)", entry.feedTimeInMinutes ?? 0)
-                        )
-                        .foregroundStyle(.pink)
-                    }
-                }
+            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
+                PointMark(
+                    x: .value("Date", indexedEntry.entry.dateTime),
+                    y: .value("Feed #", indexedEntry.index)
+                )
+                .symbolSize(bubbleSize(indexedEntry.entry))
+                .foregroundStyle(feedColor(indexedEntry.entry.feedType))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
+        }
+    }
+    
+    private func indexEntriesPerDay(_ entries: [FeedEntry]) -> [(entry: FeedEntry, index: Int)] {
+        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
+        var dailyIndex: [String: Int] = [:]
+        
+        return sortedEntries.map { entry in
+            let dayKey = dateString(entry.dateTime)
+            let index = (dailyIndex[dayKey] ?? 0) + 1
+            dailyIndex[dayKey] = index
+            return (entry, index)
+        }
+    }
+    
+    private func dateString(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+    
+    private func bubbleSize(_ entry: FeedEntry) -> Double {
+        switch entry.feedType {
+        case .directBreastfeeding:
+            guard let duration = entry.feedTimeInMinutes else { return 30 }
+            switch duration {
+            case 0..<5: return isMini ? 30 : 100
+            case 5..<10: return isMini ? 60 : 200
+            case 10..<20: return isMini ? 90 : 350
+            default: return isMini ? 120 : 600
+            }
+        case .bottle:
+            guard let volume = entry.feedVolumeInML else { return 30 }
+            switch volume {
+            case 15..<30: return isMini ? 30 : 100
+            case 30..<60: return isMini ? 60 : 200
+            case 60..<90: return isMini ? 90 : 350
+            default: return isMini ? 120 : 600
+            }
+        }
+    }
+    
+    private func feedColor(_ type: FeedType) -> Color {
+        switch type {
+        case .directBreastfeeding: return .pink
+        case .bottle: return .purple
         }
     }
 }

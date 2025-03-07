@@ -1,25 +1,14 @@
 //
-//  DateIndexer.swift
+//  HelperFunctions.swift
 //  Feedbridge
 //
-//  Created by Shreya D'Souza on 3/6/25.
+//  Created by Shreya D'Souza on 3/7/25.
 //
-// Helper function to index entries by date (day) for any type conforming to DateTimeEntry
-private func indexEntriesPerDay<T: DateTimeEntry>(_ entries: [T]) -> [(entry: T, index: Int)] {
-    let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
-    var dailyIndex: [String: Int] = [:]
+import Foundation
 
-    return sortedEntries.map { entry in
-        let dayKey = dateString(entry.dateTime)
-        let index = (dailyIndex[dayKey] ?? 0) + 1
-        dailyIndex[dayKey] = index
-        return (entry, index)
-    }
+/// Defines the x-axis range for the last 7 days
+func last7DaysRange() -> ClosedRange<Date> {
+    let today = Date()
+    let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today) ?? today
+    return sevenDaysAgo...today
 }
-
-private func dateString(_ date: Date) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd"  // Format to compare the day
-    return dateFormatter.string(from: date)
-}
-

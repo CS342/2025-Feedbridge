@@ -3,9 +3,8 @@
 //
 //  Created by Shreya D'Souza on 3/5/25.
 //
-
-import SwiftUI
 import Charts
+import SwiftUI
 
 // swiftlint:disable closure_body_length
 struct StoolChart: View {
@@ -14,29 +13,54 @@ struct StoolChart: View {
     var isMini: Bool
     
     var body: some View {
+        let indexedEntries = indexEntriesPerDay(entries)
+
         Chart {
-            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                BarMark(
-                    x: .value("Date", entry.dateTime),
-                    y: .value("Volume", stoolVolumeValue(entry.volume))
+            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
+                PointMark(
+                    x: .value("Date", indexedEntry.entry.dateTime),
+                    y: .value("Stool #", indexedEntry.index)
                 )
-                .foregroundStyle(stoolColor(entry.color))
+                .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini))
+                .foregroundStyle(stoolColor(indexedEntry.entry.color))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange()) // Restrict initial view to last 7 days
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
     }
     
-    private func stoolVolumeValue(_ volume: StoolVolume) -> Int {
-        switch volume {
-        case .light: return 1
-        case .medium: return 2
-        case .heavy: return 3
+    /// Assigns a sequential index to each entry within its respective day
+    private func indexEntriesPerDay(_ entries: [StoolEntry]) -> [(entry: StoolEntry, index: Int)] {
+        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
+        var dailyIndex: [String: Int] = [:]
+
+        return sortedEntries.map { entry in
+            let dayKey = dateString(entry.dateTime)
+            let index = (dailyIndex[dayKey] ?? 0) + 1
+            dailyIndex[dayKey] = index
+            return (entry, index)
         }
     }
+    
+    /// Formats a date into a string (e.g., "2025-03-06") for grouping
+    private func dateString(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+    
+    private func bubbleSize(_ volume: StoolVolume, _ isMini: Bool) -> Double {
+        switch volume {
+        case .light: return isMini ? 30 : 100
+        case .medium:  return isMini ? 60 : 300
+        case .heavy: return isMini ? 100 : 650
+        }
+    }
+
     
     private func stoolColor(_ color: StoolColor) -> Color {
         switch color {

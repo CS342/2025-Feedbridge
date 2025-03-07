@@ -23,7 +23,7 @@ struct WeightChart: View {
                     let day = Calendar.current.startOfDay(for: entry.dateTime)
                     PointMark(
                         x: .value("Date", day),
-                        y: .value("Weight (kg)", entry.asKilograms.value)
+                        y: .value("Pounds (lb)", entry.asPounds.value)
                     )
                     .foregroundStyle(.gray)
                     .symbol {
@@ -36,7 +36,7 @@ struct WeightChart: View {
             ForEach(averagedEntries) { entry in
                 LineMark(
                     x: .value("Date", entry.date),
-                    y: .value("Weight (kg)", entry.averageWeight)
+                    y: .value("Pounds (lb)", entry.averageWeight)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.orange)
@@ -45,6 +45,7 @@ struct WeightChart: View {
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
@@ -56,7 +57,7 @@ struct WeightChart: View {
         }
 
         return grouped.map { (date, entries) in
-            let totalWeight = entries.reduce(0) { $0 + $1.asKilograms.value }
+            let totalWeight = entries.reduce(0) { $0 + $1.asPounds.value }
             let averageWeight = totalWeight / Double(entries.count)
             return DailyAverageWeight(date: date, averageWeight: averageWeight)
         }
