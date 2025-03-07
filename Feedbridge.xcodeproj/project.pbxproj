@@ -302,6 +302,18 @@
 			path = SharedContext;
 			sourceTree = "<group>";
 		};
+		536C4ECE2D7B7B5400F06616 /* ModifyDataViews */ = {
+			isa = PBXGroup;
+			children = (
+				5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */,
+				5B0E57712D5C311B002AC4BB /* AddDehydrationCheckView.swift */,
+				5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */,
+				5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */,
+				5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */,
+			);
+			path = ModifyDataViews;
+			sourceTree = "<group>";
+		};
 		5B0E57612D5C30BB002AC4BB /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,13 +336,9 @@
 				5BC74CD92D6E19320059AA19 /* AddEntryView.swift */,
 				5BB4CE112D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift */,
 				5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */,
-				5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */,
 				5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */,
 				5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */,
-				5B0E57712D5C311B002AC4BB /* AddDehydrationCheckView.swift */,
-				5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */,
-				5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */,
-				5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */,
+				536C4ECE2D7B7B5400F06616 /* ModifyDataViews */,
 				35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */,
 				35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */,
 				35DCCFCF2D7AAAFD0045DB20 /* FeedsView.swift */,

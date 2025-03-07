@@ -51,11 +51,6 @@ struct AddSingleBabyView: View {
             .navigationTitle("Add Baby")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         Task {
