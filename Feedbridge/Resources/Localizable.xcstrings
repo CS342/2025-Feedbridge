@@ -1,22 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%.2f kg" : {
-
-    },
-    "%.2f lbs" : {
-
-    },
-    "%@ and %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ and %2$@"
-          }
-        }
-      }
-    },
     "⚠️ Dehydration Alert" : {
 
     },
@@ -74,6 +58,9 @@
     "Add Entries" : {
 
     },
+    "Add Entry" : {
+
+    },
     "Add Feed Entry" : {
 
     },
@@ -108,6 +95,9 @@
     "Amount: %lldml" : {
 
     },
+    "Are you sure you want to delete this baby? This action cannot be undone." : {
+
+    },
     "Baby Debug View" : {
 
     },
@@ -129,13 +119,7 @@
     "Bottle" : {
 
     },
-    "Bottle Feed: %lld ml" : {
-
-    },
-    "Bottle: %lld ml" : {
-
-    },
-    "Breastfeeding: %lld min" : {
+    "Bottle volume (ml)" : {
 
     },
     "Breastmilk" : {
@@ -205,12 +189,6 @@
     "Dark Green" : {
 
     },
-    "Dashboard" : {
-
-    },
-    "Date" : {
-
-    },
     "Date & Time" : {
 
     },
@@ -226,6 +204,12 @@
     "Dehydration Symptoms" : {
 
     },
+    "Delete" : {
+
+    },
+    "Delete Baby" : {
+
+    },
     "Direct Breastfeeding" : {
 
     },
@@ -233,9 +217,6 @@
 
     },
     "Dry Mucous Membranes: %@" : {
-
-    },
-    "Duration (min)" : {
 
     },
     "Duration: %lld min" : {
@@ -275,13 +256,13 @@
     "Feeding Method" : {
 
     },
-    "Feeds" : {
-
-    },
-    "Flame" : {
+    "Feeding Type" : {
 
     },
     "Formula" : {
+
+    },
+    "Get Started" : {
 
     },
     "Grant Access" : {
@@ -341,6 +322,9 @@
       }
     },
     "Heavy" : {
+
+    },
+    "Hi! It is now:" : {
 
     },
     "HL7 FHIR" : {
@@ -484,10 +468,19 @@
     "No baby selected" : {
 
     },
-    "No data added" : {
+    "No dehydration checks" : {
+
+    },
+    "No feed entries" : {
+
+    },
+    "No stool entries" : {
 
     },
     "No weight entries" : {
+
+    },
+    "No wet diaper entries" : {
 
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
@@ -551,13 +544,13 @@
     "Pounds" : {
 
     },
+    "Red" : {
+
+    },
     "Red-Tinged" : {
 
     },
     "Save" : {
-
-    },
-    "Scale" : {
 
     },
     "Schedule" : {
@@ -617,13 +610,10 @@
         }
       }
     },
-    "Stool Drop" : {
+    "Stool" : {
 
     },
     "Stool Entries" : {
-
-    },
-    "Stools" : {
 
     },
     "Swift Package Manager" : {
@@ -667,7 +657,7 @@
         }
       }
     },
-    "Time" : {
+    "Track Progress" : {
 
     },
     "Type: %@" : {
@@ -689,25 +679,19 @@
     "Volume" : {
 
     },
-    "Volume (ml)" : {
-
-    },
     "Volume: %@" : {
 
     },
     "Volume: %lld mL" : {
 
     },
-    "Weight (kg)" : {
+    "Warning" : {
 
     },
     "Weight Entries" : {
 
     },
     "Weight in Kilograms" : {
-
-    },
-    "Weights" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {
@@ -760,13 +744,13 @@
         }
       }
     },
-    "Wet Diaper Drop" : {
+    "Wet Diaper" : {
 
     },
     "Wet Diaper Entries" : {
 
     },
-    "Wet Diapers" : {
+    "What entry would you like to enter?" : {
 
     },
     "Yellow" : {
