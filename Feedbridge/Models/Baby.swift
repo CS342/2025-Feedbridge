@@ -16,7 +16,7 @@ import Foundation
 
 // periphery:ignore
 /// Represents a baby and their associated health tracking data
-struct Baby: Identifiable, Codable, Sendable {
+struct Baby: Identifiable, Codable, Sendable, Equatable {
     /// Unique identifier for the baby
     @DocumentID var id: String?
 
@@ -71,6 +71,15 @@ struct Baby: Identifiable, Codable, Sendable {
         self.stoolEntries = StoolEntries(stoolEntries: [])
         self.wetDiaperEntries = WetDiaperEntries(wetDiaperEntries: [])
         self.dehydrationChecks = DehydrationChecks(dehydrationChecks: [])
+    }
+    
+    static func == (lhs: Baby, rhs: Baby) -> Bool {
+        if let lhsId = lhs.id, let rhsId = rhs.id {
+            return lhsId == rhsId
+        }
+        
+        return lhs.name == rhs.name &&
+               lhs.dateOfBirth == rhs.dateOfBirth
     }
 }
 

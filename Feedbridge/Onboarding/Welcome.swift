@@ -13,7 +13,6 @@ import SwiftUI
 struct Welcome: View {
     @Environment(OnboardingNavigationPath.self) private var onboardingNavigationPath
     
-    
     var body: some View {
         OnboardingView(
             title: "Feedbridge",
@@ -21,30 +20,38 @@ struct Welcome: View {
             areas: [
                 OnboardingInformationView.Content(
                     icon: {
-                        Image(systemName: "apps.iphone")
+                        Image(systemName: "heart.fill")
                             .accessibilityHidden(true)
                     },
-                    title: "The Spezi Framework",
+                    title: "Monitor Your Baby",
                     description: "WELCOME_AREA1_DESCRIPTION"
                 ),
                 OnboardingInformationView.Content(
                     icon: {
-                        Image(systemName: "shippingbox.fill")
+                        Image(systemName: "chart.line.uptrend.xyaxis")
                             .accessibilityHidden(true)
                     },
-                    title: "Swift Package Manager",
+                    title: "Track Progress",
                     description: "WELCOME_AREA2_DESCRIPTION"
                 ),
                 OnboardingInformationView.Content(
                     icon: {
-                        Image(systemName: "list.bullet.clipboard.fill")
+                        Image(systemName: "bell.badge.fill")
                             .accessibilityHidden(true)
                     },
-                    title: "Spezi Modules",
+                    title: "Early Alerts",
                     description: "WELCOME_AREA3_DESCRIPTION"
+                ),
+                OnboardingInformationView.Content(
+                    icon: {
+                        Image(systemName: "person.3.fill")
+                            .accessibilityHidden(true)
+                    },
+                    title: "About Us",
+                    description: "WELCOME_AREA4_DESCRIPTION"
                 )
             ],
-            actionText: "Learn More",
+            actionText: "Get Started",
             action: {
                 onboardingNavigationPath.nextStep()
             }
