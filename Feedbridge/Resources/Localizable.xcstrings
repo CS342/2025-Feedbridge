@@ -132,7 +132,10 @@
     "Bottle" : {
 
     },
-    "Bottle Feed: %lld ml" : {
+    "Bottle (Breastmilk): %lld ml" : {
+
+    },
+    "Bottle (Formula): %lld ml" : {
 
     },
     "Bottle volume (ml)" : {

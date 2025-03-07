@@ -37,7 +37,7 @@ struct FeedChart: View {
     
     
     private func miniColor(entry : FeedEntry, isMini : Bool, lastDay : String) -> Color{
-        return isMini ? (dateString(entry.dateTime) == lastDay ? .pink : Color(.greyChart)) : feedColor(entry.feedType)
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .pink : Color(.greyChart)) : feedColor(entry.feedType, entry.milkType)
     }
 
     /// Determines the last recorded date as a string
@@ -79,12 +79,17 @@ struct FeedChart: View {
         }
     }
     
-    private func feedColor(_ type: FeedType) -> Color {
+    private func feedColor(_ type: FeedType, _ milk: MilkType?) -> Color {
         switch type {
         case .directBreastfeeding:
             return .pink
         case .bottle:
-            return .purple
+            switch milk {
+            case .breastmilk:
+                return .purple
+            default:
+                return .blue
+            }
         }
     }
 }
