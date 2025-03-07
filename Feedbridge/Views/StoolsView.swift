@@ -28,7 +28,7 @@ struct StoolsView: View {
             VStack(alignment: .leading) {
                 Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                     .font(.headline)
-                Text(entry.dateTime, style: .date)
+                Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }

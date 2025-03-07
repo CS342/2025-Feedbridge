@@ -61,7 +61,7 @@ struct WeightsView: View {
             VStack(alignment: .leading) {
                 Text("\(entry.asKilograms.value, specifier: "%.2f") kg")
                     .font(.headline)
-                Text(entry.dateTime, style: .date)
+                Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }

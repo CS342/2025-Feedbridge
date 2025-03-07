@@ -14,7 +14,6 @@ struct WetDiapersView: View {
         NavigationView {
             VStack {
                 WetDiaperChart(entries: entries, isMini: false)
-                    .chartYScale(domain: [0, 3])
                     .frame(height: 300)
                     .padding()
                 wetDiaperEntriesList
@@ -29,7 +28,7 @@ struct WetDiapersView: View {
             VStack(alignment: .leading) {
                 Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                     .font(.headline)
-                Text(entry.dateTime, style: .date)
+                Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }

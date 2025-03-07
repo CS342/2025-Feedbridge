@@ -86,7 +86,7 @@ struct WetDiaperChart: View {
     private func diaperColor(_ color: WetDiaperColor) -> Color {
         switch color {
         case .yellow: return .yellow
-        case .pink: return .pink
+        case .pink: return Color(.pinkDiaper)
         case .redTinged: return .red
         }
     }

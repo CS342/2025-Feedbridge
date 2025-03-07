@@ -114,22 +114,22 @@ struct DashboardView: View {
         
         isLoading = false
     }
-    
+
     private func loadBaby() async {
         guard let babyId = selectedBabyId else {
             baby = nil
             return
         }
-        
+
         isLoading = true
         errorMessage = nil
-        
+
         do {
             baby = try await standard.getBaby(id: babyId)
         } catch {
             errorMessage = "Failed to load baby: \(error.localizedDescription)"
         }
-        
+
         isLoading = false
     }
 }

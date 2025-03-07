@@ -180,6 +180,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		35DCD0122D7AC5AF0045DB20 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
 		534B58C52D5878260006210A /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		5B4B0E102D4C5DBF0023EAB7 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -370,6 +371,7 @@
 		653A254F283387FE005D4D48 /* Feedbridge */ = {
 			isa = PBXGroup;
 			children = (
+				35DCD0122D7AC5AF0045DB20 /* Utilities */,
 				5B4B0E102D4C5DBF0023EAB7 /* Models */,
 				2FC975A72978F11A00BA99FE /* HomeView.swift */,
 				653A2550283387FE005D4D48 /* Feedbridge.swift */,
@@ -451,6 +453,7 @@
 				56E7083D2BB06FCA00B08F0A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				35DCD0122D7AC5AF0045DB20 /* Utilities */,
 				534B58C52D5878260006210A /* Views */,
 				5B4B0E102D4C5DBF0023EAB7 /* Models */,
 			);

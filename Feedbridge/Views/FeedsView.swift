@@ -27,7 +27,7 @@ struct FeedsView: View {
             VStack(alignment: .leading) {
                 Text(entry.feedType == .bottle ? "Bottle Feed: \(entry.feedVolumeInML ?? 0) ml" : "Breastfeeding: \(entry.feedTimeInMinutes ?? 0) min")
                     .font(.headline)
-                Text(entry.dateTime, style: .date)
+                Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
