@@ -99,6 +99,12 @@ struct WeightsSummaryView: View {
                             .foregroundColor(.orange)
 
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
 
@@ -134,5 +140,6 @@ struct MiniWeightChart: View {
     var body: some View {
         WeightChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
+            .opacity(0.8)
     }
 }

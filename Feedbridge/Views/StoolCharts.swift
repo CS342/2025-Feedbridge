@@ -9,11 +9,11 @@ import SwiftUI
 // swiftlint:disable closure_body_length
 struct StoolChart: View {
     let entries: [StoolEntry]
-    // Flag to determine whether it's a mini chart or a full chart
     var isMini: Bool
     
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries)
+        let lastDay = lastEntryDate(entries) // Get the last recorded date
 
         Chart {
             ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
@@ -22,15 +22,27 @@ struct StoolChart: View {
                     y: .value("Stool #", indexedEntry.index)
                 )
                 .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini))
-                .foregroundStyle(stoolColor(indexedEntry.entry.color))
+                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
-        .chartXScale(domain: last7DaysRange()) // Restrict initial view to last 7 days
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
+    }
+    
+    private func miniColor(entry : StoolEntry, isMini : Bool, lastDay : String) -> Color{
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .brown: Color(.greyChart)) : stoolColor(entry.color)
+    }
+    
+    /// Determines the last recorded date as a string
+    private func lastEntryDate(_ entries: [StoolEntry]) -> String {
+        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
+            return ""
+        }
+        return dateString(lastEntry.dateTime)
     }
     
     /// Assigns a sequential index to each entry within its respective day
@@ -46,13 +58,6 @@ struct StoolChart: View {
         }
     }
     
-    /// Formats a date into a string (e.g., "2025-03-06") for grouping
-    private func dateString(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
-    
     private func bubbleSize(_ volume: StoolVolume, _ isMini: Bool) -> Double {
         switch volume {
         case .light: return isMini ? 30 : 100
@@ -61,7 +66,6 @@ struct StoolChart: View {
         }
     }
 
-    
     private func stoolColor(_ color: StoolColor) -> Color {
         switch color {
         case .black: return .black
@@ -108,6 +112,12 @@ struct StoolsSummaryView: View {
                             .foregroundColor(.brown)
                         
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
                     
@@ -121,7 +131,6 @@ struct StoolsSummaryView: View {
                             Spacer()
                             MiniStoolChart(entries: entries)
                                 .frame(width: 60, height: 40)
-                                .opacity(0.5)
                         }
                         .padding([.bottom, .horizontal])
                     } else {
@@ -137,11 +146,13 @@ struct StoolsSummaryView: View {
     }
 }
 
+
 struct MiniStoolChart: View {
     let entries: [StoolEntry]
     
     var body: some View {
         StoolChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
+            .opacity(0.8)
     }
 }

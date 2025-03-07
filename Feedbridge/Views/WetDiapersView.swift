@@ -17,7 +17,7 @@ struct WetDiapersView: View {
                 .padding()
             wetDiaperEntriesList
         }
-        .navigationTitle("Wet Diapers")
+        .navigationTitle("Voids")
     }
 
     // List of Wet Diaper Entries

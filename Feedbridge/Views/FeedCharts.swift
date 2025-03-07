@@ -15,6 +15,7 @@ struct FeedChart: View {
     
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries)
+        let lastDay = lastEntryDate(entries) // Get the last recorded date
         
         Chart {
             ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
@@ -23,7 +24,7 @@ struct FeedChart: View {
                     y: .value("Feed #", indexedEntry.index)
                 )
                 .symbolSize(bubbleSize(indexedEntry.entry))
-                .foregroundStyle(feedColor(indexedEntry.entry.feedType))
+                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
@@ -32,6 +33,19 @@ struct FeedChart: View {
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
+    }
+    
+    
+    private func miniColor(entry : FeedEntry, isMini : Bool, lastDay : String) -> Color{
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .pink : Color(.greyChart)) : feedColor(entry.feedType)
+    }
+
+    /// Determines the last recorded date as a string
+    private func lastEntryDate(_ entries: [FeedEntry]) -> String {
+        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
+            return ""
+        }
+        return dateString(lastEntry.dateTime)
     }
     
     private func indexEntriesPerDay(_ entries: [FeedEntry]) -> [(entry: FeedEntry, index: Int)] {
@@ -46,37 +60,31 @@ struct FeedChart: View {
         }
     }
     
-    private func dateString(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
-    
     private func bubbleSize(_ entry: FeedEntry) -> Double {
         switch entry.feedType {
         case .directBreastfeeding:
             guard let duration = entry.feedTimeInMinutes else { return 30 }
             switch duration {
-            case 0..<5: return isMini ? 30 : 100
-            case 5..<10: return isMini ? 60 : 200
-            case 10..<20: return isMini ? 90 : 350
-            default: return isMini ? 120 : 600
+            case 0..<10: return isMini ? 30 : 100
+            case 10..<20: return isMini ? 60 : 300
+            default: return isMini ? 100 : 650
             }
         case .bottle:
             guard let volume = entry.feedVolumeInML else { return 30 }
             switch volume {
-            case 15..<30: return isMini ? 30 : 100
-            case 30..<60: return isMini ? 60 : 200
-            case 60..<90: return isMini ? 90 : 350
-            default: return isMini ? 120 : 600
+            case 0..<10: return isMini ? 30 : 100
+            case 10..<30: return isMini ? 60 : 300
+            default: return isMini ? 100 : 650
             }
         }
     }
     
     private func feedColor(_ type: FeedType) -> Color {
         switch type {
-        case .directBreastfeeding: return .pink
-        case .bottle: return .purple
+        case .directBreastfeeding:
+            return .pink
+        case .bottle:
+            return .purple
         }
     }
 }
@@ -115,6 +123,12 @@ struct FeedsSummaryView: View {
                             .foregroundColor(.pink)
                         
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
                     
@@ -134,7 +148,6 @@ struct FeedsSummaryView: View {
                             Spacer()
                             MiniFeedChart(entries: entries)
                                 .frame(width: 60, height: 40)
-                                .opacity(0.5)
                         }
                         .padding([.bottom, .horizontal])
                     } else {
@@ -156,6 +169,6 @@ struct MiniFeedChart: View {
     var body: some View {
         FeedChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
-            .opacity(0.5)
+            .opacity(0.8)
     }
 }

@@ -43,10 +43,10 @@ struct DashboardView: View {
             VStack(spacing: 16) {
                 babyPicker
                 if let baby {
+                    WeightsSummaryView(entries: baby.weightEntries.weightEntries)
                     FeedsSummaryView(entries: baby.feedEntries.feedEntries)
                     WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries)
                     StoolsSummaryView(entries: baby.stoolEntries.stoolEntries)
-                    WeightsSummaryView(entries: baby.weightEntries.weightEntries)
                 }
             }
             .padding()

@@ -17,7 +17,8 @@ struct WetDiaperChart: View {
 
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries)
-
+        let lastDay = lastEntryDate(entries) // Get the last recorded date
+        
         Chart {
             ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
                 PointMark(
@@ -25,17 +26,30 @@ struct WetDiaperChart: View {
                     y: .value("Diaper #", indexedEntry.index) // Use the sequential index
                 )
                 .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini))
-                .foregroundStyle(diaperColor(indexedEntry.entry.color))
+                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay))
             }
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
-        .chartXScale(domain: last7DaysRange()) // Restrict initial view to last 7 days
+        .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
     }
+    
+    
+    private func miniColor(entry: WetDiaperEntry, isMini: Bool, lastDay: String) -> Color {
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .indigo : Color(.greyChart)) : diaperColor(entry.color)
+    }
 
+    /// Determines the last recorded date as a string
+    private func lastEntryDate(_ entries: [WetDiaperEntry]) -> String {
+        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
+            return ""
+        }
+        return dateString(lastEntry.dateTime)
+    }
+    
     /// Assigns a sequential index to each entry within its respective day
     private func indexEntriesPerDay(_ entries: [WetDiaperEntry]) -> [(entry: WetDiaperEntry, index: Int)] {
         let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
@@ -48,14 +62,7 @@ struct WetDiaperChart: View {
             return (entry, index)
         }
     }
-
-    /// Formats a date into a string (e.g., "2025-03-06") for grouping
-    private func dateString(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
-
+    
     private func bubbleSize(_ volume: DiaperVolume, _ isMini: Bool) -> Double {
         switch volume {
         case .light: return isMini ? 30 : 100
@@ -104,11 +111,17 @@ struct WetDiapersSummaryView: View {
                             .font(.title3)
                             .foregroundColor(.indigo)
                         
-                        Text("Wet Diapers")
+                        Text("Voids")
                             .font(.title3.bold())
                             .foregroundColor(.indigo)
                         
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .accessibilityLabel("Next page")
+                            .foregroundColor(.gray)
+                            .font(.caption)
+                            .fontWeight(.semibold)
                     }
                     .padding()
                     
@@ -122,7 +135,6 @@ struct WetDiapersSummaryView: View {
                             Spacer()
                             MiniWetDiaperChart(entries: entries)
                                 .frame(width: 60, height: 40)
-                                .opacity(0.5)
                         }
                         .padding([.bottom, .horizontal])
                     } else {
@@ -144,5 +156,6 @@ struct MiniWetDiaperChart: View {
     var body: some View {
         WetDiaperChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
+            .opacity(0.8)
     }
 }
