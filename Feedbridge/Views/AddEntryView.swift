@@ -20,8 +20,8 @@ import SwiftUI
 /// Represents the user’s choice for which kind of entry we’re creating.
 enum EntryKind: String, CaseIterable, Identifiable {
   case weight = "Weight"
-  case feeding = "Feeding"
-  case wetDiaper = "Wet Diaper"
+  case feeding = "Feed"
+  case wetDiaper = "Void"
   case stool = "Stool"
   case dehydration = "Dehydration"
 
@@ -201,67 +201,99 @@ extension AddEntryView {
     }
   }
 
-  /// A vertical list of entry-kinds to choose from
-  private var entryKindSection: some View {
-    VStack(alignment: .leading, spacing: 8) {
-      Text("What entry would you like to enter?")
-        .font(.headline)
+    /// A vertical list of entry-kinds to choose from
+    private var entryKindSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("What entry would you like to enter?")
+                .font(.headline)
 
-      // A simple vertical list of selectable items:
-      VStack(alignment: .leading, spacing: 4) {
-        ForEach(EntryKind.allCases) { kind in
-          Button {
-            withAnimation {
-              resetAllFields()
-              entryKind = kind
+            // A simple vertical list of selectable items:
+            VStack(alignment: .leading, spacing: 4) {
+                ForEach(EntryKind.allCases) { kind in
+                    Button {
+                        withAnimation {
+                            resetAllFields()
+                            entryKind = kind
+                        }
+                    } label: {
+                        HStack {
+                            Text(kind.rawValue)
+                                .font(entryKind == kind
+                                      ? .body.bold()
+                                      : .body)
+                                .foregroundColor(entryKind == kind
+                                                 ? accentColor(for: kind)
+                                                 : .black)
+                            Spacer()
+                            if entryKind == kind {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                        .padding()
+                        .background(
+                            entryKind == kind
+                                ? accentColor(for: kind).opacity(0.15)
+                                : Color.gray.opacity(0.15)
+                        )
+                        .cornerRadius(8)
+                    }
+                }
             }
-          } label: {
-            HStack {
-              Text(kind.rawValue)
-                .font(.body)
-              Spacer()
-              if entryKind == kind {
-                Image(systemName: "checkmark")
-                  .foregroundColor(.blue)
-              }
-            }
-            .padding()
-            .background(
-              entryKind == kind
-                ? Color.blue.opacity(0.2)
-                : Color.gray.opacity(0.15)
-            )
-            .cornerRadius(8)
-          }
         }
-      }
+        .padding(.horizontal)
     }
-    .padding(.horizontal)
-  }
 
-  /// Decides which subview to show for the selected entryKind
-  @ViewBuilder
-  private func dynamicFields(for kind: EntryKind) -> some View {
-    switch kind {
-    case .weight:
-      weightEntryView
-    case .feeding:
-      feedingEntryView
-    case .wetDiaper:
-      wetDiaperView
-    case .stool:
-      stoolView
-    case .dehydration:
-      dehydrationView
+    /// Decides which subview to show for the selected entryKind
+    @ViewBuilder
+    private func dynamicFields(for kind: EntryKind) -> some View {
+        switch kind {
+        case .weight:
+            weightEntryView
+        case .feeding:
+            feedingEntryView
+        case .wetDiaper:
+            wetDiaperView
+        case .stool:
+            stoolView
+        case .dehydration:
+            dehydrationView
+        }
     }
-  }
+
+    /// A function that returns a specific background color depending on the entry kind
+    private func accentColor(for kind: EntryKind) -> Color {
+        switch kind {
+        case .weight:
+            return Color.indigo
+        case .feeding:
+            return Color.pink
+        case .wetDiaper:
+            return Color.orange
+        case .stool:
+            return Color.brown
+        case .dehydration:
+            return Color.green
+        }
+    }
+
 
   // MARK: - Weight UI
 
   private var weightEntryView: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("Enter Weight")
-        .font(.headline)
+        HStack {
+            Image(systemName: "scalemass")
+                .accessibilityLabel("Scale")
+                .font(.title3)
+                .foregroundColor(accentColor(for: .weight))
+
+            Text("Weight Details")
+                .font(.title3.bold())
+                .foregroundColor(accentColor(for: .weight))
+
+            Spacer()
+        }
         
         Picker("Unit", selection: $weightUnit) {
             ForEach(WeightUnit.allCases, id: \.self) {
@@ -310,8 +342,18 @@ extension AddEntryView {
 
   private var feedingEntryView: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("Feeding Details")
-        .font(.headline)
+        HStack {
+            Image(systemName: "flame.fill")
+                .accessibilityLabel("Flame")
+                .font(.title3)
+                .foregroundColor(accentColor(for: .feeding))
+
+            Text("Feed Details")
+                .font(.title3.bold())
+                .foregroundColor(accentColor(for: .feeding))
+
+            Spacer()
+        }
 
       Picker("Feeding Type", selection: $feedType) {
         Text("Direct Breastfeeding").tag(FeedType.directBreastfeeding)
@@ -351,8 +393,18 @@ extension AddEntryView {
 
   private var wetDiaperView: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("Wet Diaper")
-        .font(.headline)
+        HStack {
+            Image(systemName: "drop.fill")
+                .accessibilityLabel("Wet Diaper Drop")
+                .font(.title3)
+                .foregroundColor(accentColor(for: .wetDiaper))
+
+            Text("Void Details")
+                .font(.title3.bold())
+                .foregroundColor(accentColor(for: .wetDiaper))
+
+            Spacer()
+        }
 
       Picker("Volume", selection: $wetVolume) {
         Text("Light").tag(DiaperVolume.light)
@@ -374,8 +426,18 @@ extension AddEntryView {
 
   private var stoolView: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("Stool")
-        .font(.headline)
+        HStack {
+            Image(systemName: "drop.fill")
+                .accessibilityLabel("Stool Drop")
+                .font(.title3)
+                .foregroundColor(.brown)
+            
+            Text("Stool Details")
+                .font(.title3.bold())
+                .foregroundColor(.brown)
+            
+            Spacer()
+        }
 
       Picker("Volume", selection: $stoolVolume) {
         Text("Light").tag(StoolVolume.light)
@@ -395,13 +457,24 @@ extension AddEntryView {
       .pickerStyle(.segmented)
     }
   }
+    
 
   // MARK: - Dehydration UI
 
   private var dehydrationView: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("Dehydration Check")
-        .font(.headline)
+        HStack {
+            Image(systemName: "heart.fill")
+                .accessibilityLabel("Dehydration Heart")
+                .font(.title3)
+                .foregroundColor(accentColor(for: .dehydration))
+
+            Text("Dehydration Details")
+                .font(.title3.bold())
+                .foregroundColor(accentColor(for: .dehydration))
+
+            Spacer()
+        }
 
       Toggle("Poor Skin Elasticity", isOn: $poorSkinElasticity)
       Toggle("Dry Mucous Membranes", isOn: $dryMucousMembranes)
