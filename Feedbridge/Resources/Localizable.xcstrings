@@ -1,6 +1,22 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%.2f kg" : {
+
+    },
+    "%.2f lbs" : {
+
+    },
+    "%@ and %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ and %2$@"
+          }
+        }
+      }
+    },
     "⚠️ Dehydration Alert" : {
 
     },
@@ -58,9 +74,6 @@
     "Add Entries" : {
 
     },
-    "Add Entry" : {
-
-    },
     "Add Feed Entry" : {
 
     },
@@ -116,7 +129,13 @@
     "Bottle" : {
 
     },
-    "Bottle volume (ml)" : {
+    "Bottle Feed: %lld ml" : {
+
+    },
+    "Bottle: %lld ml" : {
+
+    },
+    "Breastfeeding: %lld min" : {
 
     },
     "Breastmilk" : {
@@ -186,6 +205,12 @@
     "Dark Green" : {
 
     },
+    "Dashboard" : {
+
+    },
+    "Date" : {
+
+    },
     "Date & Time" : {
 
     },
@@ -208,6 +233,9 @@
 
     },
     "Dry Mucous Membranes: %@" : {
+
+    },
+    "Duration (min)" : {
 
     },
     "Duration: %lld min" : {
@@ -247,13 +275,13 @@
     "Feeding Method" : {
 
     },
-    "Feeding Type" : {
+    "Feeds" : {
+
+    },
+    "Flame" : {
 
     },
     "Formula" : {
-
-    },
-    "Get Started" : {
 
     },
     "Grant Access" : {
@@ -313,9 +341,6 @@
       }
     },
     "Heavy" : {
-
-    },
-    "Hi! It is now:" : {
 
     },
     "HL7 FHIR" : {
@@ -459,6 +484,9 @@
     "No baby selected" : {
 
     },
+    "No data added" : {
+
+    },
     "No weight entries" : {
 
     },
@@ -523,13 +551,13 @@
     "Pounds" : {
 
     },
-    "Red" : {
-
-    },
     "Red-Tinged" : {
 
     },
     "Save" : {
+
+    },
+    "Scale" : {
 
     },
     "Schedule" : {
@@ -589,10 +617,13 @@
         }
       }
     },
-    "Stool" : {
+    "Stool Drop" : {
 
     },
     "Stool Entries" : {
+
+    },
+    "Stools" : {
 
     },
     "Swift Package Manager" : {
@@ -636,7 +667,7 @@
         }
       }
     },
-    "Track Progress" : {
+    "Time" : {
 
     },
     "Type: %@" : {
@@ -658,19 +689,25 @@
     "Volume" : {
 
     },
+    "Volume (ml)" : {
+
+    },
     "Volume: %@" : {
 
     },
     "Volume: %lld mL" : {
 
     },
-    "Warning" : {
+    "Weight (kg)" : {
 
     },
     "Weight Entries" : {
 
     },
     "Weight in Kilograms" : {
+
+    },
+    "Weights" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {
@@ -723,13 +760,13 @@
         }
       }
     },
-    "Wet Diaper" : {
+    "Wet Diaper Drop" : {
 
     },
     "Wet Diaper Entries" : {
 
     },
-    "What entry would you like to enter?" : {
+    "Wet Diapers" : {
 
     },
     "Yellow" : {

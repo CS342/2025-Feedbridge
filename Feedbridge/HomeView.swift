@@ -12,15 +12,15 @@ import SwiftUI
 
 struct HomeView: View {
     enum Tabs: String {
+        case dashboard
         case addEntries
         case debug
-//        case addBabies
 //        case schedule
 //        case contact
     }
 
 
-    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.addEntries
+    @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.dashboard
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
@@ -28,6 +28,9 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
+            Tab("Dashboard", systemImage: "house", value: .dashboard) {
+                DashboardView(presentingAccount: $presentingAccount)
+            }
             Tab("Add Entries", systemImage: "plus", value: .addEntries) {
 //               AddDataView(presentingAccount: $presentingAccount)
                 AddEntryView()
@@ -35,9 +38,6 @@ struct HomeView: View {
             Tab("Baby Debug View", systemImage: "figure.2.and.child.holdinghands", value: .debug) {
                 BabyDebugDisplayView()
             }
-//            Tab("Add Babies", systemImage: "figure.2.and.child.holdinghands", value: .addBabies) {
-//                AddBabyView()
-//            }
 //            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
 //                ScheduleView(presentingAccount: $presentingAccount)
 //            }fe
