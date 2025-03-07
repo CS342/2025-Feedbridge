@@ -1,6 +1,22 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%.2f kg" : {
+
+    },
+    "%.2f lbs" : {
+
+    },
+    "%@ and %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ and %2$@"
+          }
+        }
+      }
+    },
     "⚠️ Dehydration Alert" : {
 
     },
@@ -61,7 +77,13 @@
     "Add New Baby" : {
 
     },
+    "Add Stool Entry" : {
+
+    },
     "Add Weight Entry" : {
+
+    },
+    "Add Wet Diaper Entry" : {
 
     },
     "Add Your Baby" : {
@@ -95,10 +117,28 @@
     "Basic Info" : {
 
     },
+    "Beige" : {
+
+    },
+    "Black" : {
+
+    },
     "Bottle" : {
 
     },
+    "Bottle Feed: %lld ml" : {
+
+    },
+    "Bottle: %lld ml" : {
+
+    },
+    "Breastfeeding: %lld min" : {
+
+    },
     "Breastmilk" : {
+
+    },
+    "Brown" : {
 
     },
     "Cancel" : {
@@ -113,6 +153,9 @@
           }
         }
       }
+    },
+    "Color" : {
+
     },
     "Color: %@" : {
 
@@ -153,6 +196,15 @@
     "Current Weight" : {
 
     },
+    "Dark Green" : {
+
+    },
+    "Dashboard" : {
+
+    },
+    "Date" : {
+
+    },
     "Date & Time" : {
 
     },
@@ -172,6 +224,9 @@
 
     },
     "Dry Mucous Membranes: %@" : {
+
+    },
+    "Duration (min)" : {
 
     },
     "Duration: %lld min" : {
@@ -202,6 +257,12 @@
     "Feeding Method" : {
 
     },
+    "Feeds" : {
+
+    },
+    "Flame" : {
+
+    },
     "Formula" : {
 
     },
@@ -214,6 +275,9 @@
           }
         }
       }
+    },
+    "Green" : {
+
     },
     "Has Active Alerts" : {
 
@@ -257,6 +321,9 @@
           }
         }
       }
+    },
+    "Heavy" : {
+
     },
     "HL7 FHIR" : {
       "localizations" : {
@@ -361,6 +428,12 @@
         }
       }
     },
+    "Light" : {
+
+    },
+    "Medium" : {
+
+    },
     "Menu dropdown" : {
 
     },
@@ -384,6 +457,9 @@
       }
     },
     "No baby selected" : {
+
+    },
+    "No data added" : {
 
     },
     "No weight entries" : {
@@ -425,6 +501,9 @@
     "Ounces" : {
 
     },
+    "Pink" : {
+
+    },
     "Please enter your baby's information" : {
 
     },
@@ -447,7 +526,13 @@
     "Pounds" : {
 
     },
+    "Red-Tinged" : {
+
+    },
     "Save" : {
+
+    },
+    "Scale" : {
 
     },
     "Schedule" : {
@@ -503,7 +588,13 @@
         }
       }
     },
+    "Stool Drop" : {
+
+    },
     "Stool Entries" : {
+
+    },
+    "Stools" : {
 
     },
     "Swift Package Manager" : {
@@ -526,6 +617,12 @@
         }
       }
     },
+    "This color may indicate a medical concern" : {
+
+    },
+    "This color may indicate dehydration" : {
+
+    },
     "This name is already taken" : {
 
     },
@@ -538,6 +635,9 @@
           }
         }
       }
+    },
+    "Time" : {
+
     },
     "Type: %@" : {
 
@@ -555,16 +655,28 @@
         }
       }
     },
+    "Volume" : {
+
+    },
+    "Volume (ml)" : {
+
+    },
     "Volume: %@" : {
 
     },
     "Volume: %lld mL" : {
 
     },
+    "Weight (kg)" : {
+
+    },
     "Weight Entries" : {
 
     },
     "Weight in Kilograms" : {
+
+    },
+    "Weights" : {
 
     },
     "WELCOME_AREA1_DESCRIPTION" : {
@@ -607,7 +719,16 @@
         }
       }
     },
+    "Wet Diaper Drop" : {
+
+    },
     "Wet Diaper Entries" : {
+
+    },
+    "Wet Diapers" : {
+
+    },
+    "Yellow" : {
 
     },
     "Your Account" : {
