@@ -32,7 +32,7 @@ struct WeightsView: View {
                 let day = Calendar.current.startOfDay(for: entry.dateTime)
                 PointMark(
                     x: .value("Date", day),
-                    y: .value("Weight (kg)", entry.asKilograms.value)
+                    y: .value("Weight (lb)", entry.asPounds.value)
                 )
                 .foregroundStyle(.gray)
                 .symbol {
@@ -45,7 +45,7 @@ struct WeightsView: View {
             ForEach(averagedEntries) { entry in
                 LineMark(
                     x: .value("Date", entry.date),
-                    y: .value("Weight (kg)", entry.averageWeight)
+                    y: .value("Weight (lb)", entry.averageWeight)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.orange)
@@ -59,7 +59,7 @@ struct WeightsView: View {
     private var weightEntriesList: some View {
         List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
-                Text("\(entry.asKilograms.value, specifier: "%.2f") kg")
+                Text("\(entry.asPounds.value, specifier: "%.2f") lb")
                     .font(.headline)
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)
@@ -74,7 +74,7 @@ struct WeightsView: View {
         }
 
         return grouped.map { (date, entries) in
-            let totalWeight = entries.reduce(0) { $0 + $1.asKilograms.value }
+            let totalWeight = entries.reduce(0) { $0 + $1.asPounds.value }
             let averageWeight = totalWeight / Double(entries.count)
             return DailyAverageWeight(date: date, averageWeight: averageWeight)
         }
