@@ -1,7 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%.2f kg" : {
+    "%.2f lb" : {
 
     },
     "%.2f lbs" : {
@@ -728,7 +728,7 @@
     "Warning" : {
 
     },
-    "Weight (kg)" : {
+    "Weight (lb)" : {
 
     },
     "Weight Entries" : {

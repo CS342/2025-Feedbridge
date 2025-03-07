@@ -11,15 +11,13 @@ struct StoolsView: View {
     let entries: [StoolEntry]
 
     var body: some View {
-        NavigationView {
-            VStack {
+        NavigationStack {
                 StoolChart(entries: entries, isMini: false)
-                    .frame(height: 300)
-                    .padding()
-                stoolEntriesList
-            }
-            .navigationTitle("Stools")
+                .frame(height: 300)
+                .padding()
+            stoolEntriesList
         }
+        .navigationTitle("Stools")
     }
 
     private var stoolEntriesList: some View {

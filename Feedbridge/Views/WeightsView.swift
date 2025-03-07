@@ -12,15 +12,13 @@ struct WeightsView: View {
     let entries: [WeightEntry]
 
     var body: some View {
-        NavigationView {
-            VStack {
-                WeightChart(entries: entries, isMini: false)
-                    .frame(height: 300)
-                    .padding()
-                weightEntriesList
-            }
-            .navigationTitle("Weights")
+        NavigationStack {
+            WeightChart(entries: entries, isMini: false)
+                .frame(height: 300)
+                .padding()
+            weightEntriesList
         }
+        .navigationTitle("Weights")
     }
 
 

@@ -11,15 +11,13 @@ struct FeedsView: View {
     let entries: [FeedEntry]
     
     var body: some View {
-        NavigationView {
-            VStack {
+        NavigationStack {
                 FeedChart(entries: entries, isMini: false)
                 .frame(height: 300)
                 .padding()
                 feedEntriesList
-            }
-            .navigationTitle("Feeds")
         }
+        .navigationTitle("Feeds")
     }
 
     private var feedEntriesList: some View {

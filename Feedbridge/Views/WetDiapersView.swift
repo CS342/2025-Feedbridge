@@ -11,15 +11,13 @@ struct WetDiapersView: View {
     let entries: [WetDiaperEntry]
 
     var body: some View {
-        NavigationView {
-            VStack {
-                WetDiaperChart(entries: entries, isMini: false)
-                    .frame(height: 300)
-                    .padding()
-                wetDiaperEntriesList
-            }
-            .navigationTitle("Wet Diapers")
+        NavigationStack {
+            WetDiaperChart(entries: entries, isMini: false)
+                .frame(height: 300)
+                .padding()
+            wetDiaperEntriesList
         }
+        .navigationTitle("Wet Diapers")
     }
 
     // List of Wet Diaper Entries
