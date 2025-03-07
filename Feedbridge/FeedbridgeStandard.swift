@@ -27,8 +27,7 @@ actor FeedbridgeStandard: Standard,
   EnvironmentAccessible,
   HealthKitConstraint,
   ConsentConstraint,
-  AccountNotifyConstraint
-{
+  AccountNotifyConstraint {
   @Application(\.logger) private var logger
 
   @Dependency(FirebaseConfiguration.self) private var configuration
@@ -117,7 +116,8 @@ actor FeedbridgeStandard: Standard,
         ).first
       else {
         await logger.error(
-          "Could not create path for writing consent form to user document directory.")
+          "Could not create path for writing consent form to user document directory."
+          )
         return
       }
 
@@ -373,7 +373,6 @@ actor FeedbridgeStandard: Standard,
         .collection("dehydrationChecks")
 
       try await checksCollection.document().setData(from: check)
-
     } catch {
       print("Firestore error: \(error)")
       await logger.error("Detailed error: \(error)")
@@ -386,8 +385,10 @@ actor FeedbridgeStandard: Standard,
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
       throw NSError(
-        domain: "FeedbridgeStandard", code: 401,
-        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        domain: "FeedbridgeStandard",
+        code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
+      )
     }
 
     do {
@@ -414,8 +415,10 @@ actor FeedbridgeStandard: Standard,
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
       throw NSError(
-        domain: "FeedbridgeStandard", code: 401,
-        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        domain: "FeedbridgeStandard",
+        code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
+      )
     }
 
     do {
@@ -442,8 +445,10 @@ actor FeedbridgeStandard: Standard,
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
       throw NSError(
-        domain: "FeedbridgeStandard", code: 401,
-        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        domain: "FeedbridgeStandard",
+        code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
+      )
     }
 
     do {
@@ -470,8 +475,10 @@ actor FeedbridgeStandard: Standard,
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
       throw NSError(
-        domain: "FeedbridgeStandard", code: 401,
-        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        domain: "FeedbridgeStandard",
+        code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
+      )
     }
 
     do {
@@ -498,8 +505,10 @@ actor FeedbridgeStandard: Standard,
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
       throw NSError(
-        domain: "FeedbridgeStandard", code: 401,
-        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        domain: "FeedbridgeStandard",
+        code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
+      )
     }
 
     do {
@@ -526,8 +535,10 @@ actor FeedbridgeStandard: Standard,
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
       throw NSError(
-        domain: "FeedbridgeStandard", code: 401,
-        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        domain: "FeedbridgeStandard",
+        code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
+      )
     }
 
     do {

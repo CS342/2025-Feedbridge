@@ -10,7 +10,6 @@
 //
 // swiftlint:disable closure_body_length
 // swiftlint:disable file_length
-// swiftlint:disable function_body_length
 
 import FirebaseFirestore
 import SwiftUI
@@ -39,7 +38,7 @@ struct ValidationError: LocalizedError {
 // MARK: - [ Main Type ]
 
 struct AddEntryView: View {
-    // MARK: [ Subtype ]
+    // MARK: - [ Subtype ]
 
     enum FieldFocus {
         case weightKg, weightLb, weightOz
@@ -47,7 +46,7 @@ struct AddEntryView: View {
         // Add more as needed for automatic focusing
     }
 
-    // MARK: [ Instance Properties ]
+    // MARK: - [ Instance Properties ]
 
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -92,7 +91,7 @@ struct AddEntryView: View {
     // Error handling
     @State private var errorMessage: String?
 
-    // MARK: [ View Lifecycle Method ]
+    // MARK: - [ View Lifecycle Method ]
 
     var body: some View {
         NavigationView {
@@ -206,6 +205,7 @@ extension AddEntryView {
                             if entryKind == kind {
                                 Image(systemName: "checkmark")
                                     .foregroundColor(.blue)
+                                    .accessibilityLabel("Selected")
                             }
                         }
                         .padding()
@@ -218,23 +218,6 @@ extension AddEntryView {
             }
         }
         .padding(.horizontal)
-    }
-
-    /// Decides which subview to show for the selected entryKind
-    @ViewBuilder
-    private func dynamicFields(for kind: EntryKind) -> some View {
-        switch kind {
-        case .weight:
-            weightEntryView
-        case .feeding:
-            feedingEntryView
-        case .wetDiaper:
-            wetDiaperView
-        case .stool:
-            stoolView
-        case .dehydration:
-            dehydrationView
-        }
     }
 
     // MARK: - Weight UI
@@ -393,6 +376,24 @@ extension AddEntryView {
         .padding(.vertical, 8)
         .disabled(selectedBabyId == nil)
     }
+
+    // MARK: - Dynamic Fields
+
+    @ViewBuilder
+    private func dynamicFields(for kind: EntryKind) -> some View {
+        switch kind {
+        case .weight:
+            weightEntryView
+        case .feeding:
+            feedingEntryView
+        case .wetDiaper:
+            wetDiaperView
+        case .stool:
+            stoolView
+        case .dehydration:
+            dehydrationView
+        }
+    }
 }
 
 // MARK: - [ Extension: Actions ]
@@ -405,8 +406,7 @@ extension AddEntryView {
 
             // Restore previously selected from UserDefaults, if any
             if let stored = UserDefaults.standard.selectedBabyId,
-               loadedBabies.map(\.id).contains(stored)
-            {
+               loadedBabies.map(\.id).contains(stored) {
                 selectedBabyId = stored
             }
         } catch {
@@ -443,53 +443,15 @@ extension AddEntryView {
         do {
             switch entryKind {
             case .weight:
-                if let weightKg = Double(weightKg), weightKg > 0 {
-                    let entry = WeightEntry(kilograms: weightKg, dateTime: date)
-                    try await standard.addWeightEntry(entry, toBabyWithId: babyId)
-                } else if
-                    let weightLb = Double(weightLb), weightLb >= 0,
-                    let weightOz = Double(weightOz), weightOz >= 0,
-                    weightLb > 0 || weightOz > 0
-                {
-                    let pounds = Int(weightLb)
-                    let ounces = Int(weightOz)
-                    let entry = WeightEntry(pounds: pounds, ounces: ounces, dateTime: date)
-                    try await standard.addWeightEntry(entry, toBabyWithId: babyId)
-                } else {
-                    throw ValidationError("Invalid weight values")
-                }
-
+                try await saveWeightEntry(babyId: babyId)
             case .feeding:
-                if feedType == .directBreastfeeding {
-                    guard let minutes = Int(feedTimeInMinutes), minutes > 0 else {
-                        throw ValidationError("Invalid feed time")
-                    }
-                    let entry = FeedEntry(directBreastfeeding: minutes, dateTime: date)
-                    try await standard.addFeedEntry(entry, toBabyWithId: babyId)
-                } else {
-                    guard let volume = Int(feedVolumeInML), volume > 0 else {
-                        throw ValidationError("Invalid feed volume")
-                    }
-                    let entry = FeedEntry(bottle: volume, milkType: milkType, dateTime: date)
-                    try await standard.addFeedEntry(entry, toBabyWithId: babyId)
-                }
-
+                try await saveFeedEntry(babyId: babyId)
             case .wetDiaper:
-                let entry = WetDiaperEntry(dateTime: date, volume: wetVolume, color: wetColor)
-                try await standard.addWetDiaperEntry(entry, toBabyWithId: babyId)
-
+                try await saveWetDiaperEntry(babyId: babyId)
             case .stool:
-                let entry = StoolEntry(dateTime: date, volume: stoolVolume, color: stoolColor)
-                try await standard.addStoolEntry(entry, toBabyWithId: babyId)
-
+                try await saveStoolEntry(babyId: babyId)
             case .dehydration:
-                let entry = DehydrationCheck(
-                    dateTime: date,
-                    poorSkinElasticity: poorSkinElasticity,
-                    dryMucousMembranes: dryMucousMembranes
-                )
-                try await standard.addDehydrationCheck(entry, toBabyWithId: babyId)
-
+                try await saveDehydrationCheck(babyId: babyId)
             case .none:
                 return
             }
@@ -501,6 +463,58 @@ extension AddEntryView {
         } catch {
             errorMessage = error.localizedDescription
         }
+    }
+    
+    private func saveWeightEntry(babyId: String) async throws {
+        if let weightKg = Double(weightKg), weightKg > 0 {
+            let entry = WeightEntry(kilograms: weightKg, dateTime: date)
+            try await standard.addWeightEntry(entry, toBabyWithId: babyId)
+        } else if
+            let weightLb = Double(weightLb), weightLb >= 0,
+            let weightOz = Double(weightOz), weightOz >= 0,
+            weightLb > 0 || weightOz > 0 {
+            let pounds = Int(weightLb)
+            let ounces = Int(weightOz)
+            let entry = WeightEntry(pounds: pounds, ounces: ounces, dateTime: date)
+            try await standard.addWeightEntry(entry, toBabyWithId: babyId)
+        } else {
+            throw ValidationError("Invalid weight values")
+        }
+    }
+    
+    private func saveFeedEntry(babyId: String) async throws {
+        if feedType == .directBreastfeeding {
+            guard let minutes = Int(feedTimeInMinutes), minutes > 0 else {
+                throw ValidationError("Invalid feed time")
+            }
+            let entry = FeedEntry(directBreastfeeding: minutes, dateTime: date)
+            try await standard.addFeedEntry(entry, toBabyWithId: babyId)
+        } else {
+            guard let volume = Int(feedVolumeInML), volume > 0 else {
+                throw ValidationError("Invalid feed volume")
+            }
+            let entry = FeedEntry(bottle: volume, milkType: milkType, dateTime: date)
+            try await standard.addFeedEntry(entry, toBabyWithId: babyId)
+        }
+    }
+    
+    private func saveWetDiaperEntry(babyId: String) async throws {
+        let entry = WetDiaperEntry(dateTime: date, volume: wetVolume, color: wetColor)
+        try await standard.addWetDiaperEntry(entry, toBabyWithId: babyId)
+    }
+    
+    private func saveStoolEntry(babyId: String) async throws {
+        let entry = StoolEntry(dateTime: date, volume: stoolVolume, color: stoolColor)
+        try await standard.addStoolEntry(entry, toBabyWithId: babyId)
+    }
+    
+    private func saveDehydrationCheck(babyId: String) async throws {
+        let entry = DehydrationCheck(
+            dateTime: date,
+            poorSkinElasticity: poorSkinElasticity,
+            dryMucousMembranes: dryMucousMembranes
+        )
+        try await standard.addDehydrationCheck(entry, toBabyWithId: babyId)
     }
 }
 
@@ -576,7 +590,9 @@ extension View {
 
 // MARK: - [ Preview Provider ]
 
-#Preview {
-    AddEntryView()
-        .previewWith(standard: FeedbridgeStandard()) {}
+struct AddEntryView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddEntryView()
+            .previewWith(standard: FeedbridgeStandard()) {}
+    }
 }
