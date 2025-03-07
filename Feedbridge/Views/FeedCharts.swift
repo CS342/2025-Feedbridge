@@ -7,6 +7,8 @@
 
 import Charts
 import SwiftUI
+// swiftlint:disable closure_body_length
+
 struct FeedChart: View {
     let entries: [FeedEntry]
     // Flag to determine whether it's a mini chart or a full chart

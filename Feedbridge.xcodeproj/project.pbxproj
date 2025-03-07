@@ -50,6 +50,15 @@
 		2FE5DC9C29EDD9EF004B9AB4 /* XCTHealthKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9B29EDD9EF004B9AB4 /* XCTHealthKit */; };
 		2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DCAC29EE6107004B9AB4 /* AccountOnboarding.swift */; };
 		2FF53D8D2A8729D600042B76 /* FeedbridgeStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */; };
+		35DCCFD62D7AAAFD0045DB20 /* WetDiapersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD52D7AAAFD0045DB20 /* WetDiapersView.swift */; };
+		35DCCFD72D7AAAFD0045DB20 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */; };
+		35DCCFD82D7AAAFD0045DB20 /* StoolCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD02D7AAAFD0045DB20 /* StoolCharts.swift */; };
+		35DCCFD92D7AAAFD0045DB20 /* WeightCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD22D7AAAFD0045DB20 /* WeightCharts.swift */; };
+		35DCCFDA2D7AAAFD0045DB20 /* WetDiaperCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD42D7AAAFD0045DB20 /* WetDiaperCharts.swift */; };
+		35DCCFDB2D7AAAFD0045DB20 /* FeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFCF2D7AAAFD0045DB20 /* FeedsView.swift */; };
+		35DCCFDC2D7AAAFD0045DB20 /* FeedCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */; };
+		35DCCFDD2D7AAAFD0045DB20 /* StoolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD12D7AAAFD0045DB20 /* StoolsView.swift */; };
+		35DCCFDE2D7AAAFD0045DB20 /* WeightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD32D7AAAFD0045DB20 /* WeightsView.swift */; };
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
@@ -128,6 +137,15 @@
 		2FE5DCAC29EE6107004B9AB4 /* AccountOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
 		2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbridgeStandard.swift; sourceTree = "<group>"; };
 		358F60B12D73FEE000721B85 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCharts.swift; sourceTree = "<group>"; };
+		35DCCFCF2D7AAAFD0045DB20 /* FeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsView.swift; sourceTree = "<group>"; };
+		35DCCFD02D7AAAFD0045DB20 /* StoolCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolCharts.swift; sourceTree = "<group>"; };
+		35DCCFD12D7AAAFD0045DB20 /* StoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolsView.swift; sourceTree = "<group>"; };
+		35DCCFD22D7AAAFD0045DB20 /* WeightCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCharts.swift; sourceTree = "<group>"; };
+		35DCCFD32D7AAAFD0045DB20 /* WeightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsView.swift; sourceTree = "<group>"; };
+		35DCCFD42D7AAAFD0045DB20 /* WetDiaperCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiaperCharts.swift; sourceTree = "<group>"; };
+		35DCCFD52D7AAAFD0045DB20 /* WetDiapersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiapersView.swift; sourceTree = "<group>"; };
 		35E52D2B2D794472005A6BB7 /* WeightCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCharts.swift; sourceTree = "<group>"; };
 		35E52D302D79475E005A6BB7 /* StoolCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolCharts.swift; sourceTree = "<group>"; };
 		35E52D332D7947D3005A6BB7 /* StoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolsView.swift; sourceTree = "<group>"; };
@@ -313,6 +331,15 @@
 				5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */,
 				5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */,
 				5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */,
+				35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */,
+				35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */,
+				35DCCFCF2D7AAAFD0045DB20 /* FeedsView.swift */,
+				35DCCFD02D7AAAFD0045DB20 /* StoolCharts.swift */,
+				35DCCFD12D7AAAFD0045DB20 /* StoolsView.swift */,
+				35DCCFD22D7AAAFD0045DB20 /* WeightCharts.swift */,
+				35DCCFD32D7AAAFD0045DB20 /* WeightsView.swift */,
+				35DCCFD42D7AAAFD0045DB20 /* WetDiaperCharts.swift */,
+				35DCCFD52D7AAAFD0045DB20 /* WetDiapersView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -603,6 +630,15 @@
 			files = (
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
+				35DCCFD62D7AAAFD0045DB20 /* WetDiapersView.swift in Sources */,
+				35DCCFD72D7AAAFD0045DB20 /* DashboardView.swift in Sources */,
+				35DCCFD82D7AAAFD0045DB20 /* StoolCharts.swift in Sources */,
+				35DCCFD92D7AAAFD0045DB20 /* WeightCharts.swift in Sources */,
+				35DCCFDA2D7AAAFD0045DB20 /* WetDiaperCharts.swift in Sources */,
+				35DCCFDB2D7AAAFD0045DB20 /* FeedsView.swift in Sources */,
+				35DCCFDC2D7AAAFD0045DB20 /* FeedCharts.swift in Sources */,
+				35DCCFDD2D7AAAFD0045DB20 /* StoolsView.swift in Sources */,
+				35DCCFDE2D7AAAFD0045DB20 /* WeightsView.swift in Sources */,
 				5BB4CE122D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
