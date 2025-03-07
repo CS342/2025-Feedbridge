@@ -95,6 +95,9 @@
     "Amount: %lldml" : {
 
     },
+    "Are you sure you want to delete this baby? This action cannot be undone." : {
+
+    },
     "Baby Debug View" : {
 
     },
@@ -199,6 +202,12 @@
 
     },
     "Dehydration Symptoms" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Delete Baby" : {
 
     },
     "Direct Breastfeeding" : {
@@ -459,7 +468,19 @@
     "No baby selected" : {
 
     },
+    "No dehydration checks" : {
+
+    },
+    "No feed entries" : {
+
+    },
+    "No stool entries" : {
+
+    },
     "No weight entries" : {
+
+    },
+    "No wet diaper entries" : {
 
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {

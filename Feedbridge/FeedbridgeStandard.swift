@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 
 import FirebaseAuth
 @preconcurrency import FirebaseFirestore
@@ -380,4 +381,201 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
+  @MainActor
+  func deleteWeightEntry(babyId: String, entryId: String) async throws {
+    guard let userId = Auth.auth().currentUser?.uid else {
+      await logger.error("Could not get current user id")
+      throw NSError(
+        domain: "FeedbridgeStandard", code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+    }
+
+    do {
+      let fireStore = Firestore.firestore()
+      let entryRef =
+        fireStore
+        .collection("users")
+        .document(userId)
+        .collection("babies")
+        .document(babyId)
+        .collection("weightEntries")
+        .document(entryId)
+
+      try await entryRef.delete()
+    } catch {
+      print("Firestore error: \(error)")
+      await logger.error("Detailed error: \(error)")
+      throw error
+    }
+  }
+
+  @MainActor
+  func deleteFeedEntry(babyId: String, entryId: String) async throws {
+    guard let userId = Auth.auth().currentUser?.uid else {
+      await logger.error("Could not get current user id")
+      throw NSError(
+        domain: "FeedbridgeStandard", code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+    }
+
+    do {
+      let fireStore = Firestore.firestore()
+      let entryRef =
+        fireStore
+        .collection("users")
+        .document(userId)
+        .collection("babies")
+        .document(babyId)
+        .collection("feedEntries")
+        .document(entryId)
+
+      try await entryRef.delete()
+    } catch {
+      print("Firestore error: \(error)")
+      await logger.error("Detailed error: \(error)")
+      throw error
+    }
+  }
+
+  @MainActor
+  func deleteStoolEntry(babyId: String, entryId: String) async throws {
+    guard let userId = Auth.auth().currentUser?.uid else {
+      await logger.error("Could not get current user id")
+      throw NSError(
+        domain: "FeedbridgeStandard", code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+    }
+
+    do {
+      let fireStore = Firestore.firestore()
+      let entryRef =
+        fireStore
+        .collection("users")
+        .document(userId)
+        .collection("babies")
+        .document(babyId)
+        .collection("stoolEntries")
+        .document(entryId)
+
+      try await entryRef.delete()
+    } catch {
+      print("Firestore error: \(error)")
+      await logger.error("Detailed error: \(error)")
+      throw error
+    }
+  }
+
+  @MainActor
+  func deleteWetDiaperEntry(babyId: String, entryId: String) async throws {
+    guard let userId = Auth.auth().currentUser?.uid else {
+      await logger.error("Could not get current user id")
+      throw NSError(
+        domain: "FeedbridgeStandard", code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+    }
+
+    do {
+      let fireStore = Firestore.firestore()
+      let entryRef =
+        fireStore
+        .collection("users")
+        .document(userId)
+        .collection("babies")
+        .document(babyId)
+        .collection("wetDiaperEntries")
+        .document(entryId)
+
+      try await entryRef.delete()
+    } catch {
+      print("Firestore error: \(error)")
+      await logger.error("Detailed error: \(error)")
+      throw error
+    }
+  }
+
+  @MainActor
+  func deleteDehydrationCheck(babyId: String, entryId: String) async throws {
+    guard let userId = Auth.auth().currentUser?.uid else {
+      await logger.error("Could not get current user id")
+      throw NSError(
+        domain: "FeedbridgeStandard", code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+    }
+
+    do {
+      let fireStore = Firestore.firestore()
+      let entryRef =
+        fireStore
+        .collection("users")
+        .document(userId)
+        .collection("babies")
+        .document(babyId)
+        .collection("dehydrationChecks")
+        .document(entryId)
+
+      try await entryRef.delete()
+    } catch {
+      print("Firestore error: \(error)")
+      await logger.error("Detailed error: \(error)")
+      throw error
+    }
+  }
+
+  @MainActor
+  func deleteBaby(id: String) async throws {
+    guard let userId = Auth.auth().currentUser?.uid else {
+      await logger.error("Could not get current user id")
+      throw NSError(
+        domain: "FeedbridgeStandard", code: 401,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+    }
+
+    do {
+      let fireStore = Firestore.firestore()
+      let babyRef =
+        fireStore
+        .collection("users")
+        .document(userId)
+        .collection("babies")
+        .document(id)
+
+      // Delete all subcollections first
+      // Weight entries
+      let weightSnapshot = try await babyRef.collection("weightEntries").getDocuments()
+      for document in weightSnapshot.documents {
+        try await document.reference.delete()
+      }
+
+      // Feed entries
+      let feedSnapshot = try await babyRef.collection("feedEntries").getDocuments()
+      for document in feedSnapshot.documents {
+        try await document.reference.delete()
+      }
+
+      // Stool entries
+      let stoolSnapshot = try await babyRef.collection("stoolEntries").getDocuments()
+      for document in stoolSnapshot.documents {
+        try await document.reference.delete()
+      }
+
+      // Wet diaper entries
+      let wetDiaperSnapshot = try await babyRef.collection("wetDiaperEntries").getDocuments()
+      for document in wetDiaperSnapshot.documents {
+        try await document.reference.delete()
+      }
+
+      // Dehydration checks
+      let dehydrationSnapshot = try await babyRef.collection("dehydrationChecks").getDocuments()
+      for document in dehydrationSnapshot.documents {
+        try await document.reference.delete()
+      }
+
+      // Finally delete the baby document itself
+      try await babyRef.delete()
+    } catch {
+      print("Firestore error: \(error)")
+      await logger.error("Detailed error: \(error)")
+      throw error
+    }
+  }
 }
