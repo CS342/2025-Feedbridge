@@ -118,6 +118,9 @@
     "Baby icon" : {
 
     },
+    "Baby Summary" : {
+
+    },
     "Baby's Name" : {
 
     },
@@ -207,9 +210,6 @@
       }
     },
     "Continue" : {
-
-    },
-    "Current Weight" : {
 
     },
     "Dark Green" : {
@@ -325,7 +325,7 @@
     "Green" : {
 
     },
-    "Has Active Alerts" : {
+    "Health Details" : {
 
     },
     "HealthKit Access" : {
@@ -383,9 +383,6 @@
           }
         }
       }
-    },
-    "ID" : {
-
     },
     "Interesting Modules" : {
       "localizations" : {
@@ -580,6 +577,9 @@
 
     },
     "Pounds" : {
+
+    },
+    "Preferences" : {
 
     },
     "Red" : {

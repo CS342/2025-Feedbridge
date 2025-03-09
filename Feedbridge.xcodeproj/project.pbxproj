@@ -67,7 +67,6 @@
 		5B0E577A2D5C311B002AC4BB /* AddWetDiaperEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */; };
 		5B0E577B2D5C311B002AC4BB /* AddFeedEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */; };
 		5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */; };
-		5BB4CDEA2D5AF2AF00DA4CF7 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */; };
 		5BB4CE0C2D5AFB8000DA4CF7 /* AddWeightEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */; };
 		5BB4CE122D5AFD6E00DA4CF7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */; };
 		5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */; };
@@ -159,7 +158,6 @@
 		5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStoolEntryView.swift; sourceTree = "<group>"; };
 		5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWetDiaperEntryView.swift; sourceTree = "<group>"; };
 		5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBabyView.swift; sourceTree = "<group>"; };
-		5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightEntryView.swift; sourceTree = "<group>"; };
 		5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSingleBabyView.swift; sourceTree = "<group>"; };
@@ -338,7 +336,6 @@
 				5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */,
 				5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */,
 				5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */,
-				5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */,
 				536C4ECE2D7B7B5400F06616 /* ModifyDataViews */,
 				35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */,
 				35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */,
@@ -670,7 +667,6 @@
 				5BB4CE0C2D5AFB8000DA4CF7 /* AddWeightEntryView.swift in Sources */,
 				A9720E432ABB68CC00872D23 /* AccountSetupHeader.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
-				5BB4CDEA2D5AF2AF00DA4CF7 /* AddDataView.swift in Sources */,
 				2F4E23832989D51F0013F3D9 /* FeedbridgeTestingSetup.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,

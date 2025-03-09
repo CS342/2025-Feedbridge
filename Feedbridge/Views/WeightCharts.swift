@@ -100,7 +100,7 @@ struct WeightsSummaryView: View {
 
                 VStack {
                     HStack {
-                        Image(systemName: "scalemass")
+                        Image(systemName: "scalemass.fill")
                             .accessibilityLabel("Scale")
                             .font(.title3)
                             .foregroundColor(.indigo)

@@ -8,7 +8,6 @@
 //
 // SPDX-License-Identifier: MIT
 //
-// swiftlint:disable file_types_order
 import SwiftUI
 
 
@@ -21,21 +20,8 @@ struct Settings: View {
     @State private var isLoading = true
     @State private var errorMessage: String?
     @State private var showingDeleteAlert = false
-    
-    // Add this to the top of your Settings view
     @State private var weightUnitPreference: WeightUnit = UserDefaults.standard.weightUnitPreference
-
-    var body: some View {
-        NavigationStack {
-            content
-                .navigationTitle("Settings")
-                .task {
-                    await loadBabies()
-                    await loadBaby()
-                }
-        }
-    }
-
+    
     @ViewBuilder
     private var content: some View {
         Group {
@@ -49,7 +35,6 @@ struct Settings: View {
             }
         }
     }
-
     
     @ViewBuilder
     private var babyList: some View {
@@ -60,15 +45,21 @@ struct Settings: View {
                     .listRowInsets(EdgeInsets())
             }
             if let curBaby {
-                Toggle("Use Kilograms", isOn: Binding(
-                                    get: { weightUnitPreference == .kilograms },
-                                    set: {
-                                        weightUnitPreference = $0 ? .kilograms : .poundsOunces
-                                        UserDefaults.standard.weightUnitPreference = weightUnitPreference
-                                    }
-                                ))
-//                .padding()
-                BabyDetailsList(baby: curBaby, weightUnitPreference: self.$weightUnitPreference)
+                BasicInfoSection(baby: curBaby, weightUnitPreference: $weightUnitPreference)
+                Section("Preferences") {
+                    Toggle("Use Kilograms", isOn: Binding(
+                        get: { weightUnitPreference == .kilograms },
+                        set: {
+                            weightUnitPreference = $0 ? .kilograms : .poundsOunces
+                            UserDefaults.standard.weightUnitPreference = weightUnitPreference
+                        }
+                    ))
+                }
+                Section("Baby Summary") {
+                    NavigationLink("Health Details") {
+                        HealthDetailsView(baby: curBaby, weightUnitPreference: $weightUnitPreference)
+                    }
+                }
                 deleteButton
             } else {
                 Text("No baby selected")
@@ -76,6 +67,18 @@ struct Settings: View {
             }
         }
     }
+    
+    var body: some View {
+        NavigationStack {
+            content
+                .navigationTitle("Settings")
+                .task {
+                    await loadBabies()
+                    await loadBaby()
+                }
+        }
+    }
+
 
     private var deleteButton: some View {
         Button(role: .destructive) {
@@ -106,7 +109,6 @@ private struct BabyDetailsList: View {
     @Binding var weightUnitPreference: WeightUnit
     
     var body: some View {
-        BasicInfoSection(baby: baby, weightUnitPreference: $weightUnitPreference)
         FeedEntriesSection(entries: baby.feedEntries.feedEntries)
         WeightEntriesSection(entries: baby.weightEntries.weightEntries, weightUnitPreference: $weightUnitPreference)
         StoolEntriesSection(entries: baby.stoolEntries.stoolEntries)
@@ -122,13 +124,13 @@ private struct BasicInfoSection: View {
     var body: some View {
         Section("Basic Info") {
             LabeledContent("Name", value: baby.name)
-            LabeledContent("ID", value: baby.id ?? "N/A")
+//            LabeledContent("ID", value: baby.id ?? "N/A")
             LabeledContent("Date of Birth", value: baby.dateOfBirth.formatted())
             LabeledContent("Age", value: "\(baby.ageInMonths) months")
-            if let weight = baby.currentWeight {
-                LabeledContent("Current Weight", value: String(format: "%.2f", weightUnitPreference == .kilograms ? weight.asKilograms.value : weight.asPounds.value) + " \(weightUnitPreference == .kilograms ? "kg" : "lb")")
-            }
-            LabeledContent("Has Active Alerts", value: baby.hasActiveAlerts ? "Yes" : "No")
+//            if let weight = baby.currentWeight {
+//                LabeledContent("Current Weight", value: String(format: "%.2f", weightUnitPreference == .kilograms ? weight.asKilograms.value : weight.asPounds.value) + " \(weightUnitPreference == .kilograms ? "kg" : "lb")")
+//            }
+//            LabeledContent("Has Active Alerts", value: baby.hasActiveAlerts ? "Yes" : "No")
         }
     }
 }
@@ -342,6 +344,22 @@ extension Settings {
         } catch {
             errorMessage = "Failed to delete baby: \(error.localizedDescription)"
         }
+    }
+}
+
+struct HealthDetailsView: View {
+    let baby: Baby
+    @Binding var weightUnitPreference: WeightUnit
+    
+    var body: some View {
+        List {
+            FeedEntriesSection(entries: baby.feedEntries.feedEntries)
+            WeightEntriesSection(entries: baby.weightEntries.weightEntries, weightUnitPreference: $weightUnitPreference)
+            StoolEntriesSection(entries: baby.stoolEntries.stoolEntries)
+            WetDiaperEntriesSection(entries: baby.wetDiaperEntries.wetDiaperEntries)
+            DehydrationChecksSection(checks: baby.dehydrationChecks.dehydrationChecks)
+        }
+        .navigationTitle("Health Details")
     }
 }
 
