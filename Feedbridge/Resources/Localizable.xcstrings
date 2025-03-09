@@ -11,12 +11,6 @@
         }
       }
     },
-    "%.2f lb" : {
-
-    },
-    "%.2f lbs" : {
-
-    },
     "%@ and %@" : {
       "localizations" : {
         "en" : {
@@ -588,9 +582,6 @@
     "Pounds" : {
 
     },
-    "Pounds (lb)" : {
-
-    },
     "Red" : {
 
     },
@@ -763,6 +754,9 @@
 
     },
     "Warning" : {
+
+    },
+    "Weight (kg)" : {
 
     },
     "Weight (lb)" : {
