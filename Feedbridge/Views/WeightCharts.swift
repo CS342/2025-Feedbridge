@@ -14,6 +14,8 @@ struct WeightChart: View {
     var entries: [WeightEntry]
     var isMini: Bool
     
+    @Binding var weightUnitPreference: WeightUnit
+    
     var body: some View {
         Chart {
             let averagedEntries = averageWeightsPerDay()
@@ -23,7 +25,9 @@ struct WeightChart: View {
                     let day = Calendar.current.startOfDay(for: entry.dateTime)
                     PointMark(
                         x: .value("Date", day),
-                        y: .value("Pounds (lb)", entry.asPounds.value)
+                        y: .value(weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
+                            weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
+                            )
                     )
                     .foregroundStyle(.gray)
                     .symbol {
@@ -36,7 +40,7 @@ struct WeightChart: View {
             ForEach(averagedEntries) { entry in
                 LineMark(
                     x: .value("Date", entry.date),
-                    y: .value("Pounds (lb)", entry.averageWeight)
+                    y: .value(weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)", entry.averageWeight)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.indigo)
@@ -56,12 +60,17 @@ struct WeightChart: View {
             Calendar.current.startOfDay(for: entry.dateTime)
         }
 
-        return grouped.map { (date, entries) in
-            let totalWeight = entries.reduce(0) { $0 + $1.asPounds.value }
+        var dailyAverages: [DailyAverageWeight] = []
+
+        for (date, entries) in grouped {
+            let totalWeight = entries.reduce(0) { result, entry in
+                result + (weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value)
+            }
             let averageWeight = totalWeight / Double(entries.count)
-            return DailyAverageWeight(date: date, averageWeight: averageWeight)
+            dailyAverages.append(DailyAverageWeight(date: date, averageWeight: averageWeight))
         }
-        .sorted { $0.date < $1.date }
+
+        return dailyAverages.sorted { $0.date < $1.date }
     }
 }
 
@@ -115,11 +124,11 @@ struct WeightsSummaryView: View {
                         Spacer()
                         
                         HStack {
-                            Text("\(entry.asPounds.value, specifier: "%.2f") lbs")
+                            Text("\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")")
                                 .font(.title2)
                                 .foregroundColor(.primary)
                             Spacer()
-                            MiniWeightChart(entries: entries)
+                            MiniWeightChart(entries: entries, weightUnitPreference: $weightUnitPreference)
                                 .frame(width: 60, height: 40)
                                 .opacity(0.5)
                         }
@@ -142,7 +151,7 @@ struct MiniWeightChart: View {
     @Binding var weightUnitPreference: WeightUnit
     
     var body: some View {
-        WeightChart(entries: entries, isMini: true)
+        WeightChart(entries: entries, isMini: true, weightUnitPreference: $weightUnitPreference)
             .frame(width: 60, height: 40)
             .opacity(0.8)
     }

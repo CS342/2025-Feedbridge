@@ -69,7 +69,7 @@
 		5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */; };
 		5BB4CDEA2D5AF2AF00DA4CF7 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */; };
 		5BB4CE0C2D5AFB8000DA4CF7 /* AddWeightEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */; };
-		5BB4CE122D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE112D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift */; };
+		5BB4CE122D5AFD6E00DA4CF7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */; };
 		5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */; };
 		5BC74CDA2D6E19320059AA19 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC74CD92D6E19320059AA19 /* AddEntryView.swift */; };
 		653A2551283387FE005D4D48 /* Feedbridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* Feedbridge.swift */; };
@@ -161,7 +161,7 @@
 		5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBabyView.swift; sourceTree = "<group>"; };
 		5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightEntryView.swift; sourceTree = "<group>"; };
-		5BB4CE112D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDebugDisplayView.swift; sourceTree = "<group>"; };
+		5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSingleBabyView.swift; sourceTree = "<group>"; };
 		5BC74CD92D6E19320059AA19 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		653A254D283387FE005D4D48 /* Feedbridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feedbridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -335,7 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				5BC74CD92D6E19320059AA19 /* AddEntryView.swift */,
-				5BB4CE112D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift */,
+				5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */,
 				5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */,
 				5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */,
 				5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */,
@@ -650,7 +650,7 @@
 				35DCCFDC2D7AAAFD0045DB20 /* FeedCharts.swift in Sources */,
 				35DCCFDD2D7AAAFD0045DB20 /* StoolsView.swift in Sources */,
 				35DCCFDE2D7AAAFD0045DB20 /* WeightsView.swift in Sources */,
-				5BB4CE122D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift in Sources */,
+				5BB4CE122D5AFD6E00DA4CF7 /* Settings.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
 				2FE5DC3529EDD7CA004B9AB4 /* Consent.swift in Sources */,
