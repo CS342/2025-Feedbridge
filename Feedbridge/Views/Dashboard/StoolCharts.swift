@@ -1,3 +1,4 @@
+//
 //  StoolCharts.swift
 //  Feedbridge
 //
@@ -6,7 +7,7 @@
 import Charts
 import SwiftUI
 
-// swiftlint:disable closure_body_length
+/// View for displaying stool entries as a chart.
 struct StoolChart: View {
     let entries: [StoolEntry]
     var isMini: Bool
@@ -16,6 +17,7 @@ struct StoolChart: View {
         let lastDay = lastEntryDate(entries) // Get the last recorded date
 
         Chart {
+            // Generate chart points for each stool entry
             ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
                 PointMark(
                     x: .value("Date", indexedEntry.entry.dateTime),
@@ -33,8 +35,9 @@ struct StoolChart: View {
         }
     }
     
-    private func miniColor(entry: StoolEntry, isMini: Bool, lastDay: String) -> Color{
-        return isMini ? (dateString(entry.dateTime) == lastDay ? .brown: Color(.greyChart)) : stoolColor(entry.color)
+    /// Returns color based on whether the chart is mini and if it is the last day.
+    private func miniColor(entry: StoolEntry, isMini: Bool, lastDay: String) -> Color {
+        return isMini ? (dateString(entry.dateTime) == lastDay ? .brown : Color(.greyChart)) : stoolColor(entry.color)
     }
     
     /// Determines the last recorded date as a string
@@ -45,7 +48,7 @@ struct StoolChart: View {
         return dateString(lastEntry.dateTime)
     }
     
-    /// Assigns a sequential index to each entry within its respective day
+    /// Indexes each stool entry by day and assigns a sequential index
     private func indexEntriesPerDay(_ entries: [StoolEntry]) -> [(entry: StoolEntry, index: Int)] {
         let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
         var dailyIndex: [String: Int] = [:]
@@ -58,6 +61,7 @@ struct StoolChart: View {
         }
     }
     
+    /// Returns bubble size based on stool volume.
     private func bubbleSize(_ volume: StoolVolume, _ isMini: Bool) -> Double {
         switch volume {
         case .light: return isMini ? 30 : 100
@@ -66,6 +70,7 @@ struct StoolChart: View {
         }
     }
 
+    /// Maps stool color to a specific chart color.
     private func stoolColor(_ color: StoolColor) -> Color {
         switch color {
         case .black: return .black
@@ -78,6 +83,7 @@ struct StoolChart: View {
     }
 }
 
+/// View displaying a summary of stool entries.
 struct StoolsSummaryView: View {
     let entries: [StoolEntry]
     
@@ -86,66 +92,76 @@ struct StoolsSummaryView: View {
     }
     
     private var formattedTime: String {
-        guard let date = lastEntry?.dateTime else { return "" }
-        let formatter = DateFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        formatDate(lastEntry?.dateTime)
     }
     
     var body: some View {
         NavigationLink(destination: StoolsView(entries: entries)) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemGray6))
-                    .opacity(0.8)
-                
-                VStack {
-                    HStack {
-                        Image(systemName: "drop.fill")
-                            .accessibilityLabel("Stool Drop")
-                            .font(.title3)
-                            .foregroundColor(.brown)
-                        
-                        Text("Stools")
-                            .font(.title3.bold())
-                            .foregroundColor(.brown)
-                        
-                        Spacer()
-                        
-                        Image(systemName: "chevron.right")
-                            .accessibilityLabel("Next page")
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                    }
-                    .padding()
-                    
-                    if let entry = lastEntry {
-                        Spacer()
-                        
-                        HStack {
-                            Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                            Spacer()
-                            MiniStoolChart(entries: entries)
-                                .frame(width: 60, height: 40)
-                        }
-                        .padding([.bottom, .horizontal])
-                    } else {
-                        Text("No data added")
-                            .foregroundColor(.gray)
-                            .padding()
-                    }
-                }
-            }
-            .frame(height: 120)
+            summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
     }
+    
+    /// Creates a summary card for stool entries.
+    private func summaryCard() -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemGray6))
+                .opacity(0.8)
+            
+            VStack {
+                header()
+                if let entry = lastEntry {
+                    Spacer()
+                    entryDetails(entry)
+                } else {
+                    Text("No data added")
+                        .foregroundColor(.gray)
+                        .padding()
+                }
+            }
+        }
+        .frame(height: 120)
+    }
+    
+    /// Header for the summary card
+    private func header() -> some View {
+        HStack {
+            Image(systemName: "drop.fill")
+                .accessibilityLabel("Stool Drop")
+                .font(.title3)
+                .foregroundColor(.brown)
+            
+            Text("Stools")
+                .font(.title3.bold())
+                .foregroundColor(.brown)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .accessibilityLabel("Next page")
+                .foregroundColor(.gray)
+                .font(.caption)
+                .fontWeight(.semibold)
+        }
+        .padding()
+    }
+    
+    /// Displays the details of a single stool entry
+    private func entryDetails(_ entry: StoolEntry) -> some View {
+        HStack {
+            Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
+                .font(.title2)
+                .foregroundColor(.primary)
+            Spacer()
+            MiniStoolChart(entries: entries)
+                .frame(width: 60, height: 40)
+        }
+        .padding([.bottom, .horizontal])
+    }
 }
 
+/// Mini chart view for stool entries.
 struct MiniStoolChart: View {
     let entries: [StoolEntry]
     

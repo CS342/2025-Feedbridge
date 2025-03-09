@@ -50,15 +50,6 @@
 		2FE5DC9C29EDD9EF004B9AB4 /* XCTHealthKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9B29EDD9EF004B9AB4 /* XCTHealthKit */; };
 		2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DCAC29EE6107004B9AB4 /* AccountOnboarding.swift */; };
 		2FF53D8D2A8729D600042B76 /* FeedbridgeStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */; };
-		35DCCFD62D7AAAFD0045DB20 /* WetDiapersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD52D7AAAFD0045DB20 /* WetDiapersView.swift */; };
-		35DCCFD72D7AAAFD0045DB20 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */; };
-		35DCCFD82D7AAAFD0045DB20 /* StoolCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD02D7AAAFD0045DB20 /* StoolCharts.swift */; };
-		35DCCFD92D7AAAFD0045DB20 /* WeightCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD22D7AAAFD0045DB20 /* WeightCharts.swift */; };
-		35DCCFDA2D7AAAFD0045DB20 /* WetDiaperCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD42D7AAAFD0045DB20 /* WetDiaperCharts.swift */; };
-		35DCCFDB2D7AAAFD0045DB20 /* FeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFCF2D7AAAFD0045DB20 /* FeedsView.swift */; };
-		35DCCFDC2D7AAAFD0045DB20 /* FeedCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */; };
-		35DCCFDD2D7AAAFD0045DB20 /* StoolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD12D7AAAFD0045DB20 /* StoolsView.swift */; };
-		35DCCFDE2D7AAAFD0045DB20 /* WeightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DCCFD32D7AAAFD0045DB20 /* WeightsView.swift */; };
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
@@ -67,9 +58,8 @@
 		5B0E577A2D5C311B002AC4BB /* AddWetDiaperEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */; };
 		5B0E577B2D5C311B002AC4BB /* AddFeedEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */; };
 		5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */; };
-		5BB4CDEA2D5AF2AF00DA4CF7 /* AddDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */; };
 		5BB4CE0C2D5AFB8000DA4CF7 /* AddWeightEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */; };
-		5BB4CE122D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE112D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift */; };
+		5BB4CE122D5AFD6E00DA4CF7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */; };
 		5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */; };
 		5BC74CDA2D6E19320059AA19 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC74CD92D6E19320059AA19 /* AddEntryView.swift */; };
 		653A2551283387FE005D4D48 /* Feedbridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* Feedbridge.swift */; };
@@ -137,15 +127,6 @@
 		2FE5DCAC29EE6107004B9AB4 /* AccountOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
 		2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbridgeStandard.swift; sourceTree = "<group>"; };
 		358F60B12D73FEE000721B85 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCharts.swift; sourceTree = "<group>"; };
-		35DCCFCF2D7AAAFD0045DB20 /* FeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsView.swift; sourceTree = "<group>"; };
-		35DCCFD02D7AAAFD0045DB20 /* StoolCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolCharts.swift; sourceTree = "<group>"; };
-		35DCCFD12D7AAAFD0045DB20 /* StoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolsView.swift; sourceTree = "<group>"; };
-		35DCCFD22D7AAAFD0045DB20 /* WeightCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCharts.swift; sourceTree = "<group>"; };
-		35DCCFD32D7AAAFD0045DB20 /* WeightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsView.swift; sourceTree = "<group>"; };
-		35DCCFD42D7AAAFD0045DB20 /* WetDiaperCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiaperCharts.swift; sourceTree = "<group>"; };
-		35DCCFD52D7AAAFD0045DB20 /* WetDiapersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiapersView.swift; sourceTree = "<group>"; };
 		35E52D2B2D794472005A6BB7 /* WeightCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCharts.swift; sourceTree = "<group>"; };
 		35E52D302D79475E005A6BB7 /* StoolCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolCharts.swift; sourceTree = "<group>"; };
 		35E52D332D7947D3005A6BB7 /* StoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolsView.swift; sourceTree = "<group>"; };
@@ -159,9 +140,8 @@
 		5B0E57732D5C311B002AC4BB /* AddStoolEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStoolEntryView.swift; sourceTree = "<group>"; };
 		5B0E57752D5C311B002AC4BB /* AddWetDiaperEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWetDiaperEntryView.swift; sourceTree = "<group>"; };
 		5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBabyView.swift; sourceTree = "<group>"; };
-		5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataView.swift; sourceTree = "<group>"; };
 		5BB4CE0B2D5AFB8000DA4CF7 /* AddWeightEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightEntryView.swift; sourceTree = "<group>"; };
-		5BB4CE112D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyDebugDisplayView.swift; sourceTree = "<group>"; };
+		5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSingleBabyView.swift; sourceTree = "<group>"; };
 		5BC74CD92D6E19320059AA19 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		653A254D283387FE005D4D48 /* Feedbridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feedbridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +160,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		358B23B92D7D974800D60CF6 /* Dashboard */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Dashboard; sourceTree = "<group>"; };
 		35DCD0122D7AC5AF0045DB20 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
 		534B58C52D5878260006210A /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		5B4B0E102D4C5DBF0023EAB7 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
@@ -334,21 +315,12 @@
 		5B0E57762D5C311B002AC4BB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				358B23B92D7D974800D60CF6 /* Dashboard */,
 				5BC74CD92D6E19320059AA19 /* AddEntryView.swift */,
-				5BB4CE112D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift */,
+				5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */,
 				5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */,
 				5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */,
-				5BB4CDE92D5AF2AF00DA4CF7 /* AddDataView.swift */,
 				536C4ECE2D7B7B5400F06616 /* ModifyDataViews */,
-				35DCCFCD2D7AAAFD0045DB20 /* DashboardView.swift */,
-				35DCCFCE2D7AAAFD0045DB20 /* FeedCharts.swift */,
-				35DCCFCF2D7AAAFD0045DB20 /* FeedsView.swift */,
-				35DCCFD02D7AAAFD0045DB20 /* StoolCharts.swift */,
-				35DCCFD12D7AAAFD0045DB20 /* StoolsView.swift */,
-				35DCCFD22D7AAAFD0045DB20 /* WeightCharts.swift */,
-				35DCCFD32D7AAAFD0045DB20 /* WeightsView.swift */,
-				35DCCFD42D7AAAFD0045DB20 /* WetDiaperCharts.swift */,
-				35DCCFD52D7AAAFD0045DB20 /* WetDiapersView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -461,6 +433,7 @@
 				56E7083D2BB06FCA00B08F0A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				358B23B92D7D974800D60CF6 /* Dashboard */,
 				35DCD0122D7AC5AF0045DB20 /* Utilities */,
 				534B58C52D5878260006210A /* Views */,
 				5B4B0E102D4C5DBF0023EAB7 /* Models */,
@@ -641,16 +614,7 @@
 			files = (
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
-				35DCCFD62D7AAAFD0045DB20 /* WetDiapersView.swift in Sources */,
-				35DCCFD72D7AAAFD0045DB20 /* DashboardView.swift in Sources */,
-				35DCCFD82D7AAAFD0045DB20 /* StoolCharts.swift in Sources */,
-				35DCCFD92D7AAAFD0045DB20 /* WeightCharts.swift in Sources */,
-				35DCCFDA2D7AAAFD0045DB20 /* WetDiaperCharts.swift in Sources */,
-				35DCCFDB2D7AAAFD0045DB20 /* FeedsView.swift in Sources */,
-				35DCCFDC2D7AAAFD0045DB20 /* FeedCharts.swift in Sources */,
-				35DCCFDD2D7AAAFD0045DB20 /* StoolsView.swift in Sources */,
-				35DCCFDE2D7AAAFD0045DB20 /* WeightsView.swift in Sources */,
-				5BB4CE122D5AFD6E00DA4CF7 /* BabyDebugDisplayView.swift in Sources */,
+				5BB4CE122D5AFD6E00DA4CF7 /* Settings.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
 				2FE5DC3529EDD7CA004B9AB4 /* Consent.swift in Sources */,
@@ -670,7 +634,6 @@
 				5BB4CE0C2D5AFB8000DA4CF7 /* AddWeightEntryView.swift in Sources */,
 				A9720E432ABB68CC00872D23 /* AccountSetupHeader.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
-				5BB4CDEA2D5AF2AF00DA4CF7 /* AddDataView.swift in Sources */,
 				2F4E23832989D51F0013F3D9 /* FeedbridgeTestingSetup.swift in Sources */,
 				A98FF2B12CD131F500DFC949 /* EventView.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
