@@ -8,6 +8,13 @@
 import Charts
 import SwiftUI
 
+/// Represents a day's average weight.
+struct DailyAverageWeight: Identifiable {
+    let id = UUID()
+    let date: Date
+    let averageWeight: Double
+}
+
 /// Displays the detailed weight entries and charts for a user.
 struct WeightsView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -98,11 +105,4 @@ struct WeightsView: View {
 
         return dailyAverages.sorted { $0.date < $1.date }
     }
-}
-
-/// Represents a day's average weight.
-struct DailyAverageWeight: Identifiable {
-    let id = UUID()
-    let date: Date
-    let averageWeight: Double
 }

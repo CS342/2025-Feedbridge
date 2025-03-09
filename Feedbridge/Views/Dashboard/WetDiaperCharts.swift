@@ -8,87 +8,12 @@
 import Charts
 import SwiftUI
 
-/// Displays a chart of wet diaper entries, with the ability to show a mini version for summaries.
-struct WetDiaperChart: View {
-    let entries: [WetDiaperEntry]
-    var isMini: Bool
-    @State private var scrollPosition: Date? // Tracks the initial scroll position
-
-    var body: some View {
-        let indexedEntries = indexEntriesPerDay(entries) // Index entries by day
-        let lastDay = lastEntryDate(entries) // Get the last recorded date
-        
-        Chart {
-            // Loop through each entry and plot it
-            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
-                PointMark(
-                    x: .value("Date", indexedEntry.entry.dateTime, unit: .day), // Set the x-axis to the day
-                    y: .value("Diaper #", indexedEntry.index) // Set the y-axis as a sequential index
-                )
-                .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini)) // Adjust bubble size based on volume and chart type
-                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay)) // Set color based on diaper data
-            }
-        }
-        .chartXAxis(isMini ? .hidden : .visible) // Hide X-axis on mini chart
-        .chartYAxis(isMini ? .hidden : .visible) // Hide Y-axis on mini chart
-        .chartXScale(domain: last7DaysRange()) // Set the X-axis range for the last 7 days
-        .chartPlotStyle { plotArea in
-            plotArea.background(Color.clear) // Make the chart background transparent
-        }
-    }
-
-    /// Determines the color of the point based on the entry's color and whether it's a mini chart.
-    private func miniColor(entry: WetDiaperEntry, isMini: Bool, lastDay: String) -> Color {
-        return isMini ? (dateString(entry.dateTime) == lastDay ? .orange : Color(.greyChart)) : diaperColor(entry.color)
-    }
-
-    /// Get the last recorded date as a string.
-    private func lastEntryDate(_ entries: [WetDiaperEntry]) -> String {
-        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
-            return ""
-        }
-        return dateString(lastEntry.dateTime)
-    }
-
-    /// Assigns a sequential index to each entry within its respective day.
-    private func indexEntriesPerDay(_ entries: [WetDiaperEntry]) -> [(entry: WetDiaperEntry, index: Int)] {
-        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
-        var dailyIndex: [String: Int] = [:]
-
-        // Loop through sorted entries and assign an index based on the day
-        return sortedEntries.map { entry in
-            let dayKey = dateString(entry.dateTime)
-            let index = (dailyIndex[dayKey] ?? 0) + 1
-            dailyIndex[dayKey] = index
-            return (entry, index)
-        }
-    }
-
-    /// Returns a bubble size based on diaper volume and whether it's a mini chart.
-    private func bubbleSize(_ volume: DiaperVolume, _ isMini: Bool) -> Double {
-        switch volume {
-        case .light: return isMini ? 30 : 100
-        case .medium:  return isMini ? 60 : 300
-        case .heavy: return isMini ? 100 : 650
-        }
-    }
-
-    /// Returns the color for the diaper entry based on its color.
-    private func diaperColor(_ color: WetDiaperColor) -> Color {
-        switch color {
-        case .yellow: return .yellow
-        case .pink: return Color(.pinkDiaper)
-        case .redTinged: return .red
-        }
-    }
-}
-
 /// Displays the summary view for wet diaper entries.
 struct WetDiapersSummaryView: View {
     let entries: [WetDiaperEntry]
 
     private var lastEntry: WetDiaperEntry? {
-        entries.sorted(by: { $0.dateTime > $1.dateTime }).first
+        entries.max(by: { $0.dateTime < $1.dateTime })
     }
 
     private var formattedTime: String {
@@ -162,7 +87,7 @@ struct WetDiapersSummaryView: View {
 
     /// Formats the wet diaper text (volume and color)
     private func wetDiaperText(_ entry: WetDiaperEntry) -> String {
-        return "\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)"
+        "\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)"
     }
 
     /// Displays a placeholder when no data is available
@@ -181,5 +106,80 @@ struct MiniWetDiaperChart: View {
         WetDiaperChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
             .opacity(0.8)
+    }
+}
+
+/// Displays a chart of wet diaper entries, with the ability to show a mini version for summaries.
+struct WetDiaperChart: View {
+    let entries: [WetDiaperEntry]
+    var isMini: Bool
+    @State private var scrollPosition: Date? // Tracks the initial scroll position
+
+    var body: some View {
+        let indexedEntries = indexEntriesPerDay(entries) // Index entries by day
+        let lastDay = lastEntryDate(entries) // Get the last recorded date
+        
+        Chart {
+            // Loop through each entry and plot it
+            ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
+                PointMark(
+                    x: .value("Date", indexedEntry.entry.dateTime, unit: .day), // Set the x-axis to the day
+                    y: .value("Diaper #", indexedEntry.index) // Set the y-axis as a sequential index
+                )
+                .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini)) // Adjust bubble size based on volume and chart type
+                .foregroundStyle(miniColor(entry: indexedEntry.entry, isMini: isMini, lastDay: lastDay)) // Set color based on diaper data
+            }
+        }
+        .chartXAxis(isMini ? .hidden : .visible) // Hide X-axis on mini chart
+        .chartYAxis(isMini ? .hidden : .visible) // Hide Y-axis on mini chart
+        .chartXScale(domain: last7DaysRange()) // Set the X-axis range for the last 7 days
+        .chartPlotStyle { plotArea in
+            plotArea.background(Color.clear) // Make the chart background transparent
+        }
+    }
+
+    /// Determines the color of the point based on the entry's color and whether it's a mini chart.
+    private func miniColor(entry: WetDiaperEntry, isMini: Bool, lastDay: String) -> Color {
+         isMini ? (dateString(entry.dateTime) == lastDay ? .orange : Color(.greyChart)) : diaperColor(entry.color)
+    }
+
+    /// Get the last recorded date as a string.
+    private func lastEntryDate(_ entries: [WetDiaperEntry]) -> String {
+        guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
+            return ""
+        }
+        return dateString(lastEntry.dateTime)
+    }
+
+    /// Assigns a sequential index to each entry within its respective day.
+    private func indexEntriesPerDay(_ entries: [WetDiaperEntry]) -> [(entry: WetDiaperEntry, index: Int)] {
+        let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
+        var dailyIndex: [String: Int] = [:]
+
+        // Loop through sorted entries and assign an index based on the day
+        return sortedEntries.map { entry in
+            let dayKey = dateString(entry.dateTime)
+            let index = (dailyIndex[dayKey] ?? 0) + 1
+            dailyIndex[dayKey] = index
+            return (entry, index)
+        }
+    }
+
+    /// Returns a bubble size based on diaper volume and whether it's a mini chart.
+    private func bubbleSize(_ volume: DiaperVolume, _ isMini: Bool) -> Double {
+        switch volume {
+        case .light: return isMini ? 30 : 100
+        case .medium:  return isMini ? 60 : 300
+        case .heavy: return isMini ? 100 : 650
+        }
+    }
+
+    /// Returns the color for the diaper entry based on its color.
+    private func diaperColor(_ color: WetDiaperColor) -> Color {
+        switch color {
+        case .yellow: return .yellow
+        case .pink: return Color(.pinkDiaper)
+        case .redTinged: return .red
+        }
     }
 }
