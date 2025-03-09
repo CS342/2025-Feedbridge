@@ -160,7 +160,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		358B23AB2D7D836A00D60CF6 /* Dashboard */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Dashboard; sourceTree = "<group>"; };
+		358B23B92D7D974800D60CF6 /* Dashboard */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Dashboard; sourceTree = "<group>"; };
 		35DCD0122D7AC5AF0045DB20 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
 		534B58C52D5878260006210A /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		5B4B0E102D4C5DBF0023EAB7 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
@@ -315,7 +315,7 @@
 		5B0E57762D5C311B002AC4BB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				358B23AB2D7D836A00D60CF6 /* Dashboard */,
+				358B23B92D7D974800D60CF6 /* Dashboard */,
 				5BC74CD92D6E19320059AA19 /* AddEntryView.swift */,
 				5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */,
 				5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */,
@@ -433,7 +433,7 @@
 				56E7083D2BB06FCA00B08F0A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				358B23AB2D7D836A00D60CF6 /* Dashboard */,
+				358B23B92D7D974800D60CF6 /* Dashboard */,
 				35DCD0122D7AC5AF0045DB20 /* Utilities */,
 				534B58C52D5878260006210A /* Views */,
 				5B4B0E102D4C5DBF0023EAB7 /* Models */,

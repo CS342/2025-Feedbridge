@@ -11,7 +11,6 @@ import SwiftUI
 
 /// Dashboard view displaying baby data such as weights, feeds, wet diapers, and stools.
 struct DashboardView: View {
-    
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeStandard.self) private var standard
     @Binding var presentingAccount: Bool
