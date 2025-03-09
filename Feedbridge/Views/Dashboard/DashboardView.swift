@@ -1,12 +1,19 @@
+//
+//  DashboardView.swift
+//  Feedbridge
+//
+//  Created by Shreya D'Souza on 3/5/25.
+//
+
 import Charts
 import SpeziAccount
 import SwiftUI
 
+/// Dashboard view displaying baby data such as weights, feeds, wet diapers, and stools.
 struct DashboardView: View {
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeStandard.self) private var standard
     @Binding var presentingAccount: Bool
-    
     @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
     @State private var isLoading = true
     @State private var errorMessage: String?
@@ -15,6 +22,7 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack {
             Group {
+                // Show loading, error, or main content
                 if isLoading {
                     ProgressView()
                 } else if let error = errorMessage {
@@ -36,11 +44,12 @@ struct DashboardView: View {
         }
     }
     
+    /// Main content of the dashboard, displaying summary views.
     @ViewBuilder private var mainContent: some View {
         ScrollView {
             VStack(spacing: 16) {
                 if let baby {
-                    WeightsSummaryView(entries: baby.weightEntries.weightEntries, babyId: baby.id!)
+                    WeightsSummaryView(entries: baby.weightEntries.weightEntries)
                     FeedsSummaryView(entries: baby.feedEntries.feedEntries)
                     WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries)
                     StoolsSummaryView(entries: baby.stoolEntries.stoolEntries)
@@ -49,6 +58,8 @@ struct DashboardView: View {
             .padding()
         }
     }
+    
+    /// Loads baby data asynchronously.
     private func loadBaby() async {
         guard let babyId = selectedBabyId else {
             baby = nil
@@ -65,20 +76,5 @@ struct DashboardView: View {
         }
 
         isLoading = false
-    }
-}
-
-// Define the enum for chart types
-enum ChartType: Identifiable {
-    case weight
-    case dehydration
-    case feed
-    
-    var id: String {
-        switch self {
-        case .weight: return "weight"
-        case .dehydration: return "dehydration"
-        case .feed: return "feed"
-        }
     }
 }

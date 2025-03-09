@@ -10,12 +10,15 @@
           }
         }
       }
+<<<<<<< HEAD
     },
     "%.2f lb" : {
 
     },
     "%.2f lbs" : {
 
+=======
+>>>>>>> shreya/add-ui-updates
     },
     "%@ and %@" : {
       "localizations" : {
@@ -119,10 +122,16 @@
 
     },
     "Are you sure you want to delete this baby?" : {
+<<<<<<< HEAD
     "Are you sure you want to delete this baby?" : {
+=======
+>>>>>>> shreya/add-ui-updates
 
     },
     "Baby icon" : {
+
+    },
+    "Baby Summary" : {
 
     },
     "Baby's Name" : {
@@ -216,9 +225,6 @@
     "Continue" : {
 
     },
-    "Current Weight" : {
-
-    },
     "Dark Green" : {
 
     },
@@ -252,12 +258,15 @@
     "Delete Baby" : {
 
     },
+<<<<<<< HEAD
     "Delete" : {
 
     },
     "Delete Baby" : {
 
     },
+=======
+>>>>>>> shreya/add-ui-updates
     "Diaper #" : {
 
     },
@@ -285,7 +294,7 @@
     "Feed #" : {
 
     },
-    "Feed #" : {
+    "Feed Details" : {
 
     },
     "Feed Details" : {
@@ -341,7 +350,7 @@
     "Green" : {
 
     },
-    "Has Active Alerts" : {
+    "Health Details" : {
 
     },
     "HealthKit Access" : {
@@ -399,9 +408,6 @@
           }
         }
       }
-    },
-    "ID" : {
-
     },
     "Interesting Modules" : {
       "localizations" : {
@@ -598,6 +604,12 @@
     "Pounds" : {
 
     },
+<<<<<<< HEAD
+=======
+    "Preferences" : {
+
+    },
+>>>>>>> shreya/add-ui-updates
     "Red" : {
 
     },
@@ -623,9 +635,12 @@
     "Select baby" : {
 
     },
+<<<<<<< HEAD
     "Select baby" : {
 
     },
+=======
+>>>>>>> shreya/add-ui-updates
     "Select Date & Time" : {
 
     },
@@ -635,9 +650,12 @@
     "Settings" : {
 
     },
+<<<<<<< HEAD
     "Settings" : {
 
     },
+=======
+>>>>>>> shreya/add-ui-updates
     "Social Support Questionnaire" : {
       "localizations" : {
         "en" : {
@@ -682,7 +700,7 @@
     "Stool #" : {
 
     },
-    "Stool #" : {
+    "Stool Details" : {
 
     },
     "Stool Details" : {
@@ -763,15 +781,21 @@
     "Use Kilograms" : {
 
     },
+<<<<<<< HEAD
     "Use Kilograms" : {
 
     },
+=======
+>>>>>>> shreya/add-ui-updates
     "Void Details" : {
 
     },
     "Voids" : {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> shreya/add-ui-updates
     },
     "Volume" : {
 

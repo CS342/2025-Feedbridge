@@ -178,14 +178,14 @@ struct AddEntryView: View {
 
 extension AddEntryView {
   /// A date/time picker that can be adjusted
-  private var dateTimeSection: some View {
-    VStack(alignment: .leading) {
-      Text("Hi! It is now:")
-        .font(.headline)
-      DatePicker("Select Date & Time", selection: $date)
-        .labelsHidden()
+    private var dateTimeSection: some View {
+        VStack(alignment: .leading) {
+            Text("Hi! It is now:")
+                .font(.headline)
+            DatePicker("Select Date & Time", selection: $date, in: ...Date(), displayedComponents: [.date, .hourAndMinute])
+                .labelsHidden()
+        }
     }
-  }
 
     /// A vertical list of entry-kinds to choose from
     private var entryKindSection: some View {
@@ -269,7 +269,7 @@ extension AddEntryView {
   private var weightEntryView: some View {
     VStack(alignment: .leading, spacing: 12) {
         HStack {
-            Image(systemName: "scalemass")
+            Image(systemName: "scalemass.fill")
                 .accessibilityLabel("Scale")
                 .font(.title3)
                 .foregroundColor(accentColor(for: .weight))

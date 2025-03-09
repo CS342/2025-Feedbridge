@@ -15,8 +15,6 @@ struct HomeView: View {
         case dashboard
         case addEntries
         case debug
-//        case schedule
-//        case contact
     }
 
 
@@ -37,14 +35,6 @@ struct HomeView: View {
             Tab("Settings", systemImage: "gear", value: .debug) {
                 Settings()
             }
-//            Tab("Schedule", systemImage: "list.clipboard", value: .schedule) {
-//                ScheduleView(presentingAccount: $presentingAccount)
-//            }fe
-//                .customizationID("home.schedule")
-//            Tab("Contacts", systemImage: "person.fill", value: .contact) {
-//                Contacts(presentingAccount: $presentingAccount)
-//            }
-//                .customizationID("home.contacts")
         }
             .tabViewStyle(.sidebarAdaptable)
             .tabViewCustomization($tabViewCustomization)
