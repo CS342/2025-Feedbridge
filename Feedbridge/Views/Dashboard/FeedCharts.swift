@@ -70,14 +70,18 @@ struct FeedChart: View {
     private func bubbleSize(_ entry: FeedEntry) -> Double {
         switch entry.feedType {
         case .directBreastfeeding:
-            guard let duration = entry.feedTimeInMinutes else { return 30 }
+            guard let duration = entry.feedTimeInMinutes else {
+                return 30
+            }
             switch duration {
             case 0..<10: return isMini ? 30 : 100
             case 10..<20: return isMini ? 60 : 300
             default: return isMini ? 100 : 650
             }
         case .bottle:
-            guard let volume = entry.feedVolumeInML else { return 30 }
+            guard let volume = entry.feedVolumeInML else {
+                return 30
+            }
             switch volume {
             case 0..<10: return isMini ? 30 : 100
             case 10..<30: return isMini ? 60 : 300
