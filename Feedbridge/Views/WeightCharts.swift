@@ -11,7 +11,7 @@ import Charts
 // swiftlint:disable closure_body_length
 // swiftlint:disable type_body_length
 struct WeightChart: View {
-    let entries: [WeightEntry]
+    var entries: [WeightEntry]
     var isMini: Bool
     
     var body: some View {
@@ -66,8 +66,11 @@ struct WeightChart: View {
 }
 
 struct WeightsSummaryView: View {
-    let entries: [WeightEntry]
-
+    var entries: [WeightEntry]
+    let babyId: String
+    
+    @AppStorage(UserDefaults.weightUnitPreference) var weightUnitPreference: WeightUnit = .kilograms
+    
     private var lastEntry: WeightEntry? {
         entries.sorted(by: { $0.dateTime > $1.dateTime }).first
     }
@@ -81,7 +84,7 @@ struct WeightsSummaryView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: WeightsView(entries: entries)) {
+        NavigationLink(destination: WeightsView(entries: entries, babyId: babyId)) {
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(.systemGray6))
@@ -135,8 +138,9 @@ struct WeightsSummaryView: View {
 }
 
 struct MiniWeightChart: View {
-    let entries: [WeightEntry]
-
+    var entries: [WeightEntry]
+    @Binding var weightUnitPreference: WeightUnit
+    
     var body: some View {
         WeightChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)

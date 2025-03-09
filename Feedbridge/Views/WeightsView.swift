@@ -8,8 +8,13 @@
 import Charts
 import SwiftUI
 struct WeightsView: View {
+    @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.presentationMode) var presentationMode
-    let entries: [WeightEntry]
+    @State var entries: [WeightEntry]
+    
+    let babyId: String
+    
+    @AppStorage(UserDefaults.weightUnitPreference) var weightUnitPreference: WeightUnit = .kilograms
 
     var body: some View {
         NavigationStack {
@@ -62,6 +67,15 @@ struct WeightsView: View {
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
+            }.swipeActions {
+                Button(role: .destructive) { Task {
+                    print("Delete weight entry with id: \(entry.id ?? "")")
+                print("Baby: \(babyId)")
+                    try await standard.deleteWeightEntry(babyId: babyId, entryId: entry.id ?? "")
+                    self.entries.removeAll { $0.id == entry.id }
+                } } label: {
+                    Label("Delete", systemImage: "trash")
+                }
             }
         }
     }
