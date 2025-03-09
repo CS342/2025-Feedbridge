@@ -22,7 +22,7 @@ struct AddSingleBabyView: View {
     @State private var existingBabies: [Baby] = []
     @State private var isLoading = true
 
-    var onSave: (() -> Void)?
+    var onSave: ((Baby) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -93,8 +93,9 @@ struct AddSingleBabyView: View {
         }
 
         do {
-            try await standard.addBabies(babies: [Baby(name: babyName, dateOfBirth: dateOfBirth)])
-            onSave?()
+            let baby = Baby(name: babyName, dateOfBirth: dateOfBirth)
+            try await standard.addBabies(babies: [baby])
+            onSave?(baby)
             dismiss()
         } catch {
             errorMessage = error.localizedDescription
