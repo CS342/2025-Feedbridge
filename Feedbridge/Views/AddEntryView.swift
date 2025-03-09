@@ -37,7 +37,7 @@ struct ValidationError: LocalizedError {
 }
 
 /// Represents the weight units
-private enum WeightUnit: String, CaseIterable {
+enum WeightUnit: String, CaseIterable {
     case kilograms = "Kilograms"
     case poundsOunces = "Pounds & Ounces"
 }
@@ -60,8 +60,7 @@ struct AddEntryView: View {
   @Environment(FeedbridgeStandard.self) private var standard
 
   // Babies
-  @State private var babies: [Baby] = []
-  @State private var selectedBabyId: String?
+  @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
 
   // Global date/time
   @State private var date = Date()
@@ -107,9 +106,6 @@ struct AddEntryView: View {
       ScrollViewReader { proxy in
         ScrollView {
           VStack(alignment: .leading, spacing: 20) {
-            // Baby picker
-            babyPickerSection
-              .padding(.horizontal)
 
             // Date/Time
             dateTimeSection
@@ -173,11 +169,6 @@ struct AddEntryView: View {
           }
         }
         .navigationTitle("Add Entry")
-        .onAppear {
-          Task {
-            await loadBabies()
-          }
-        }
       }
     }
   }
@@ -186,11 +177,6 @@ struct AddEntryView: View {
 // MARK: - [ Extension: Subviews ]
 
 extension AddEntryView {
-  /// Baby picker section
-  @ViewBuilder private var babyPickerSection: some View {
-    babyPicker
-  }
-
   /// A date/time picker that can be adjusted
   private var dateTimeSection: some View {
     VStack(alignment: .leading) {
@@ -500,22 +486,6 @@ extension AddEntryView {
 // MARK: - [ Extension: Actions ]
 
 extension AddEntryView {
-  private func loadBabies() async {
-    do {
-      let loadedBabies = try await standard.getBabies()
-      babies = loadedBabies
-
-      // Restore previously selected from UserDefaults, if any
-      if let stored = UserDefaults.standard.selectedBabyId,
-        loadedBabies.map(\.id).contains(stored)
-      {
-        selectedBabyId = stored
-      }
-    } catch {
-      errorMessage = error.localizedDescription
-    }
-  }
-
   private func resetAllFields() {
     weightKg = ""
     weightLb = ""
@@ -606,51 +576,6 @@ extension AddEntryView {
       }
     } catch {
       errorMessage = error.localizedDescription
-    }
-  }
-}
-
-// MARK: - [ Extension: Baby Picker ]
-
-extension AddEntryView {
-  @ViewBuilder private var babyPicker: some View {
-    Menu {
-      ForEach(babies) { baby in
-        Button {
-          selectedBabyId = baby.id
-          UserDefaults.standard.selectedBabyId = baby.id
-        } label: {
-          HStack {
-            Text(baby.name)
-            Spacer()
-            if baby.id == selectedBabyId {
-              Image(systemName: "checkmark")
-                .accessibilityLabel("Selected")
-            }
-          }
-        }
-      }
-      Divider()
-      NavigationLink("Add New Baby") {
-        AddSingleBabyView(onSave: {
-          Task {
-            await loadBabies()
-          }
-        })
-      }
-    } label: {
-      HStack {
-        Image(systemName: "person.crop.circle")
-          .accessibilityLabel("Baby icon")
-        Text(babies.first(where: { $0.id == selectedBabyId })?.name ?? "Select Baby")
-        Image(systemName: "chevron.down")
-          .accessibilityLabel("Menu dropdown")
-      }
-      .foregroundColor(.primary)
-      .padding()
-      .frame(maxWidth: .infinity)
-      .background(Color(.systemBackground))
-      .cornerRadius(8)
     }
   }
 }
