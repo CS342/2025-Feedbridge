@@ -6,7 +6,8 @@
 //
 import Foundation
 
-/// Defines the x-axis range for the last 7 days
+/// Returns a date range representing the last 7 days, including today.
+/// - Returns: A `ClosedRange<Date>` from 6 days ago to today.
 func last7DaysRange() -> ClosedRange<Date> {
     let today = Date()
     let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today) ?? today
