@@ -7,6 +7,8 @@
 
 import Charts
 import SwiftUI
+
+/// Displays the detailed weight entries and charts for a user.
 struct WeightsView: View {
     @Environment(\.presentationMode) var presentationMode
     let entries: [WeightEntry]
@@ -23,18 +25,20 @@ struct WeightsView: View {
         .navigationTitle("Weights")
     }
 
-
+    /// The full weight chart with points for individual entries and a line for averaged weights.
     private var fullWeightChart: some View {
         Chart {
             let averagedEntries = averageWeightsPerDay()
 
+            // Plot individual weight entries
             ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
                 let day = Calendar.current.startOfDay(for: entry.dateTime)
                 PointMark(
                     x: .value("Date", day),
-                    y: .value(weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
-                              weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
-                              )
+                    y: .value(
+                        weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
+                        weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
+                    )
                 )
                 .foregroundStyle(.gray)
                 .symbol {
@@ -44,6 +48,7 @@ struct WeightsView: View {
                 }
             }
 
+            // Plot averaged weight data
             ForEach(averagedEntries) { entry in
                 LineMark(
                     x: .value("Date", entry.date),
@@ -58,11 +63,15 @@ struct WeightsView: View {
         .padding()
     }
 
+    /// Displays a list of weight entries sorted by most recent.
     private var weightEntriesList: some View {
         List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
+                // Weight entry with correct unit
                 Text("\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")")
                     .font(.headline)
+                
+                // Display the formatted date of the entry
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
@@ -70,6 +79,7 @@ struct WeightsView: View {
         }
     }
 
+    /// Averages the weights per day
     private func averageWeightsPerDay() -> [DailyAverageWeight] {
         let grouped = Dictionary(grouping: entries) { entry in
             Calendar.current.startOfDay(for: entry.dateTime)
@@ -77,6 +87,7 @@ struct WeightsView: View {
 
         var dailyAverages: [DailyAverageWeight] = []
 
+        // Calculate average weight per day
         for (date, entries) in grouped {
             let totalWeight = entries.reduce(0) { result, entry in
                 result + (weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value)
@@ -89,6 +100,7 @@ struct WeightsView: View {
     }
 }
 
+/// Represents a day's average weight.
 struct DailyAverageWeight: Identifiable {
     let id = UUID()
     let date: Date

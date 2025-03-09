@@ -4,12 +4,10 @@
 //
 //  Created by Shreya D'Souza on 3/5/25.
 //
-
-
-import SwiftUI
 import Charts
-// swiftlint:disable closure_body_length
-// swiftlint:disable type_body_length
+import SwiftUI
+
+/// Displays weight entries on a chart with the option for a mini view.
 struct WeightChart: View {
     let entries: [WeightEntry]
     var isMini: Bool
@@ -20,13 +18,15 @@ struct WeightChart: View {
         Chart {
             let averagedEntries = averageWeightsPerDay()
 
+            // Plot individual weight entries for full view
             if !isMini {
                 ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
                     let day = Calendar.current.startOfDay(for: entry.dateTime)
                     PointMark(
                         x: .value("Date", day),
-                        y: .value(weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
-                            weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
+                        y: .value(
+                                weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
+                                weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
                             )
                     )
                     .foregroundStyle(.gray)
@@ -37,6 +37,7 @@ struct WeightChart: View {
                     }
                 }
             }
+            // Plot averaged weight data
             ForEach(averagedEntries) { entry in
                 LineMark(
                     x: .value("Date", entry.date),
@@ -55,6 +56,7 @@ struct WeightChart: View {
         }
     }
     
+    // Groups and averages weights per day
     private func averageWeightsPerDay() -> [DailyAverageWeight] {
         let grouped = Dictionary(grouping: entries) { entry in
             Calendar.current.startOfDay(for: entry.dateTime)
@@ -74,6 +76,7 @@ struct WeightChart: View {
     }
 }
 
+/// Displays weight summary card and navigates to full view.
 struct WeightsSummaryView: View {
     let entries: [WeightEntry]
     
@@ -84,67 +87,91 @@ struct WeightsSummaryView: View {
     }
 
     private var formattedTime: String {
-        guard let date = lastEntry?.dateTime else { return "" }
-        let formatter = DateFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        formatDate(lastEntry?.dateTime)
     }
 
     var body: some View {
         NavigationLink(destination: WeightsView(entries: entries)) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemGray6))
-                    .opacity(0.8)
-
-                VStack {
-                    HStack {
-                        Image(systemName: "scalemass.fill")
-                            .accessibilityLabel("Scale")
-                            .font(.title3)
-                            .foregroundColor(.indigo)
-
-                        Text("Weights")
-                            .font(.title3.bold())
-                            .foregroundColor(.indigo)
-
-                        Spacer()
-                        
-                        Image(systemName: "chevron.right")
-                            .accessibilityLabel("Next page")
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                    }
-                    .padding()
-
-                    if let entry = lastEntry {
-                        Spacer()
-                        
-                        HStack {
-                            Text("\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                            Spacer()
-                            MiniWeightChart(entries: entries, weightUnitPreference: $weightUnitPreference)
-                                .frame(width: 60, height: 40)
-                                .opacity(0.5)
-                        }
-                        .padding([.bottom, .horizontal])
-                    } else {
-                        Text("No data added")
-                            .foregroundColor(.gray)
-                            .padding()
-                    }
-                }
-            }
-            .frame(height: 120)
+            summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
     }
+    
+    /// Creates the main summary card
+    private func summaryCard() -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemGray6))
+                .opacity(0.8)
+
+            VStack {
+                header()
+                if let entry = lastEntry {
+                    Spacer()
+                    entryDetails(entry)
+                } else {
+                    noDataText()
+                }
+            }
+        }
+        .frame(height: 120)
+    }
+
+    /// Creates the header section with the icon and title
+    private func header() -> some View {
+        HStack {
+            Image(systemName: "scalemass.fill")
+                .accessibilityLabel("Scale")
+                .font(.title3)
+                .foregroundColor(.indigo)
+
+            Text("Weights")
+                .font(.title3.bold())
+                .foregroundColor(.indigo)
+
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .accessibilityLabel("Next page")
+                .foregroundColor(.gray)
+                .font(.caption)
+                .fontWeight(.semibold)
+        }
+        .padding()
+    }
+
+    /// Displays the last recorded weight entry
+    private func entryDetails(_ entry: WeightEntry) -> some View {
+        HStack {
+            Text(weightText(entry))
+                .font(.title2)
+                .foregroundColor(.primary)
+            
+            Spacer()
+            
+            MiniWeightChart(entries: entries, weightUnitPreference: $weightUnitPreference)
+                .frame(width: 60, height: 40)
+                .opacity(0.5)
+        }
+        .padding([.bottom, .horizontal])
+    }
+
+    /// Formats the weight text based on user preference
+    private func weightText(_ entry: WeightEntry) -> String {
+        let value = weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
+        let unit = weightUnitPreference == .kilograms ? "kg" : "lb"
+        return String(format: "%.2f %@", value, unit)
+    }
+
+    /// Displays a placeholder when no data is available
+    private func noDataText() -> some View {
+        Text("No data added")
+            .foregroundColor(.gray)
+            .padding()
+    }
 }
 
+/// Mini version of the weight chart to be used in the summary view.
 struct MiniWeightChart: View {
     let entries: [WeightEntry]
     @Binding var weightUnitPreference: WeightUnit

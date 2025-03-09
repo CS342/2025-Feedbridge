@@ -18,3 +18,11 @@ func dateString(_ date: Date) -> String {
     formatter.dateFormat = "yyyy-MM-dd"
     return formatter.string(from: date)
 }
+
+func formatDate(_ date: Date?, style: DateFormatter.Style = .short) -> String {
+    guard let date = date else { return "" }
+    let formatter = DateFormatter()
+    formatter.dateStyle = .none
+    formatter.timeStyle = style
+    return formatter.string(from: date)
+}
