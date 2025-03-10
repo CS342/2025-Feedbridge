@@ -62,6 +62,7 @@
 		5BB4CE122D5AFD6E00DA4CF7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */; };
 		5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */; };
 		5BC74CDA2D6E19320059AA19 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC74CD92D6E19320059AA19 /* AddEntryView.swift */; };
+		5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD66F342D7EC73B0043D295 /* TestModels.swift */; };
 		653A2551283387FE005D4D48 /* Feedbridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* Feedbridge.swift */; };
 		653A255528338800005D4D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
 		653A256228338800005D4D48 /* FeedbridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* FeedbridgeTests.swift */; };
@@ -144,6 +145,7 @@
 		5BB4CE112D5AFD6E00DA4CF7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSingleBabyView.swift; sourceTree = "<group>"; };
 		5BC74CD92D6E19320059AA19 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
+		5BD66F342D7EC73B0043D295 /* TestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModels.swift; sourceTree = "<group>"; };
 		653A254D283387FE005D4D48 /* Feedbridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feedbridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A2550283387FE005D4D48 /* Feedbridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedbridge.swift; sourceTree = "<group>"; };
 		653A255428338800005D4D48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 		653A256028338800005D4D48 /* FeedbridgeTests */ = {
 			isa = PBXGroup;
 			children = (
+				5BD66F342D7EC73B0043D295 /* TestModels.swift */,
 				653A256128338800005D4D48 /* FeedbridgeTests.swift */,
 			);
 			path = FeedbridgeTests;
@@ -653,6 +656,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				653A256228338800005D4D48 /* FeedbridgeTests.swift in Sources */,
+				5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
