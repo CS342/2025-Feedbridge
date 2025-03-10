@@ -150,6 +150,9 @@ struct WeightChart: View {
         }
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
+        .if(!isMini) { view in
+            view.chartYAxisLabel("Weight")
+        }
         .chartXScale(domain: last7DaysRange())
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)

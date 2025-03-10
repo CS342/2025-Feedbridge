@@ -118,6 +118,9 @@ struct StoolChart: View {
         .chartXAxis(isMini ? .hidden : .visible)
         .chartYAxis(isMini ? .hidden : .visible)
         .chartXScale(domain: last7DaysRange())
+        .if(!isMini) { view in
+            view.chartYAxisLabel("Stool Count")
+        }
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear)
         }
