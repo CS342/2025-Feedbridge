@@ -65,4 +65,3 @@ struct AlertView: View {
         .frame(height: 120) // Fixed height for consistent UI
     }
 }
-
