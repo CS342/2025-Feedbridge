@@ -11,27 +11,27 @@ import SwiftUI
 struct AlertView: View {
     let baby: Baby  // Baby object containing health-related entries
     
-    // Computed property to determine recent alerts within the past week
+    // Computed property to determine unique recent alerts within the past week
     private var recentAlerts: [String] {
         let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-        var alerts: [String] = []
+        var alerts: Set<String> = [] // Using Set to store unique alerts
         
         // Check for stool-related medical alerts
         if baby.stoolEntries.stoolEntries.contains(where: { $0.dateTime >= oneWeekAgo && $0.medicalAlert }) {
-            alerts.append("⚠️ Stool Issue Detected")
+            alerts.insert("⚠️ Stool Issue Detected")
         }
         
         // Check for dehydration risk from wet diaper entries
         if baby.wetDiaperEntries.wetDiaperEntries.contains(where: { $0.dateTime >= oneWeekAgo && $0.dehydrationAlert }) {
-            alerts.append("⚠️ Dehydration Risk")
+            alerts.insert("⚠️ Dehydration Risk")
         }
         
         // Check for dehydration symptoms from dehydration checks
         if baby.dehydrationChecks.dehydrationChecks.contains(where: { $0.dateTime >= oneWeekAgo && $0.dehydrationAlert }) {
-            alerts.append("⚠️ Dehydration Symptoms")
+            alerts.insert("⚠️ Dehydration Symptoms")
         }
         
-        return alerts
+        return Array(alerts) // Convert Set back to an Array for SwiftUI rendering
     }
     
     var body: some View {
@@ -48,7 +48,7 @@ struct AlertView: View {
                     .foregroundColor(.green)
                     .padding(.top, 4)
             } else {
-                // Display alerts if any exist
+                // Display unique alerts
                 ForEach(recentAlerts, id: \.self) { alert in
                     Text(alert)
                         .font(.headline)
