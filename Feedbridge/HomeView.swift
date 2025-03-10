@@ -9,7 +9,6 @@
 @_spi(TestingSupport) import SpeziAccount
 import SwiftUI
 
-
 struct HomeView: View {
     enum Tabs: String {
         case dashboard
@@ -17,13 +16,11 @@ struct HomeView: View {
         case debug
     }
 
-
     @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.dashboard
     @AppStorage(StorageKeys.tabViewCustomization) private var tabViewCustomization = TabViewCustomization()
 
     @State private var presentingAccount = false
 
-    
     var body: some View {
         TabView(selection: $selectedTab) {
             Tab("Dashboard", systemImage: "house", value: .dashboard) {
@@ -47,13 +44,12 @@ struct HomeView: View {
     }
 }
 
-
 #if DEBUG
 #Preview {
     var details = AccountDetails()
     details.userId = "lelandstanford@stanford.edu"
     details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
-    
+
     return HomeView()
         .previewWith(standard: FeedbridgeStandard()) {
             FeedbridgeScheduler()

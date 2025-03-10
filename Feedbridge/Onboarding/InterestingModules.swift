@@ -9,11 +9,9 @@
 import SpeziOnboarding
 import SwiftUI
 
-
 struct InterestingModules: View {
     @Environment(OnboardingNavigationPath.self) private var onboardingNavigationPath
-    
-    
+
     var body: some View {
         SequentialOnboardingView(
             title: "Interesting Modules",
@@ -43,7 +41,6 @@ struct InterestingModules: View {
         )
     }
 }
-
 
 #if DEBUG
 #Preview {

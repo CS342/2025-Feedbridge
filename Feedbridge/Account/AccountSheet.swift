@@ -10,18 +10,16 @@
 import SpeziLicense
 import SwiftUI
 
-
 struct AccountSheet: View {
     private let dismissAfterSignIn: Bool
 
     @Environment(\.dismiss) var dismiss
-    
+
     @Environment(Account.self) private var account
     @Environment(\.accountRequired) var accountRequired
-    
+
     @State var isInSetup = false
-    
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -67,13 +65,12 @@ struct AccountSheet: View {
     }
 }
 
-
 #if DEBUG
 #Preview("AccountSheet") {
     var details = AccountDetails()
     details.userId = "lelandstanford@stanford.edu"
     details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
-    
+
     return AccountSheet()
         .previewWith {
             AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)

@@ -12,7 +12,6 @@ import SpeziSchedulerUI
 import SpeziViews
 import SwiftUI
 
-
 struct ScheduleView: View {
     @Environment(Account.self) private var account: Account?
     @Environment(FeedbridgeScheduler.self) private var scheduler: FeedbridgeScheduler
@@ -20,7 +19,6 @@ struct ScheduleView: View {
     @State private var presentedEvent: Event?
     @Binding private var presentingAccount: Bool
 
-    
     var body: some View {
         @Bindable var scheduler = scheduler
 
@@ -44,13 +42,11 @@ struct ScheduleView: View {
                 }
         }
     }
-    
-    
+
     init(presentingAccount: Binding<Bool>) {
         self._presentingAccount = presentingAccount
     }
 }
-
 
 #if DEBUG
 #Preview("ScheduleView") {

@@ -13,7 +13,6 @@ import SpeziViews
 import class ModelsR4.Questionnaire
 import class ModelsR4.QuestionnaireResponse
 
-
 @Observable
 final class FeedbridgeScheduler: Module, DefaultInitializable, EnvironmentAccessible {
     @Dependency(Scheduler.self) @ObservationIgnored private var scheduler
@@ -21,7 +20,7 @@ final class FeedbridgeScheduler: Module, DefaultInitializable, EnvironmentAccess
     @MainActor var viewState: ViewState = .idle
 
     init() {}
-    
+
     /// Add or update the current list of task upon app startup.
     func configure() {
         do {
@@ -40,11 +39,9 @@ final class FeedbridgeScheduler: Module, DefaultInitializable, EnvironmentAccess
     }
 }
 
-
 extension Task.Context {
     @Property(coding: .json) var questionnaire: Questionnaire?
 }
-
 
 extension Outcome {
     // periphery:ignore - demonstration of how to store additional context within an outcome

@@ -14,9 +14,9 @@ import SwiftUI
 struct AddFeedEntryView: View {
     @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.dismiss) private var dismiss
-    
+
     let babyId: String
-    
+
     @State private var feedType: FeedType = .directBreastfeeding
     @State private var milkType: MilkType = .breastmilk
     @State private var feedTimeInMinutes: Int = 0
@@ -24,7 +24,7 @@ struct AddFeedEntryView: View {
     @State private var date = Date()
     @State private var isLoading = false
     @State private var errorMessage: String?
-    
+
     // swiftlint: disable closure_body_length
     var body: some View {
         NavigationStack {
@@ -32,21 +32,21 @@ struct AddFeedEntryView: View {
                 Section {
                     DatePicker("Date & Time", selection: $date)
                 }
-                
+
                 Section(header: Text("Feeding Details")) {
                     Picker("Feeding Method", selection: $feedType) {
                         Text("Direct Breastfeeding").tag(FeedType.directBreastfeeding)
                         Text("Bottle").tag(FeedType.bottle)
                     }
                     .pickerStyle(SegmentedPickerStyle())
-                    
+
                     if feedType == .bottle {
                         Picker("Milk Type", selection: $milkType) {
                             Text("Breastmilk").tag(MilkType.breastmilk)
                             Text("Formula").tag(MilkType.formula)
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        
+
                         Stepper(value: $feedVolumeInML, in: 0...500, step: 10) {
                             Text("Volume: \(feedVolumeInML) mL")
                         }
@@ -56,7 +56,7 @@ struct AddFeedEntryView: View {
                         }
                     }
                 }
-                
+
                 if let error = errorMessage {
                     Section {
                         Text(error)
@@ -83,25 +83,25 @@ struct AddFeedEntryView: View {
             }
         }
     }
-    
+
     private func saveFeedEntry() async {
         isLoading = true
         errorMessage = nil
-        
+
         let entry: FeedEntry
         if feedType == .directBreastfeeding {
             entry = FeedEntry(directBreastfeeding: feedTimeInMinutes, dateTime: date)
         } else {
             entry = FeedEntry(bottle: feedVolumeInML, milkType: milkType, dateTime: date)
         }
-        
+
         do {
             try await standard.addFeedEntry(entry, toBabyWithId: babyId)
             dismiss()
         } catch {
             errorMessage = error.localizedDescription
         }
-        
+
         isLoading = false
     }
 }

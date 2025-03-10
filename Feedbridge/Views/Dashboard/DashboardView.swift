@@ -18,7 +18,7 @@ struct DashboardView: View {
     @State private var isLoading = true
     @State private var errorMessage: String?
     @State private var baby: Baby?
-    
+
     var body: some View {
         NavigationStack {
             Group {
@@ -45,7 +45,7 @@ struct DashboardView: View {
             }
         }
     }
-    
+
     /// Main content of the dashboard, displaying summary views.
     @ViewBuilder private var mainContent: some View {
         ScrollView {
@@ -60,7 +60,7 @@ struct DashboardView: View {
             .padding()
         }
     }
-    
+
     /// Loads baby data asynchronously.
     private func loadBaby() async {
         guard let babyId = selectedBabyId else {

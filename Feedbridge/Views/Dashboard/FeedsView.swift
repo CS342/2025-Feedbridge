@@ -11,7 +11,7 @@ import SwiftUI
 struct FeedsView: View {
     @Environment(\.presentationMode) var presentationMode
     let entries: [FeedEntry]
-    
+
     var body: some View {
         NavigationStack {
             FeedChart(entries: entries, isMini: false)

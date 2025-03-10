@@ -13,7 +13,6 @@ import SpeziNotifications
 import SpeziOnboarding
 import SwiftUI
 
-
 /// Displays an multi-step onboarding flow for the Feedbridge.
 struct OnboardingFlow: View {
     @Environment(HealthKit.self) private var healthKitDataSource
@@ -24,37 +23,35 @@ struct OnboardingFlow: View {
     @AppStorage(StorageKeys.onboardingFlowComplete) private var completedOnboardingFlow = false
 
     @State private var localNotificationAuthorization = false
-    
-    
+
     @MainActor private var healthKitAuthorization: Bool {
         // As HealthKit not available in preview simulator
         if ProcessInfo.processInfo.isPreviewSimulator {
             return false
         }
-        
+
         return healthKitDataSource.authorized
     }
-    
-    
+
     var body: some View {
         OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
             Welcome()
             // InterestingModules()
-            
+
             if !FeatureFlags.disableFirebase {
                 AccountOnboarding()
             }
-            
+
             #if !(targetEnvironment(simulator) && (arch(i386) || arch(x86_64)))
                 Consent()
             #endif
-            
+
             AddBabyView()
-            
+
 //            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
 //                HealthKitPermissions()
 //            }
-            
+
             if !localNotificationAuthorization {
                 NotificationPermissions()
             }
@@ -71,7 +68,6 @@ struct OnboardingFlow: View {
             }
     }
 }
-
 
 #if DEBUG
 #Preview {

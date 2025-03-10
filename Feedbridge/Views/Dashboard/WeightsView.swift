@@ -20,9 +20,9 @@ struct WeightsView: View {
     @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.presentationMode) var presentationMode
     @State var entries: [WeightEntry]
-    
+
     let babyId: String
-    
+
     @AppStorage(UserDefaults.weightUnitPreference) var weightUnitPreference: WeightUnit = .kilograms
 
     var body: some View {
@@ -45,9 +45,10 @@ struct WeightsView: View {
                 let day = Calendar.current.startOfDay(for: entry.dateTime)
                 PointMark(
                     x: .value("Date", day),
-                    y: .value(weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
-                              weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
-                              )
+                    y: .value(
+                        weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
+                        weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
+                    )
                 )
                 .foregroundStyle(.gray)
                 .symbol {
@@ -79,7 +80,7 @@ struct WeightsView: View {
                 // Weight entry with correct unit
                 Text("\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")")
                     .font(.headline)
-                
+
                 // Display the formatted date of the entry
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)

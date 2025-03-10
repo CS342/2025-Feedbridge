@@ -9,12 +9,10 @@
 @_spi(TestingSupport) import SpeziAccount
 import SwiftUI
 
-
 struct AccountSetupHeader: View {
     @Environment(Account.self) private var account
     @Environment(\.accountSetupState) private var setupState
-    
-    
+
     var body: some View {
         VStack {
             Text("Your Account")
@@ -33,7 +31,6 @@ struct AccountSetupHeader: View {
             .multilineTextAlignment(.center)
     }
 }
-
 
 #if DEBUG
 #Preview {
