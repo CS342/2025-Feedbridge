@@ -9,6 +9,7 @@ import SwiftUI
 /// Displays weight summary card and navigates to full view.
 struct WeightsSummaryView: View {
     let entries: [WeightEntry]
+    let babyId: String
     
     @AppStorage(UserDefaults.weightUnitPreference) var weightUnitPreference: WeightUnit = .kilograms
     
@@ -21,7 +22,7 @@ struct WeightsSummaryView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: WeightsView(entries: entries)) {
+        NavigationLink(destination: WeightsView(entries: entries, babyId: babyId)) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
