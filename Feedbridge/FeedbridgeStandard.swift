@@ -103,7 +103,6 @@ actor FeedbridgeStandard: Standard,
   /// Stores the given consent form in the user's document directory with a unique timestamped filename.
   ///
   /// - Parameter consent: The consent form's data to be stored as a `PDFDocument`.
-  @MainActor
   func store(consent: ConsentDocumentExport) async throws {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd_HHmmss"
@@ -143,7 +142,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func addBabies(babies: [Baby]) async throws {
     guard let id = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -164,7 +162,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func getBabies() async throws -> [Baby] {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -189,7 +186,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func getBaby(id: String) async throws -> Baby? {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -255,7 +251,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func addWeightEntry(_ entry: WeightEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -280,7 +275,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func addFeedEntry(_ entry: FeedEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -305,7 +299,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func addStoolEntry(_ entry: StoolEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -330,7 +323,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func addWetDiaperEntry(_ entry: WetDiaperEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -355,7 +347,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func addDehydrationCheck(_ check: DehydrationCheck, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -380,7 +371,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func deleteWeightEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -410,7 +400,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func deleteFeedEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -440,7 +429,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func deleteStoolEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -470,7 +458,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func deleteWetDiaperEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -500,7 +487,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func deleteDehydrationCheck(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
@@ -530,7 +516,6 @@ actor FeedbridgeStandard: Standard,
     }
   }
 
-  @MainActor
   func deleteBaby(id: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
       await logger.error("Could not get current user id")
