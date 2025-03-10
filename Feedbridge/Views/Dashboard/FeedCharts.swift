@@ -126,7 +126,7 @@ struct FeedChart: View {
     private func chartEntries(from indexedEntries: [(entry: FeedEntry, index: Int)], lastDay: String) -> some ChartContent {
         ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
             PointMark(
-                x: .value("Date", indexedEntry.entry.dateTime),
+                x: .value("Date", indexedEntry.entry.dateTime, unit: .day),
                 y: .value("Feed #", indexedEntry.index)
             )
             .symbolSize(bubbleSize(indexedEntry.entry))

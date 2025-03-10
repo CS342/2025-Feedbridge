@@ -108,7 +108,7 @@ struct StoolChart: View {
             // Generate chart points for each stool entry
             ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
                 PointMark(
-                    x: .value("Date", indexedEntry.entry.dateTime),
+                    x: .value("Date", indexedEntry.entry.dateTime, unit: .day),
                     y: .value("Stool #", indexedEntry.index)
                 )
                 .symbolSize(bubbleSize(indexedEntry.entry.volume, isMini))
