@@ -10,29 +10,29 @@ import SwiftUI
 /// View displaying a summary of feed data.
 struct FeedsSummaryView: View {
     let entries: [FeedEntry]
-    
+
     private var lastEntry: FeedEntry? {
         entries.max(by: { $0.dateTime < $1.dateTime })
     }
-    
+
     private var formattedTime: String {
         formatDate(lastEntry?.dateTime)
     }
-    
+
     var body: some View {
         NavigationLink(destination: FeedsView(entries: entries)) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     /// Creates a summary card view.
     private func summaryCard() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(.systemGray6))
                 .opacity(0.8)
-            
+
             VStack {
                 header()
                 if let entry = lastEntry {
@@ -47,7 +47,7 @@ struct FeedsSummaryView: View {
         }
         .frame(height: 120)
     }
-    
+
     /// Creates the header view for the summary card.
     private func header() -> some View {
         HStack {
@@ -55,13 +55,13 @@ struct FeedsSummaryView: View {
                 .accessibilityLabel("Flame")
                 .font(.title3)
                 .foregroundColor(.pink)
-            
+
             Text("Feeds")
                 .font(.title3.bold())
                 .foregroundColor(.pink)
-            
+
             Spacer()
-            
+
             Image(systemName: "chevron.right")
                 .accessibilityLabel("Next page")
                 .foregroundColor(.gray)
@@ -70,7 +70,7 @@ struct FeedsSummaryView: View {
         }
         .padding()
     }
-    
+
     /// Displays entry details such as feed type and volume/time.
     private func entryDetails(_ entry: FeedEntry) -> some View {
         HStack {
@@ -94,7 +94,7 @@ struct FeedsSummaryView: View {
 /// Mini chart view for feed data.
 struct MiniFeedChart: View {
     let entries: [FeedEntry]
-    
+
     var body: some View {
         FeedChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
@@ -106,7 +106,7 @@ struct MiniFeedChart: View {
 struct FeedChart: View {
     let entries: [FeedEntry]
     var isMini: Bool
-    
+
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries)
         let lastDay = lastEntryDate(entries)
@@ -146,12 +146,12 @@ struct FeedChart: View {
         }
         return dateString(lastEntry.dateTime)
     }
-    
+
     /// Indexes entries for each day and assigns sequential indices.
     private func indexEntriesPerDay(_ entries: [FeedEntry]) -> [(entry: FeedEntry, index: Int)] {
         let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
         var dailyIndex: [String: Int] = [:]
-        
+
         return sortedEntries.map { entry in
             let dayKey = dateString(entry.dateTime)
             let index = (dailyIndex[dayKey] ?? 0) + 1
@@ -159,7 +159,7 @@ struct FeedChart: View {
             return (entry, index)
         }
     }
-    
+
     /// Determines bubble size based on feed type (breastfeeding or bottle).
     private func bubbleSize(_ entry: FeedEntry) -> Double {
         switch entry.feedType {
@@ -183,7 +183,7 @@ struct FeedChart: View {
             }
         }
     }
-    
+
     /// Assigns colors based on feed type and milk type.
     private func feedColor(_ type: FeedType, _ milk: MilkType?) -> Color {
         switch type {

@@ -9,29 +9,29 @@ import SwiftUI
 /// View displaying a summary of stool entries.
 struct StoolsSummaryView: View {
     let entries: [StoolEntry]
-    
+
     private var lastEntry: StoolEntry? {
         entries.max(by: { $0.dateTime < $1.dateTime })
     }
-    
+
     private var formattedTime: String {
         formatDate(lastEntry?.dateTime)
     }
-    
+
     var body: some View {
         NavigationLink(destination: StoolsView(entries: entries)) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     /// Creates a summary card for stool entries.
     private func summaryCard() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(.systemGray6))
                 .opacity(0.8)
-            
+
             VStack {
                 header()
                 if let entry = lastEntry {
@@ -46,7 +46,7 @@ struct StoolsSummaryView: View {
         }
         .frame(height: 120)
     }
-    
+
     /// Header for the summary card
     private func header() -> some View {
         HStack {
@@ -54,13 +54,13 @@ struct StoolsSummaryView: View {
                 .accessibilityLabel("Stool Drop")
                 .font(.title3)
                 .foregroundColor(.brown)
-            
+
             Text("Stools")
                 .font(.title3.bold())
                 .foregroundColor(.brown)
-            
+
             Spacer()
-            
+
             Image(systemName: "chevron.right")
                 .accessibilityLabel("Next page")
                 .foregroundColor(.gray)
@@ -69,7 +69,7 @@ struct StoolsSummaryView: View {
         }
         .padding()
     }
-    
+
     /// Displays the details of a single stool entry
     private func entryDetails(_ entry: StoolEntry) -> some View {
         HStack {
@@ -87,7 +87,7 @@ struct StoolsSummaryView: View {
 /// Mini chart view for stool entries.
 struct MiniStoolChart: View {
     let entries: [StoolEntry]
-    
+
     var body: some View {
         StoolChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
@@ -99,7 +99,7 @@ struct MiniStoolChart: View {
 struct StoolChart: View {
     let entries: [StoolEntry]
     var isMini: Bool
-    
+
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries)
         let lastDay = lastEntryDate(entries) // Get the last recorded date
@@ -122,12 +122,12 @@ struct StoolChart: View {
             plotArea.background(Color.clear)
         }
     }
-    
+
     /// Returns color based on whether the chart is mini and if it is the last day.
     private func miniColor(entry: StoolEntry, isMini: Bool, lastDay: String) -> Color {
         isMini ? (dateString(entry.dateTime) == lastDay ? .brown : Color(.greyChart)) : stoolColor(entry.color)
     }
-    
+
     /// Determines the last recorded date as a string
     private func lastEntryDate(_ entries: [StoolEntry]) -> String {
         guard let lastEntry = entries.max(by: { $0.dateTime < $1.dateTime }) else {
@@ -135,7 +135,7 @@ struct StoolChart: View {
         }
         return dateString(lastEntry.dateTime)
     }
-    
+
     /// Indexes each stool entry by day and assigns a sequential index
     private func indexEntriesPerDay(_ entries: [StoolEntry]) -> [(entry: StoolEntry, index: Int)] {
         let sortedEntries = entries.sorted(by: { $0.dateTime < $1.dateTime })
@@ -148,7 +148,7 @@ struct StoolChart: View {
             return (entry, index)
         }
     }
-    
+
     /// Returns bubble size based on stool volume.
     private func bubbleSize(_ volume: StoolVolume, _ isMini: Bool) -> Double {
         switch volume {

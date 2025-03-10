@@ -10,9 +10,9 @@ import SwiftUI
 struct WeightsSummaryView: View {
     let entries: [WeightEntry]
     let babyId: String
-    
+
     @AppStorage(UserDefaults.weightUnitPreference) var weightUnitPreference: WeightUnit = .kilograms
-    
+
     private var lastEntry: WeightEntry? {
         entries.max(by: { $0.dateTime < $1.dateTime })
     }
@@ -27,7 +27,7 @@ struct WeightsSummaryView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     /// Creates the main summary card
     private func summaryCard() -> some View {
         ZStack {
@@ -61,7 +61,7 @@ struct WeightsSummaryView: View {
                 .foregroundColor(.indigo)
 
             Spacer()
-            
+
             Image(systemName: "chevron.right")
                 .accessibilityLabel("Next page")
                 .foregroundColor(.gray)
@@ -77,9 +77,9 @@ struct WeightsSummaryView: View {
             Text(formattedWeightText(entry: entry, weightUnitPreference: weightUnitPreference))
                 .font(.title2)
                 .foregroundColor(.primary)
-            
+
             Spacer()
-            
+
             MiniWeightChart(entries: entries, weightUnitPreference: $weightUnitPreference)
                 .frame(width: 60, height: 40)
                 .opacity(0.5)
@@ -99,7 +99,7 @@ struct WeightsSummaryView: View {
 struct MiniWeightChart: View {
     let entries: [WeightEntry]
     @Binding var weightUnitPreference: WeightUnit
-    
+
     var body: some View {
         WeightChart(entries: entries, isMini: true, weightUnitPreference: $weightUnitPreference)
             .frame(width: 60, height: 40)
@@ -111,9 +111,9 @@ struct MiniWeightChart: View {
 struct WeightChart: View {
     let entries: [WeightEntry]
     var isMini: Bool
-    
+
     @Binding var weightUnitPreference: WeightUnit
-    
+
     var body: some View {
         Chart {
             let averagedEntries = averageWeightsPerDay()
@@ -155,7 +155,7 @@ struct WeightChart: View {
             plotArea.background(Color.clear)
         }
     }
-    
+
     // Groups and averages weights per day
     private func averageWeightsPerDay() -> [DailyAverageWeight] {
         let grouped = Dictionary(grouping: entries) { entry in

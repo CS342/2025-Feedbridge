@@ -98,7 +98,7 @@ struct AddEntryView: View {
   // Error handling
   @State private var errorMessage: String?
   @State private var showSuccessMessage: Bool = false
-    
+
   // MARK: [ View Lifecycle Method ]
 
   var body: some View {
@@ -106,7 +106,6 @@ struct AddEntryView: View {
       ScrollViewReader { proxy in
         ScrollView {
           VStack(alignment: .leading, spacing: 20) {
-
             // Date/Time
             dateTimeSection
               .padding(.horizontal)
@@ -138,8 +137,7 @@ struct AddEntryView: View {
               confirmButton
                 .padding(.horizontal)
             }
-              
-            
+
             Text("Success saving")
               .foregroundColor(.green)
               .padding()
@@ -263,7 +261,6 @@ extension AddEntryView {
         }
     }
 
-
   // MARK: - Weight UI
 
   private var weightEntryView: some View {
@@ -280,7 +277,7 @@ extension AddEntryView {
 
             Spacer()
         }
-        
+
         Picker("Unit", selection: $weightUnit) {
             ForEach(WeightUnit.allCases, id: \.self) {
                 Text($0.rawValue)
@@ -307,7 +304,7 @@ extension AddEntryView {
                         focusedField = .weightOz
                     }
                     .textFieldStyle(.roundedBorder)
-                
+
                 TextField("Ounces", text: $weightOz)
                     .keyboardType(.numberPad)
                     .focused($focusedField, equals: .weightOz)
@@ -315,7 +312,7 @@ extension AddEntryView {
                         // done
                     }
                     .textFieldStyle(.roundedBorder)
-                
+
                     .onAppear {
                         focusedField = .weightLb
                     }
@@ -417,11 +414,11 @@ extension AddEntryView {
                 .accessibilityLabel("Stool Drop")
                 .font(.title3)
                 .foregroundColor(.brown)
-            
+
             Text("Stool Details")
                 .font(.title3.bold())
                 .foregroundColor(.brown)
-            
+
             Spacer()
         }
 
@@ -443,7 +440,6 @@ extension AddEntryView {
       .pickerStyle(.segmented)
     }
   }
-    
 
   // MARK: - Dehydration UI
 
@@ -520,8 +516,7 @@ extension AddEntryView {
           try await standard.addWeightEntry(entry, toBabyWithId: babyId)
         } else if let weightLb = Double(weightLb), weightLb >= 0,
           let weightOz = Double(weightOz), weightOz >= 0,
-          weightLb > 0 || weightOz > 0
-        {
+          weightLb > 0 || weightOz > 0 {
           let pounds = Int(weightLb)
           let ounces = Int(weightOz)
           let entry = WeightEntry(pounds: pounds, ounces: ounces, dateTime: date)
@@ -569,7 +564,7 @@ extension AddEntryView {
       resetAllFields()
       entryKind = nil
       date = Date()
-        
+
       showSuccessMessage = true
       DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
         showSuccessMessage = false

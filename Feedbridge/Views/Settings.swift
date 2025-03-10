@@ -12,7 +12,7 @@ import SwiftUI
 private struct BabyDetailsList: View {
     let baby: Baby
     @Binding var weightUnitPreference: WeightUnit
-    
+
     var body: some View {
         FeedEntriesSection(entries: baby.feedEntries.feedEntries)
         WeightEntriesSection(entries: baby.weightEntries.weightEntries, weightUnitPreference: $weightUnitPreference)
@@ -67,7 +67,7 @@ private struct FeedEntriesSection: View {
 private struct WeightEntriesSection: View {
     let entries: [WeightEntry]
     @Binding var weightUnitPreference: WeightUnit
-    
+
     var body: some View {
         Section("Weight Entries") {
             ForEach(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
@@ -149,7 +149,7 @@ private struct DehydrationChecksSection: View {
 struct HealthDetailsView: View {
     let baby: Baby
     @Binding var weightUnitPreference: WeightUnit
-    
+
     var body: some View {
         List {
             FeedEntriesSection(entries: baby.feedEntries.feedEntries)
@@ -172,7 +172,7 @@ struct Settings: View {
     @State private var errorMessage: String?
     @State private var showingDeleteAlert = false
     @State private var weightUnitPreference: WeightUnit = UserDefaults.standard.weightUnitPreference
-    
+
     @ViewBuilder private var content: some View {
         Group {
             if isLoading {
@@ -185,7 +185,7 @@ struct Settings: View {
             }
         }
     }
-    
+
     @ViewBuilder private var babyList: some View {
         List {
             Section("Select baby") {
@@ -216,7 +216,7 @@ struct Settings: View {
             }
         }
     }
-    
+
     var body: some View {
         NavigationStack {
             content
@@ -227,7 +227,6 @@ struct Settings: View {
                 }
         }
     }
-
 
     private var deleteButton: some View {
         Button(role: .destructive) {
@@ -324,12 +323,12 @@ extension Settings {
             .cornerRadius(8)
         }
     }
-    
+
     private func deleteBaby() async {
         guard let babyId = selectedBabyId else {
             return
         }
-        
+
         do {
             try await standard.deleteBaby(id: babyId)
             selectedBabyId = nil
@@ -340,13 +339,13 @@ extension Settings {
             errorMessage = "Failed to delete baby: \(error.localizedDescription)"
         }
     }
-    
+
     private func loadBaby(needLoading: Bool = true) async {
         guard let babyId = selectedBabyId else {
             curBaby = nil
             return
         }
-        
+
         if needLoading {
             isLoading = true
         }
@@ -360,11 +359,11 @@ extension Settings {
 
         isLoading = false
     }
-    
+
     private func loadBabies() async {
         isLoading = true
         errorMessage = nil
-        
+
         do {
             babies = try await standard.getBabies()
             if let savedId = UserDefaults.standard.selectedBabyId,
@@ -377,7 +376,7 @@ extension Settings {
         } catch {
             errorMessage = "Failed to load babies: \(error.localizedDescription)"
         }
-        
+
         isLoading = false
     }
 }

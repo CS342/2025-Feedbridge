@@ -10,15 +10,13 @@ import SpeziNotifications
 import SpeziOnboarding
 import SwiftUI
 
-
 struct NotificationPermissions: View {
     @Environment(OnboardingNavigationPath.self) private var onboardingNavigationPath
 
     @Environment(\.requestNotificationAuthorization) private var requestNotificationAuthorization
 
     @State private var notificationProcessing = false
-    
-    
+
     var body: some View {
         OnboardingView(
             contentView: {
@@ -53,7 +51,7 @@ struct NotificationPermissions: View {
                             print("Could not request notification permissions.")
                         }
                         notificationProcessing = false
-                        
+
                         onboardingNavigationPath.nextStep()
                     }
                 )
@@ -64,7 +62,6 @@ struct NotificationPermissions: View {
             .navigationTitle(Text(verbatim: ""))
     }
 }
-
 
 #if DEBUG
 #Preview {

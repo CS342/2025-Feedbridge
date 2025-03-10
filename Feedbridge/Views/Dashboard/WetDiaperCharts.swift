@@ -101,7 +101,7 @@ struct WetDiapersSummaryView: View {
 /// Displays a mini chart of wet diaper entries.
 struct MiniWetDiaperChart: View {
     let entries: [WetDiaperEntry]
-    
+
     var body: some View {
         WetDiaperChart(entries: entries, isMini: true)
             .frame(width: 60, height: 40)
@@ -118,7 +118,7 @@ struct WetDiaperChart: View {
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries) // Index entries by day
         let lastDay = lastEntryDate(entries) // Get the last recorded date
-        
+
         Chart {
             // Loop through each entry and plot it
             ForEach(indexedEntries, id: \.entry.id) { indexedEntry in

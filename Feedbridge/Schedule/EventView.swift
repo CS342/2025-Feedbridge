@@ -11,7 +11,6 @@ import SpeziScheduler
 import SpeziSchedulerUI
 import SwiftUI
 
-
 struct EventView: View {
     private let event: Event
 
