@@ -51,6 +51,7 @@ struct DashboardView: View {
         ScrollView {
             VStack(spacing: 16) {
                 if let baby {
+                    AlertView(baby: baby)
                     WeightsSummaryView(entries: baby.weightEntries.weightEntries, babyId: baby.id ?? "")
                     FeedsSummaryView(entries: baby.feedEntries.feedEntries)
                     WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries)
