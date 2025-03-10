@@ -133,6 +133,9 @@ struct WetDiaperChart: View {
         .chartXAxis(isMini ? .hidden : .visible) // Hide X-axis on mini chart
         .chartYAxis(isMini ? .hidden : .visible) // Hide Y-axis on mini chart
         .chartXScale(domain: last7DaysRange()) // Set the X-axis range for the last 7 days
+        .if(!isMini) { view in
+            view.chartYAxisLabel("Void Count")
+        }
         .chartPlotStyle { plotArea in
             plotArea.background(Color.clear) // Make the chart background transparent
         }
