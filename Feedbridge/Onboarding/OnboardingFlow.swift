@@ -52,9 +52,9 @@ struct OnboardingFlow: View {
 //                HealthKitPermissions()
 //            }
 
-            if !localNotificationAuthorization {
-                NotificationPermissions()
-            }
+//            if !localNotificationAuthorization {
+//                NotificationPermissions()
+//            }
         }
             .interactiveDismissDisabled(!completedOnboardingFlow)
             .onChange(of: scenePhase, initial: true) {
