@@ -29,7 +29,9 @@ struct DashboardView: View {
                     Text(error)
                         .foregroundColor(.red)
                 } else {
-                    mainContent
+                    mainContent.refreshable {
+                        await loadBaby()
+                    }
                 }
             }
             .navigationTitle("Dashboard")
@@ -49,7 +51,7 @@ struct DashboardView: View {
         ScrollView {
             VStack(spacing: 16) {
                 if let baby {
-                    WeightsSummaryView(entries: baby.weightEntries.weightEntries)
+                    WeightsSummaryView(entries: baby.weightEntries.weightEntries, babyId: baby.id ?? "")
                     FeedsSummaryView(entries: baby.feedEntries.feedEntries)
                     WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries)
                     StoolsSummaryView(entries: baby.stoolEntries.stoolEntries)

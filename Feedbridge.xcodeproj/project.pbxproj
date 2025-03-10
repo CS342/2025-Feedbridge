@@ -614,18 +614,6 @@
 			files = (
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */,
-<<<<<<< HEAD
-				35DCCFD62D7AAAFD0045DB20 /* WetDiapersView.swift in Sources */,
-				35DCCFD72D7AAAFD0045DB20 /* DashboardView.swift in Sources */,
-				35DCCFD82D7AAAFD0045DB20 /* StoolCharts.swift in Sources */,
-				35DCCFD92D7AAAFD0045DB20 /* WeightCharts.swift in Sources */,
-				35DCCFDA2D7AAAFD0045DB20 /* WetDiaperCharts.swift in Sources */,
-				35DCCFDB2D7AAAFD0045DB20 /* FeedsView.swift in Sources */,
-				35DCCFDC2D7AAAFD0045DB20 /* FeedCharts.swift in Sources */,
-				35DCCFDD2D7AAAFD0045DB20 /* StoolsView.swift in Sources */,
-				35DCCFDE2D7AAAFD0045DB20 /* WeightsView.swift in Sources */,
-=======
->>>>>>> shreya/add-ui-updates
 				5BB4CE122D5AFD6E00DA4CF7 /* Settings.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC3829EDD7CA004B9AB4 /* InterestingModules.swift in Sources */,
