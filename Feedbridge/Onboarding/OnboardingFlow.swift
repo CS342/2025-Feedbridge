@@ -15,69 +15,70 @@ import SwiftUI
 
 /// Displays an multi-step onboarding flow for the Feedbridge.
 struct OnboardingFlow: View {
-    @Environment(HealthKit.self) private var healthKitDataSource
+  @Environment(HealthKit.self) private var healthKitDataSource
 
-    @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.notificationSettings) private var notificationSettings
+  @Environment(\.scenePhase) private var scenePhase
+  @Environment(\.notificationSettings) private var notificationSettings
 
-    @AppStorage(StorageKeys.onboardingFlowComplete) private var completedOnboardingFlow = false
+  @AppStorage(StorageKeys.onboardingFlowComplete) private var completedOnboardingFlow = false
 
-    @State private var localNotificationAuthorization = false
+  @State private var localNotificationAuthorization = false
 
-    @MainActor private var healthKitAuthorization: Bool {
-        // As HealthKit not available in preview simulator
-        if ProcessInfo.processInfo.isPreviewSimulator {
-            return false
-        }
-
-        return healthKitDataSource.authorized
+  @MainActor private var healthKitAuthorization: Bool {
+    // As HealthKit not available in preview simulator
+    if ProcessInfo.processInfo.isPreviewSimulator {
+      return false
     }
 
-    var body: some View {
-        OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
-            Welcome()
-            // InterestingModules()
+    return healthKitDataSource.authorized
+  }
 
-            if !FeatureFlags.disableFirebase {
-                AccountOnboarding()
-            }
+  var body: some View {
+    OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
+      Welcome()
+      // InterestingModules()
 
-            #if !(targetEnvironment(simulator) && (arch(i386) || arch(x86_64)))
-                Consent()
-            #endif
+      if !FeatureFlags.disableFirebase {
+        AccountOnboarding()
+      }
 
-            AddBabyView()
+      #if !(targetEnvironment(simulator) && (arch(i386) || arch(x86_64)))
+        Consent()
+      #endif
 
-//            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
-//                HealthKitPermissions()
-//            }
+      AddBabyView()
 
-//            if !localNotificationAuthorization {
-//                NotificationPermissions()
-//            }
-        }
-            .interactiveDismissDisabled(!completedOnboardingFlow)
-            .onChange(of: scenePhase, initial: true) {
-                guard case .active = scenePhase else {
-                    return
-                }
+      //            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
+      //                HealthKitPermissions()
+      //            }
 
-                Task {
-                    localNotificationAuthorization = await notificationSettings().authorizationStatus == .authorized
-                }
-            }
+      //            if !localNotificationAuthorization {
+      //                NotificationPermissions()
+      //            }
     }
+    .interactiveDismissDisabled(!completedOnboardingFlow)
+    .onChange(of: scenePhase, initial: true) {
+      guard case .active = scenePhase else {
+        return
+      }
+
+      Task {
+        localNotificationAuthorization =
+          await notificationSettings().authorizationStatus == .authorized
+      }
+    }
+  }
 }
 
 #if DEBUG
-#Preview {
+  #Preview {
     OnboardingFlow()
-        .previewWith(standard: FeedbridgeStandard()) {
-            OnboardingDataSource()
-            HealthKit()
-            AccountConfiguration(service: InMemoryAccountService())
+      .previewWith(standard: FeedbridgeStandard()) {
+        OnboardingDataSource()
+        HealthKit()
+        AccountConfiguration(service: InMemoryAccountService())
 
-            FeedbridgeScheduler()
-        }
-}
+        FeedbridgeScheduler()
+      }
+  }
 #endif
