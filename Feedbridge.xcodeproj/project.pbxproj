@@ -527,7 +527,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					653A254C283387FE005D4D48 = {
 						CreatedOnToolsVersion = 13.4;
@@ -660,7 +660,6 @@
 			files = (
 				5BD66F3E2D7ED0650043D295 /* TestFeedbridgeStandard.swift in Sources */,
 				653A256228338800005D4D48 /* FeedbridgeTests.swift in Sources */,
-				5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */,
 				5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
