@@ -11,6 +11,46 @@
 
 import SwiftUI
 
+/// Grid displaying dehydration alerts over the past 5 days.
+struct AlertGridView: View {
+    var entries: [DehydrationCheck]
+
+    private var pastWeekAlerts: [(date: String, hasAlert: Bool)] {
+        let today = Calendar.current.startOfDay(for: Date())
+        let fiveDaysAgo = Calendar.current.date(byAdding: .day, value: -4, to: today) ?? today
+
+        let filteredChecks = entries.filter { $0.dateTime >= fiveDaysAgo }
+
+        let grouped = Dictionary(grouping: filteredChecks) { check in
+            Calendar.current.startOfDay(for: check.dateTime)
+        }
+
+        return (0..<5).compactMap { offset in
+            if let date = Calendar.current.date(byAdding: .day, value: offset, to: fiveDaysAgo) {
+                let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+                let hasAlert = grouped[date]?.contains(where: { $0.dehydrationAlert }) ?? false
+                return (dateString, hasAlert)
+            }
+            return nil
+        }
+    }
+
+    var body: some View {
+        HStack(spacing: 8) {
+            ForEach(pastWeekAlerts, id: \.date) { data in
+                Text(data.date)
+                    .font(.caption)
+                    .frame(width: 60, height: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(data.hasAlert ? Color.red.opacity(0.8) : Color.green.opacity(0.8))
+                    )
+                    .foregroundColor(.white)
+            }
+        }
+    }
+}
+
 struct DehydrationSummaryView: View {
     var entries: [DehydrationCheck]
     let babyId: String
@@ -72,46 +112,5 @@ struct DehydrationSummaryView: View {
                 .fontWeight(.semibold)
         }
         .padding()
-    }
-}
-    
-
-/// Grid displaying dehydration alerts over the past 5 days.
-struct AlertGridView: View {
-    var entries: [DehydrationCheck]
-
-    private var pastWeekAlerts: [(date: String, hasAlert: Bool)] {
-        let today = Calendar.current.startOfDay(for: Date())
-        let fiveDaysAgo = Calendar.current.date(byAdding: .day, value: -4, to: today) ?? today
-
-        let filteredChecks = entries.filter { $0.dateTime >= fiveDaysAgo }
-
-        let grouped = Dictionary(grouping: filteredChecks) { check in
-            Calendar.current.startOfDay(for: check.dateTime)
-        }
-
-        return (0..<5).compactMap { offset in
-            if let date = Calendar.current.date(byAdding: .day, value: offset, to: fiveDaysAgo) {
-                let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
-                let hasAlert = grouped[date]?.contains(where: { $0.dehydrationAlert }) ?? false
-                return (dateString, hasAlert)
-            }
-            return nil
-        }
-    }
-
-    var body: some View {
-        HStack(spacing: 8) {
-            ForEach(pastWeekAlerts, id: \.date) { data in
-                Text(data.date)
-                    .font(.caption)
-                    .frame(width: 60, height: 60)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(data.hasAlert ? Color.red.opacity(0.8) : Color.green.opacity(0.8))
-                    )
-                    .foregroundColor(.white)
-            }
-        }
     }
 }
