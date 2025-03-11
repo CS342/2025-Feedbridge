@@ -56,7 +56,8 @@ class DashboardViewModel {
         errorMessage = nil
 
         let fireStore = Firestore.firestore()
-        let babyRef = fireStore
+        let babyRef =
+            fireStore
             .collection("users")
             .document(userId)
             .collection("babies")
@@ -83,10 +84,10 @@ class DashboardViewModel {
                 // If we already had subcollection data loaded, preserve it
                 // so that doc updates won't wipe out subcollection arrays
                 if let existing = self.baby {
-                    freshBaby.feedEntries       = existing.feedEntries
-                    freshBaby.weightEntries     = existing.weightEntries
-                    freshBaby.stoolEntries      = existing.stoolEntries
-                    freshBaby.wetDiaperEntries  = existing.wetDiaperEntries
+                    freshBaby.feedEntries = existing.feedEntries
+                    freshBaby.weightEntries = existing.weightEntries
+                    freshBaby.stoolEntries = existing.stoolEntries
+                    freshBaby.wetDiaperEntries = existing.wetDiaperEntries
                     freshBaby.dehydrationChecks = existing.dehydrationChecks
                 }
                 self.baby = freshBaby
@@ -129,7 +130,8 @@ class DashboardViewModel {
     // MARK: - Private subcollection listeners
 
     private func listenToFeedEntries(babyRef: DocumentReference) {
-        feedEntriesListener = babyRef
+        feedEntriesListener =
+            babyRef
             .collection("feedEntries")
             .addSnapshotListener { [weak self] querySnapshot, error in
                 guard let self else {
@@ -155,7 +157,8 @@ class DashboardViewModel {
     }
 
     private func listenToWeightEntries(babyRef: DocumentReference) {
-        weightEntriesListener = babyRef
+        weightEntriesListener =
+            babyRef
             .collection("weightEntries")
             .addSnapshotListener { [weak self] querySnapshot, error in
                 guard let self else {
@@ -181,7 +184,8 @@ class DashboardViewModel {
     }
 
     private func listenToStoolEntries(babyRef: DocumentReference) {
-        stoolEntriesListener = babyRef
+        stoolEntriesListener =
+            babyRef
             .collection("stoolEntries")
             .addSnapshotListener { [weak self] querySnapshot, error in
                 guard let self else {
@@ -207,7 +211,8 @@ class DashboardViewModel {
     }
 
     private func listenToWetDiaperEntries(babyRef: DocumentReference) {
-        wetDiaperEntriesListener = babyRef
+        wetDiaperEntriesListener =
+            babyRef
             .collection("wetDiaperEntries")
             .addSnapshotListener { [weak self] querySnapshot, error in
                 guard let self else {
@@ -235,7 +240,8 @@ class DashboardViewModel {
     }
 
     private func listenToDehydrationChecks(babyRef: DocumentReference) {
-        dehydrationChecksListener = babyRef
+        dehydrationChecksListener =
+            babyRef
             .collection("dehydrationChecks")
             .addSnapshotListener { [weak self] querySnapshot, error in
                 guard let self else {

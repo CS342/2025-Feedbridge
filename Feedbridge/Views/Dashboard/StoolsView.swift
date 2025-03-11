@@ -19,9 +19,20 @@ struct StoolsView: View {
     @State var entries: [StoolEntry]
     let babyId: String
 
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+
+    // Use the latest data from viewModel if available
+    private var currentEntries: [StoolEntry] {
+        if let baby = viewModel?.baby {
+            return baby.stoolEntries.stoolEntries
+        }
+        return entries
+    }
+
     var body: some View {
         NavigationStack {
-            StoolChart(entries: entries, isMini: false)
+            StoolChart(entries: currentEntries, isMini: false)
                 .frame(height: 300)
                 .padding()
             stoolEntriesList
@@ -31,7 +42,7 @@ struct StoolsView: View {
 
     /// List of stool entries sorted by date, showing volume, color, and time.
     private var stoolEntriesList: some View {
-        List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
+        List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
                 Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                     .font(.headline)
@@ -39,12 +50,15 @@ struct StoolsView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .swipeActions {
-                        Button(role: .destructive) { Task {
-                            print("Delete stool entry with id: \(entry.id ?? "")")
-                            print("Baby: \(babyId)")
-                            try await standard.deleteStoolEntry(babyId: babyId, entryId: entry.id ?? "")
-                            self.entries.removeAll { $0.id == entry.id }
-                        } } label: {
+                        Button(role: .destructive) {
+                            Task {
+                                print("Delete stool entry with id: \(entry.id ?? "")")
+                                print("Baby: \(babyId)")
+                                try await standard.deleteStoolEntry(babyId: babyId, entryId: entry.id ?? "")
+                                // Remove from local state
+                                self.entries.removeAll { $0.id == entry.id }
+                            }
+                        } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }

@@ -269,6 +269,9 @@
     "Early Alerts" : {
 
     },
+    "Entry saved successfully!" : {
+
+    },
     "Error" : {
 
     },
@@ -682,9 +685,6 @@
 
     },
     "Stools" : {
-
-    },
-    "Success saving" : {
 
     },
     "Swift Package Manager" : {

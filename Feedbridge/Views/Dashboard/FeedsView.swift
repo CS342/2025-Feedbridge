@@ -19,9 +19,20 @@ struct FeedsView: View {
     @State var entries: [FeedEntry]
     let babyId: String
 
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+
+    // Use the latest data from viewModel if available
+    private var currentEntries: [FeedEntry] {
+        if let baby = viewModel?.baby {
+            return baby.feedEntries.feedEntries
+        }
+        return entries
+    }
+
     var body: some View {
         NavigationStack {
-            FeedChart(entries: entries, isMini: false)
+            FeedChart(entries: currentEntries, isMini: false)
                 .frame(height: 300)
                 .padding()
             feedEntriesList
@@ -31,7 +42,7 @@ struct FeedsView: View {
 
     /// Creates the list of feed entries, displaying their type and volume/time.
     private var feedEntriesList: some View {
-        List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
+        List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
                 if entry.feedType == .bottle, let volume = entry.feedVolumeInML {
                     // Displays bottle feeding information based on milk type
@@ -55,12 +66,14 @@ struct FeedsView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .swipeActions {
-                        Button(role: .destructive) { Task {
-                            print("Delete feed entry with id: \(entry.id ?? "")")
-                            print("Baby: \(babyId)")
-                            try await standard.deleteFeedEntry(babyId: babyId, entryId: entry.id ?? "")
-                            self.entries.removeAll { $0.id == entry.id }
-                        } } label: {
+                        Button(role: .destructive) {
+                            Task {
+                                print("Delete feed entry with id: \(entry.id ?? "")")
+                                print("Baby: \(babyId)")
+                                try await standard.deleteFeedEntry(babyId: babyId, entryId: entry.id ?? "")
+                                self.entries.removeAll { $0.id == entry.id }
+                            }
+                        } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }

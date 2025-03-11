@@ -17,7 +17,7 @@ import SwiftUI
 // MARK: - [ Supporting Types ]
 
 /// Represents the user's choice for which kind of entry we're creating.
-enum EntryKind: String, CaseIterable, Identifiable {
+enum EntryKind: String, CaseIterable, Identifiable, Equatable {
     case weight = "Weight"
     case feeding = "Feed"
     case wetDiaper = "Void"
@@ -27,21 +27,13 @@ enum EntryKind: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-/// A simple LocalizedError for validation
-struct ValidationError: LocalizedError {
-    var errorDescription: String?
-    init(_ message: String) {
-        errorDescription = message
-    }
-}
-
 /// Represents the weight units
 enum WeightUnit: String, CaseIterable {
     case kilograms = "Kilograms"
     case poundsOunces = "Pounds & Ounces"
 }
 
-// MARK: - [ Main Type ]
+// MARK: - [ Main View: AddEntryView ]
 
 struct AddEntryView: View {
     // MARK: [ Subtype ]
@@ -49,64 +41,177 @@ struct AddEntryView: View {
     enum FieldFocus {
         case weightKg, weightLb, weightOz
         case feedTime, feedVolume
-        // Add more as needed for automatic focusing
     }
 
-    // MARK: [ Instance Properties ]
+    // MARK: [ Environment & Dependencies ]
 
-    // Environment
     @Environment(\.dismiss) private var dismiss
     @Environment(FeedbridgeStandard.self) private var standard
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
 
-    // Babies
+    /// Shared real-time view model for the dashboard
+    var viewModel: DashboardViewModel
+
+    // MARK: [ State for Babies Selection ]
+
     @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
     @State private var hasBabies = false
 
-    // Global date/time
+    // MARK: [ Shared Entry Data ]
+
+    /// Global date/time for all entry kinds
     @State private var date = Date()
 
-    // Current entry kind
+    /// Which kind of entry the user wants to create
     @State private var entryKind: EntryKind?
 
-    // Weight Entry Fields
+    // MARK: [ Weight Entry Fields ]
+
     @State private var weightUnit: WeightUnit = .kilograms
     @State private var weightKg: String = ""
     @State private var weightLb: String = ""
     @State private var weightOz: String = ""
 
-    // Feed Entry Fields
+    // MARK: [ Feeding Entry Fields ]
+
     @State private var feedType: FeedType = .directBreastfeeding
     @State private var milkType: MilkType = .breastmilk
     @State private var feedTimeInMinutes: String = ""
     @State private var feedVolumeInML: String = ""
 
-    // Wet Diaper Fields
+    // MARK: [ Wet Diaper Fields ]
+
     @State private var wetVolume: DiaperVolume = .light
     @State private var wetColor: WetDiaperColor = .yellow
 
-    // Stool Fields
+    // MARK: [ Stool Fields ]
+
     @State private var stoolVolume: StoolVolume = .light
     @State private var stoolColor: StoolColor = .brown
 
-    // Dehydration Fields
+    // MARK: [ Dehydration Fields ]
+
     @State private var poorSkinElasticity: Bool = false
     @State private var dryMucousMembranes: Bool = false
 
-    // Focus management
+    // MARK: [ Focus Management ]
+
     @FocusState private var focusedField: FieldFocus?
 
-    // Error handling
-    @State private var errorMessage: String?
+    // MARK: [ Feedback Messages ]
+
+    /// Error from server or Firestore operations.
+    @State private var serverErrorMessage: String?
+
+    /// Controls whether a "Success" banner is shown after saving
     @State private var showSuccessMessage: Bool = false
 
-    // MARK: [ View Lifecycle Method ]
+    // MARK: [ Computed Form Validation ]
+
+    /// Returns a tuple with:
+    /// 1) `complete`: true if user has entered all required fields for this entry kind,
+    /// 2) `error`: a string if the user entered something invalid (but not empty).
+    private var formCheck: (complete: Bool, error: String?) {
+        guard let kind = entryKind else {
+            // No kind selected => cannot proceed
+            return (false, nil)
+        }
+
+        switch kind {
+        case .weight:
+            if weightUnit == .kilograms {
+                // If empty => form incomplete, no error displayed
+                if weightKg.isEmpty {
+                    return (false, nil)
+                }
+                // If user typed something invalid => show an error
+                guard let weightKg = Double(weightKg), weightKg > 0 else {
+                    return (true, "Invalid weight (kg) value.")
+                }
+                // Valid
+                return (true, nil)
+            } else {
+                // If both fields empty => form incomplete, no error
+                if weightLb.isEmpty, weightOz.isEmpty {
+                    return (false, nil)
+                }
+                // If user typed something invalid => error
+                guard
+                    let weightLb = Double(weightLb), weightLb >= 0,
+                    let weightOz = Double(weightOz), weightOz >= 0,
+                    weightLb > 0 || weightOz > 0
+                else {
+                    return (true, "Invalid weight (lb/oz) values.")
+                }
+                // Valid
+                return (true, nil)
+            }
+
+        case .feeding:
+            if feedType == .directBreastfeeding {
+                // If empty => incomplete
+                if feedTimeInMinutes.isEmpty {
+                    return (false, nil)
+                }
+                // If non-empty invalid => error
+                guard let minutes = Int(feedTimeInMinutes), minutes > 0 else {
+                    return (true, "Invalid feed time (minutes).")
+                }
+                // Valid
+                _ = minutes
+                return (true, nil)
+            } else {
+                // If empty => incomplete
+                if feedVolumeInML.isEmpty {
+                    return (false, nil)
+                }
+                // If non-empty invalid => error
+                guard let volume = Int(feedVolumeInML), volume > 0 else {
+                    return (true, "Invalid bottle volume (ml).")
+                }
+                // Valid
+                _ = volume
+                return (true, nil)
+            }
+
+        case .wetDiaper:
+            // No numeric input => always complete, no error
+            return (true, nil)
+
+        case .stool:
+            // Always complete, no error
+            return (true, nil)
+
+        case .dehydration:
+            // Always complete, no error
+            return (true, nil)
+        }
+    }
+
+    /// Whether all required fields have been filled with valid data
+    private var isInputValid: Bool {
+        let (complete, error) = formCheck
+        return complete && (error == nil)
+    }
+
+    /// The local (validation) error to show, if any
+    private var validationError: String? {
+        let (complete, error) = formCheck
+        // Show the error if the form is "complete enough" but invalid
+        // and `error` is non-nil. If incomplete => no error shown.
+        guard complete else {
+            return nil
+        }
+        return error
+    }
+
+    // MARK: [ View ]
 
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
                 ScrollView {
-                    if !hasBabies {
+                    if viewModel.baby == nil {
                         VStack(spacing: 16) {
                             VStack {
                                 Text("No babies found")
@@ -122,14 +227,27 @@ struct AddEntryView: View {
                         .padding()
                     } else {
                         VStack(alignment: .leading, spacing: 20) {
-                            // Date/Time
+                            // Success banner
+                            if showSuccessMessage {
+                                Text("Entry saved successfully!")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.green)
+                                    .cornerRadius(8)
+                                    .padding(.horizontal)
+                                    .transition(.move(edge: .top).combined(with: .opacity))
+                                    .zIndex(1)
+                            }
+
+                            // Date/time
                             dateTimeSection
                                 .padding(.horizontal)
 
-                            // Entry kind (vertical list)
+                            // Entry kind list
                             entryKindSection
 
-                            // Dynamic section: show only if the user picked an entry kind
+                            // The dynamic fields for the selected entry type
                             if let kind = entryKind {
                                 dynamicFields(for: kind)
                                     .id("ActiveSection")
@@ -137,7 +255,6 @@ struct AddEntryView: View {
                                     .background(.thinMaterial)
                                     .cornerRadius(12)
                                     .padding()
-                                    // Faster, more distinct insertion/removal transitions
                                     .transition(
                                         .asymmetric(
                                             insertion: .move(edge: .bottom)
@@ -145,7 +262,13 @@ struct AddEntryView: View {
                                             removal: .opacity.animation(.easeOut(duration: 0.15))
                                         )
                                     )
-                                    .animation(.easeInOut(duration: 0.15), value: kind)
+                            }
+
+                            // Validation error from local input
+                            if let error = validationError {
+                                Text(error)
+                                    .foregroundColor(.red)
+                                    .padding(.horizontal)
                             }
 
                             // Confirm button
@@ -154,53 +277,88 @@ struct AddEntryView: View {
                                     .padding(.horizontal)
                             }
 
-                            Text("Success saving")
-                                .foregroundColor(.green)
-                                .padding()
-                                .background(Color.green.opacity(0.1))
-                                .cornerRadius(8)
-                                .transition(.opacity)
-                                .padding(.horizontal)
-                                .opacity(showSuccessMessage ? 1 : 0)
-
-                            // Error message
-                            if let error = errorMessage {
-                                Text(error)
+                            // Server error if Firestore fails
+                            if let serverError = serverErrorMessage {
+                                Text(serverError)
                                     .foregroundColor(.red)
                                     .padding(.horizontal)
                             }
 
-                            // Add some space at the bottom for ergonomic scrolling
                             Spacer(minLength: 80)
                         }
                         .padding(.vertical)
-                        // Use the new onChange signature for iOS 17, fallback otherwise
-                        .applyOnChange(of: $entryKind) { _, _ in
-                            // Center the dynamic fields if the user selects a new entry kind
+                        .onChange(of: entryKind) {
+                            // No param => new iOS 17 style
                             withAnimation(.easeInOut(duration: 0.15)) {
                                 proxy.scrollTo("ActiveSection", anchor: .center)
                             }
+                            serverErrorMessage = nil
                         }
                     }
                 }
                 .background(Color(UIColor.systemGroupedBackground))
                 .navigationTitle("Add Entry")
+                // Attempt to find or set a baby if none is selected
                 .task {
-                    // Check if there are any babies
-                    do {
-                        let babies = try await standard.getBabies()
-                        hasBabies = !babies.isEmpty
-
-                        // If no baby is selected but we have babies, select the first one
-                        if selectedBabyId == nil && hasBabies {
-                            selectedBabyId = babies.first?.id
-                            UserDefaults.standard.selectedBabyId = selectedBabyId
+                    if selectedBabyId == nil {
+                        do {
+                            let babies = try await standard.getBabies()
+                            if !babies.isEmpty {
+                                selectedBabyId = babies.first?.id
+                                UserDefaults.standard.selectedBabyId = selectedBabyId
+                            }
+                        } catch {
+                            serverErrorMessage = "Failed to load babies: \(error.localizedDescription)"
                         }
-                    } catch {
-                        errorMessage = "Failed to load babies: \(error.localizedDescription)"
                     }
                 }
             }
+        }
+        // Clear server error if user changes something:
+        .onChange(of: date) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: weightUnit) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: weightKg) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: weightLb) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: weightOz) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: feedType) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: milkType) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: feedTimeInMinutes) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: feedVolumeInML) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: wetVolume) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: wetColor) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: stoolVolume) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: stoolColor) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: poorSkinElasticity) {
+            serverErrorMessage = nil
+        }
+        .onChange(of: dryMucousMembranes) {
+            serverErrorMessage = nil
         }
     }
 }
@@ -223,13 +381,12 @@ extension AddEntryView {
         }
     }
 
-    /// A vertical list of entry-kinds to choose from
+    /// A vertical list of entry kinds
     private var entryKindSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("What entry would you like to enter?")
                 .font(.headline)
 
-            // A simple vertical list of selectable items:
             VStack(alignment: .leading, spacing: 4) {
                 ForEach(EntryKind.allCases) { kind in
                     Button {
@@ -240,11 +397,7 @@ extension AddEntryView {
                     } label: {
                         HStack {
                             Text(kind.rawValue)
-                                .font(
-                                    entryKind == kind
-                                        ? .body.bold()
-                                        : .body
-                                )
+                                .font(entryKind == kind ? .body.bold() : .body)
                                 .foregroundColor(
                                     entryKind == kind
                                         ? accentColor(for: kind)
@@ -260,7 +413,9 @@ extension AddEntryView {
                         .background(
                             entryKind == kind
                                 ? accentColor(for: kind).opacity(0.15)
-                                : colorScheme == .dark ? Color.white.opacity(0.15) : Color.white
+                                : (colorScheme == .dark
+                                    ? Color.white.opacity(0.15)
+                                    : Color.white)
                         )
                         .cornerRadius(8)
                     }
@@ -270,7 +425,7 @@ extension AddEntryView {
         .padding(.horizontal)
     }
 
-    // MARK: - Weight UI
+    // MARK: - [ Dynamic Subviews ]
 
     private var weightEntryView: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -318,11 +473,7 @@ extension AddEntryView {
                     TextField("Ounces", text: $weightOz)
                         .keyboardType(.numberPad)
                         .focused($focusedField, equals: .weightOz)
-                        .onSubmit {
-                            // done
-                        }
                         .textFieldStyle(.roundedBorder)
-
                         .onAppear {
                             focusedField = .weightLb
                         }
@@ -330,8 +481,6 @@ extension AddEntryView {
             }
         }
     }
-
-    // MARK: - Feeding UI
 
     private var feedingEntryView: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -358,18 +507,12 @@ extension AddEntryView {
                 TextField("Feed time (minutes)", text: $feedTimeInMinutes)
                     .keyboardType(.numberPad)
                     .focused($focusedField, equals: .feedTime)
-                    .onSubmit {
-                        // done
-                    }
                     .textFieldStyle(.roundedBorder)
                     .onAppear { focusedField = .feedTime }
             } else {
                 TextField("Bottle volume (ml)", text: $feedVolumeInML)
                     .keyboardType(.numberPad)
                     .focused($focusedField, equals: .feedVolume)
-                    .onSubmit {
-                        // done
-                    }
                     .textFieldStyle(.roundedBorder)
                     .onAppear { focusedField = .feedVolume }
 
@@ -381,8 +524,6 @@ extension AddEntryView {
             }
         }
     }
-
-    // MARK: - Wet Diaper UI
 
     private var wetDiaperView: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -414,8 +555,6 @@ extension AddEntryView {
             .pickerStyle(.segmented)
         }
     }
-
-    // MARK: - Stool UI
 
     private var stoolView: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -451,8 +590,6 @@ extension AddEntryView {
         }
     }
 
-    // MARK: - Dehydration UI
-
     private var dehydrationView: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -473,8 +610,6 @@ extension AddEntryView {
         }
     }
 
-    // MARK: - Confirm Button
-
     private var confirmButton: some View {
         Button {
             Task {
@@ -485,11 +620,12 @@ extension AddEntryView {
                 .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
-        .disabled(selectedBabyId == nil)
+        // Disable if no baby is selected or if there's an error or incomplete fields
+        .disabled(!isInputValid || selectedBabyId == nil)
     }
 }
 
-// MARK: - [ Extension: Actions ]
+// MARK: - [ Extension: Actions & Helpers ]
 
 extension AddEntryView {
     private func resetAllFields() {
@@ -512,33 +648,74 @@ extension AddEntryView {
         dryMucousMembranes = false
     }
 
+    private func saveEntry() async {
+        // Double-check we have a baby selected
+        guard let babyId = selectedBabyId else {
+            return
+        }
+
+        // Double-check valid inputs
+        if !isInputValid {
+            // Should never happen if confirmButton is disabled, but just in case:
+            return
+        }
+
+        do {
+            switch entryKind {
+            case .weight:
+                try await handleWeightEntry(babyId: babyId)
+            case .feeding:
+                try await handleFeedingEntry(babyId: babyId)
+            case .wetDiaper:
+                try await handleWetDiaperEntry(babyId: babyId)
+            case .stool:
+                try await handleStoolEntry(babyId: babyId)
+            case .dehydration:
+                try await handleDehydrationEntry(babyId: babyId)
+            case .none:
+                return
+            }
+
+            // On success, reset fields
+            resetAllFields()
+            entryKind = nil
+            date = Date()
+
+            // Show success banner temporarily
+            withAnimation(.easeIn(duration: 0.3)) {
+                showSuccessMessage = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation(.easeOut(duration: 0.3)) {
+                    showSuccessMessage = false
+                }
+            }
+        } catch {
+            // E.g. Firestore or network error
+            serverErrorMessage = error.localizedDescription
+        }
+    }
+
     private func handleWeightEntry(babyId: String) async throws {
-        if let weightKg = Double(weightKg), weightKg > 0 {
+        if weightUnit == .kilograms {
+            let weightKg = Double(weightKg) ?? 0
             let entry = WeightEntry(kilograms: weightKg, dateTime: date)
             try await standard.addWeightEntry(entry, toBabyWithId: babyId)
-        } else if let weightLb = Double(weightLb), weightLb >= 0,
-                  let weightOz = Double(weightOz), weightOz >= 0,
-                  weightLb > 0 || weightOz > 0 {
-            let pounds = Int(weightLb)
-            let ounces = Int(weightOz)
-            let entry = WeightEntry(pounds: pounds, ounces: ounces, dateTime: date)
-            try await standard.addWeightEntry(entry, toBabyWithId: babyId)
         } else {
-            throw ValidationError("Invalid weight values")
+            let weightLb = Double(weightLb) ?? 0
+            let weightOz = Double(weightOz) ?? 0
+            let entry = WeightEntry(pounds: Int(weightLb), ounces: Int(weightOz), dateTime: date)
+            try await standard.addWeightEntry(entry, toBabyWithId: babyId)
         }
     }
 
     private func handleFeedingEntry(babyId: String) async throws {
         if feedType == .directBreastfeeding {
-            guard let minutes = Int(feedTimeInMinutes), minutes > 0 else {
-                throw ValidationError("Invalid feed time")
-            }
+            let minutes = Int(feedTimeInMinutes) ?? 0
             let entry = FeedEntry(directBreastfeeding: minutes, dateTime: date)
             try await standard.addFeedEntry(entry, toBabyWithId: babyId)
         } else {
-            guard let volume = Int(feedVolumeInML), volume > 0 else {
-                throw ValidationError("Invalid feed volume")
-            }
+            let volume = Int(feedVolumeInML) ?? 0
             let entry = FeedEntry(bottle: volume, milkType: milkType, dateTime: date)
             try await standard.addFeedEntry(entry, toBabyWithId: babyId)
         }
@@ -562,76 +739,10 @@ extension AddEntryView {
         )
         try await standard.addDehydrationCheck(entry, toBabyWithId: babyId)
     }
-
-    private func saveEntry() async {
-        guard let babyId = selectedBabyId else {
-            errorMessage = "Please select a baby."
-            return
-        }
-
-        do {
-            switch entryKind {
-            case .weight:
-                try await handleWeightEntry(babyId: babyId)
-            case .feeding:
-                try await handleFeedingEntry(babyId: babyId)
-            case .wetDiaper:
-                try await handleWetDiaperEntry(babyId: babyId)
-            case .stool:
-                try await handleStoolEntry(babyId: babyId)
-            case .dehydration:
-                try await handleDehydrationEntry(babyId: babyId)
-            case .none:
-                return
-            }
-
-            // On success, reset
-            resetAllFields()
-            entryKind = nil
-            date = Date()
-
-            showSuccessMessage = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                showSuccessMessage = false
-            }
-        } catch {
-            errorMessage = error.localizedDescription
-        }
-    }
 }
 
-// MARK: - [ Extension: iOS 17 onChange Back-Compat ]
+// MARK: - [ Extension: Dynamic Fields + Accent ]
 
-extension View {
-    /// A helper to handle the new iOS 17 two-parameter onChange signature,
-    /// while gracefully falling back to the older one-parameter version on earlier iOS.
-    @ViewBuilder
-    func applyOnChange<Value: Equatable>(
-        of binding: Binding<Value>,
-        _ action: @escaping (Value, Value) -> Void
-    ) -> some View {
-        if #available(iOS 17, *) {
-            self.onChange(of: binding.wrappedValue) { oldValue, newValue in
-                action(oldValue, newValue)
-            }
-        } else {
-            // Fallback for older iOS: we only have the "newValue" version
-            onChange(of: binding.wrappedValue) { newValue in
-                // We don't have the old value, so just pass the same value twice.
-                action(newValue, newValue)
-            }
-        }
-    }
-}
-
-// MARK: - [ Preview Provider ]
-
-#Preview {
-    AddEntryView()
-        .previewWith(standard: FeedbridgeStandard()) {}
-}
-// MARK: - [ Helper Methods ]
-/// A function that returns a specific background color depending on the entry kind
 extension AddEntryView {
     /// Decides which subview to show for the selected entryKind
     @ViewBuilder
@@ -649,24 +760,27 @@ extension AddEntryView {
             dehydrationView
         }
     }
+
+    /// Returns a color for each entry kind
     private func accentColor(for kind: EntryKind) -> Color {
         switch kind {
         case .weight:
-            return Color.indigo
+            return .indigo
         case .feeding:
-            return Color.pink
+            return .pink
         case .wetDiaper:
-            return Color.orange
+            return .orange
         case .stool:
-            return Color.brown
+            return .brown
         case .dehydration:
-            return Color.green
+            return .green
         }
     }
 }
 
-// MARK: - [ Preview Provider ]
+// MARK: - [ SwiftUI Preview ]
+
 #Preview {
-    AddEntryView()
+    AddEntryView(viewModel: DashboardViewModel())
         .previewWith(standard: FeedbridgeStandard()) {}
 }

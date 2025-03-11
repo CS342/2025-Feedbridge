@@ -11,13 +11,25 @@
 
 import Charts
 import SwiftUI
+
 /// View displaying a summary of feed data.
 struct FeedsSummaryView: View {
     let entries: [FeedEntry]
     let babyId: String
 
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+
+    private var currentEntries: [FeedEntry] {
+        // Use viewModel data if available, otherwise fall back to passed entries
+        if let baby = viewModel?.baby {
+            return baby.feedEntries.feedEntries
+        }
+        return entries
+    }
+
     private var lastEntry: FeedEntry? {
-        entries.max(by: { $0.dateTime < $1.dateTime })
+        currentEntries.max(by: { $0.dateTime < $1.dateTime })
     }
 
     private var formattedTime: String {
@@ -25,7 +37,9 @@ struct FeedsSummaryView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: FeedsView(entries: entries, babyId: babyId)) {
+        NavigationLink(
+            destination: FeedsView(entries: currentEntries, babyId: babyId, viewModel: viewModel)
+        ) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
@@ -89,7 +103,7 @@ struct FeedsSummaryView: View {
                     .foregroundColor(.primary)
             }
             Spacer()
-            MiniFeedChart(entries: entries)
+            MiniFeedChart(entries: currentEntries)
                 .frame(width: 60, height: 40)
         }
         .padding([.bottom, .horizontal])
@@ -131,7 +145,8 @@ struct FeedChart: View {
     }
 
     /// Creates chart entries with styling based on the mini flag and last day.
-    private func chartEntries(from indexedEntries: [(entry: FeedEntry, index: Int)], lastDay: String) -> some ChartContent {
+    private func chartEntries(from indexedEntries: [(entry: FeedEntry, index: Int)], lastDay: String)
+    -> some ChartContent {
         ForEach(indexedEntries, id: \.entry.id) { indexedEntry in
             PointMark(
                 x: .value("Date", indexedEntry.entry.dateTime, unit: .day),
@@ -144,7 +159,9 @@ struct FeedChart: View {
 
     /// Determines color for the chart point based on the entry type.
     private func miniColor(entry: FeedEntry, isMini: Bool, lastDay: String) -> Color {
-        isMini ? (dateString(entry.dateTime) == lastDay ? .pink : Color(.greyChart)) : feedColor(entry.feedType, entry.milkType)
+        isMini
+            ? (dateString(entry.dateTime) == lastDay ? .pink : Color(.greyChart))
+            : feedColor(entry.feedType, entry.milkType)
     }
 
     /// Finds the last recorded feed entry date.

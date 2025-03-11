@@ -7,21 +7,9 @@
 //
 // SPDX-License-Identifier: MIT
 //
+// swiftlint:disable file_length
 
 import SwiftUI
-
-private struct BabyDetailsList: View {
-    let baby: Baby
-    @Binding var weightUnitPreference: WeightUnit
-
-    var body: some View {
-        FeedEntriesSection(entries: baby.feedEntries.feedEntries)
-        WeightEntriesSection(entries: baby.weightEntries.weightEntries, weightUnitPreference: $weightUnitPreference)
-        StoolEntriesSection(entries: baby.stoolEntries.stoolEntries)
-        WetDiaperEntriesSection(entries: baby.wetDiaperEntries.wetDiaperEntries)
-        DehydrationChecksSection(checks: baby.dehydrationChecks.dehydrationChecks)
-    }
-}
 
 private struct BasicInfoSection: View {
     let baby: Baby
@@ -43,6 +31,9 @@ private struct BasicInfoSection: View {
 
 private struct FeedEntriesSection: View {
     let entries: [FeedEntry]
+    var babyId: String
+    var standard: FeedbridgeStandard
+    @State private var refreshID = UUID()  // For forcing view refresh
 
     var body: some View {
         Section("Feed Entries") {
@@ -60,7 +51,21 @@ private struct FeedEntriesSection: View {
                         Text("Duration: \(minutes) minutes")
                     }
                 }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        Task {
+                            if let entryId = entry.id {
+                                try await standard.deleteFeedEntry(babyId: babyId, entryId: entryId)
+                                // Force view refresh
+                                refreshID = UUID()
+                            }
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
+            .id(refreshID)  // Force refresh when an item is deleted
         }
     }
 }
@@ -68,6 +73,9 @@ private struct FeedEntriesSection: View {
 private struct WeightEntriesSection: View {
     let entries: [WeightEntry]
     @Binding var weightUnitPreference: WeightUnit
+    var babyId: String
+    var standard: FeedbridgeStandard
+    @State private var refreshID = UUID()  // For forcing view refresh
 
     var body: some View {
         Section("Weight Entries") {
@@ -76,16 +84,35 @@ private struct WeightEntriesSection: View {
                     Text(entry.dateTime.formatted())
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    Text("\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")")
-                        .font(.body)
+                    Text(
+                        "\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")"
+                    )
+                    .font(.body)
+                }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        Task {
+                            if let entryId = entry.id {
+                                try await standard.deleteWeightEntry(babyId: babyId, entryId: entryId)
+                                // Force view refresh
+                                refreshID = UUID()
+                            }
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
                 }
             }
+            .id(refreshID)  // Force refresh when an item is deleted
         }
     }
 }
 
 private struct StoolEntriesSection: View {
     let entries: [StoolEntry]
+    var babyId: String
+    var standard: FeedbridgeStandard
+    @State private var refreshID = UUID()  // For forcing view refresh
 
     var body: some View {
         Section("Stool Entries") {
@@ -100,13 +127,30 @@ private struct StoolEntriesSection: View {
                             .foregroundColor(.red)
                     }
                 }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        Task {
+                            if let entryId = entry.id {
+                                try await standard.deleteStoolEntry(babyId: babyId, entryId: entryId)
+                                // Force view refresh
+                                refreshID = UUID()
+                            }
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
+            .id(refreshID)  // Force refresh when an item is deleted
         }
     }
 }
 
 private struct WetDiaperEntriesSection: View {
     let entries: [WetDiaperEntry]
+    var babyId: String
+    var standard: FeedbridgeStandard
+    @State private var refreshID = UUID()  // For forcing view refresh
 
     var body: some View {
         Section("Wet Diaper Entries") {
@@ -121,13 +165,30 @@ private struct WetDiaperEntriesSection: View {
                             .foregroundColor(.red)
                     }
                 }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        Task {
+                            if let entryId = entry.id {
+                                try await standard.deleteWetDiaperEntry(babyId: babyId, entryId: entryId)
+                                // Force view refresh
+                                refreshID = UUID()
+                            }
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
+            .id(refreshID)  // Force refresh when an item is deleted
         }
     }
 }
 
 private struct DehydrationChecksSection: View {
     let checks: [DehydrationCheck]
+    var babyId: String
+    var standard: FeedbridgeStandard
+    @State private var refreshID = UUID()  // For forcing view refresh
 
     var body: some View {
         Section("Dehydration Checks") {
@@ -142,43 +203,121 @@ private struct DehydrationChecksSection: View {
                             .foregroundColor(.red)
                     }
                 }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        Task {
+                            if let checkId = check.id {
+                                try await standard.deleteDehydrationCheck(babyId: babyId, entryId: checkId)
+                                // Force view refresh
+                                refreshID = UUID()
+                            }
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
+            .id(refreshID)  // Force refresh when an item is deleted
         }
     }
 }
 
 struct HealthDetailsView: View {
-    let baby: Baby
+    // Use the shared viewModel instead of a direct baby reference
+    var viewModel: DashboardViewModel
     @Binding var weightUnitPreference: WeightUnit
+    @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
+    @State private var isRefreshing = false
+    @Environment(FeedbridgeStandard.self) private var standard
+    @State private var refreshID = UUID()  // For forcing view refresh
 
     var body: some View {
-        List {
-            FeedEntriesSection(entries: baby.feedEntries.feedEntries)
-            WeightEntriesSection(entries: baby.weightEntries.weightEntries, weightUnitPreference: $weightUnitPreference)
-            StoolEntriesSection(entries: baby.stoolEntries.stoolEntries)
-            WetDiaperEntriesSection(entries: baby.wetDiaperEntries.wetDiaperEntries)
-            DehydrationChecksSection(checks: baby.dehydrationChecks.dehydrationChecks)
+        Group {
+            if let baby = viewModel.baby {
+                List {
+                    FeedEntriesSection(
+                        entries: baby.feedEntries.feedEntries, babyId: baby.id ?? "", standard: standard
+                    )
+                    WeightEntriesSection(
+                        entries: baby.weightEntries.weightEntries,
+                        weightUnitPreference: $weightUnitPreference,
+                        babyId: baby.id ?? "",
+                        standard: standard
+                    )
+                    StoolEntriesSection(
+                        entries: baby.stoolEntries.stoolEntries, babyId: baby.id ?? "", standard: standard
+                    )
+                    WetDiaperEntriesSection(
+                        entries: baby.wetDiaperEntries.wetDiaperEntries,
+                        babyId: baby.id ?? "",
+                        standard: standard
+                    )
+                    DehydrationChecksSection(
+                        checks: baby.dehydrationChecks.dehydrationChecks,
+                        babyId: baby.id ?? "",
+                        standard: standard
+                    )
+                }
+                .id(refreshID)  // Force refresh when data changes
+                .refreshable {
+                    await refreshData()
+                }
+            } else {
+                ProgressView()
+            }
         }
         .navigationTitle("Health Details")
+        .onAppear {
+            // Ensure we have the latest data when the view appears
+            if !isRefreshing {
+                Task {
+                    await refreshData()
+                }
+            }
+        }
+        .onChange(of: viewModel.baby) { _, _ in
+            // When the baby data changes in the viewModel, update the refreshID
+            refreshID = UUID()
+        }
+    }
+
+    private func refreshData() async {
+        isRefreshing = true
+
+        // Stop and restart the listener to refresh all data
+        viewModel.stopListening()
+        if let id = selectedBabyId {
+            viewModel.startListening(babyId: id)
+        }
+
+        // Add a small delay to ensure the UI shows the refresh indicator
+        try? await Task.sleep(nanoseconds: 500_000_000)  // 0.5 seconds
+
+        // Update the refreshID to force a view refresh
+        refreshID = UUID()
+
+        isRefreshing = false
     }
 }
 
 struct Settings: View {
     @Environment(FeedbridgeStandard.self) private var standard
 
-    @State private var curBaby: Baby?
+    // Use the shared viewModel passed from HomeView
+    var viewModel: DashboardViewModel
+
     @State private var babies: [Baby] = []
-    @State private var selectedBabyId: String?
-    @State private var isLoading = true
-    @State private var errorMessage: String?
-    @State private var showingDeleteAlert = false
+    @State private var isLoadingBabies = false
+    @State private var babiesErrorMessage: String?
     @State private var weightUnitPreference: WeightUnit = UserDefaults.standard.weightUnitPreference
+    @State private var showingDeleteAlert = false
+    @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
 
     @ViewBuilder private var content: some View {
         Group {
-            if isLoading {
+            if viewModel.isLoading || isLoadingBabies {
                 ProgressView()
-            } else if let error = errorMessage {
+            } else if let error = viewModel.errorMessage ?? babiesErrorMessage {
                 Text(error)
                     .foregroundColor(.red)
             } else {
@@ -194,20 +333,23 @@ struct Settings: View {
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
             }
-            if let curBaby {
-                BasicInfoSection(baby: curBaby, weightUnitPreference: $weightUnitPreference)
+            if let baby = viewModel.baby {
+                BasicInfoSection(baby: baby, weightUnitPreference: $weightUnitPreference)
                 Section("Preferences") {
-                    Toggle("Use Kilograms", isOn: Binding(
-                        get: { weightUnitPreference == .kilograms },
-                        set: {
-                            weightUnitPreference = $0 ? .kilograms : .poundsOunces
-                            UserDefaults.standard.weightUnitPreference = weightUnitPreference
-                        }
-                    ))
+                    Toggle(
+                        "Use Kilograms",
+                        isOn: Binding(
+                            get: { weightUnitPreference == .kilograms },
+                            set: {
+                                weightUnitPreference = $0 ? .kilograms : .poundsOunces
+                                UserDefaults.standard.weightUnitPreference = weightUnitPreference
+                            }
+                        )
+                    )
                 }
                 Section("Baby Summary") {
                     NavigationLink("Health Details") {
-                        HealthDetailsView(baby: curBaby, weightUnitPreference: $weightUnitPreference)
+                        HealthDetailsView(viewModel: viewModel, weightUnitPreference: $weightUnitPreference)
                     }
                 }
                 deleteButton
@@ -224,7 +366,20 @@ struct Settings: View {
                 .navigationTitle("Settings")
                 .task {
                     await loadBabies()
-                    await loadBaby()
+                }
+                .onChange(of: selectedBabyId) { _, newId in
+                    // When the selected baby changes in other views, we should update our list
+                    if newId != nil && viewModel.baby?.id != newId {
+                        Task {
+                            await loadBabies()
+                        }
+                    }
+                }
+                .onChange(of: viewModel.baby) { _, _ in
+                    // When the baby data changes in the viewModel, refresh our UI
+                    Task {
+                        await loadBabies()
+                    }
                 }
         }
     }
@@ -267,8 +422,9 @@ extension UserDefaults {
     var weightUnitPreference: WeightUnit {
         get {
             guard let value = string(forKey: Self.weightUnitPreference),
-                  let unit = WeightUnit(rawValue: value) else {
-                return .kilograms // Default value
+                  let unit = WeightUnit(rawValue: value)
+            else {
+                return .kilograms  // Default value
             }
             return unit
         }
@@ -286,9 +442,6 @@ extension Settings {
                 Button {
                     selectedBabyId = baby.id
                     UserDefaults.standard.selectedBabyId = baby.id
-                    Task {
-                        await loadBaby(needLoading: false)
-                    }
                 } label: {
                     HStack {
                         Text(baby.name)
@@ -303,10 +456,11 @@ extension Settings {
             Divider()
             NavigationLink("Add New Baby") {
                 AddSingleBabyView(onSave: { newBaby in
-                    curBaby = newBaby
                     UserDefaults.standard.selectedBabyId = newBaby.id
                     selectedBabyId = newBaby.id
-                    print("New baby added: \(newBaby)")
+                    Task {
+                        await loadBabies()
+                    }
                 })
             }
         } label: {
@@ -335,35 +489,14 @@ extension Settings {
             selectedBabyId = nil
             UserDefaults.standard.selectedBabyId = nil
             await loadBabies()
-            await loadBaby()
         } catch {
-            errorMessage = "Failed to delete baby: \(error.localizedDescription)"
+            babiesErrorMessage = "Failed to delete baby: \(error.localizedDescription)"
         }
-    }
-
-    private func loadBaby(needLoading: Bool = true) async {
-        guard let babyId = selectedBabyId else {
-            curBaby = nil
-            return
-        }
-
-        if needLoading {
-            isLoading = true
-        }
-        errorMessage = nil
-
-        do {
-            curBaby = try await standard.getBaby(id: babyId)
-        } catch {
-            errorMessage = error.localizedDescription
-        }
-
-        isLoading = false
     }
 
     private func loadBabies() async {
-        isLoading = true
-        errorMessage = nil
+        isLoadingBabies = true
+        babiesErrorMessage = nil
 
         do {
             babies = try await standard.getBabies()
@@ -375,9 +508,19 @@ extension Settings {
                 UserDefaults.standard.selectedBabyId = selectedBabyId
             }
         } catch {
-            errorMessage = "Failed to load babies: \(error.localizedDescription)"
+            babiesErrorMessage = "Failed to load babies: \(error.localizedDescription)"
         }
 
-        isLoading = false
+        isLoadingBabies = false
     }
+}
+
+#Preview("Settings") {
+    Settings(viewModel: DashboardViewModel())
+        .previewWith(standard: FeedbridgeStandard()) {}
+}
+
+#Preview("Health Details") {
+    HealthDetailsView(viewModel: DashboardViewModel(), weightUnitPreference: .constant(.kilograms))
+        .previewWith(standard: FeedbridgeStandard()) {}
 }

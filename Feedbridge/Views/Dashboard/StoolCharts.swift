@@ -11,13 +11,25 @@
 
 import Charts
 import SwiftUI
+
 /// View displaying a summary of stool entries.
 struct StoolsSummaryView: View {
     let entries: [StoolEntry]
     let babyId: String
 
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+
+    private var currentEntries: [StoolEntry] {
+        // Use viewModel data if available, otherwise fall back to passed entries
+        if let baby = viewModel?.baby {
+            return baby.stoolEntries.stoolEntries
+        }
+        return entries
+    }
+
     private var lastEntry: StoolEntry? {
-        entries.max(by: { $0.dateTime < $1.dateTime })
+        currentEntries.max(by: { $0.dateTime < $1.dateTime })
     }
 
     private var formattedTime: String {
@@ -25,7 +37,9 @@ struct StoolsSummaryView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: StoolsView(entries: entries, babyId: babyId)) {
+        NavigationLink(
+            destination: StoolsView(entries: currentEntries, babyId: babyId, viewModel: viewModel)
+        ) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
@@ -108,7 +122,7 @@ struct StoolChart: View {
 
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries)
-        let lastDay = lastEntryDate(entries) // Get the last recorded date
+        let lastDay = lastEntryDate(entries)  // Get the last recorded date
 
         Chart {
             // Generate chart points for each stool entry
@@ -134,7 +148,9 @@ struct StoolChart: View {
 
     /// Returns color based on whether the chart is mini and if it is the last day.
     private func miniColor(entry: StoolEntry, isMini: Bool, lastDay: String) -> Color {
-        isMini ? (dateString(entry.dateTime) == lastDay ? .brown : Color(.greyChart)) : stoolColor(entry.color)
+        isMini
+            ? (dateString(entry.dateTime) == lastDay ? .brown : Color(.greyChart))
+            : stoolColor(entry.color)
     }
 
     /// Determines the last recorded date as a string
@@ -162,7 +178,7 @@ struct StoolChart: View {
     private func bubbleSize(_ volume: StoolVolume, _ isMini: Bool) -> Double {
         switch volume {
         case .light: return isMini ? 30 : 100
-        case .medium:  return isMini ? 60 : 300
+        case .medium: return isMini ? 60 : 300
         case .heavy: return isMini ? 100 : 650
         }
     }

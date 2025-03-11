@@ -19,10 +19,21 @@ struct WetDiapersView: View {
     @State var entries: [WetDiaperEntry]
     let babyId: String
 
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+
+    // Use the latest data from viewModel if available
+    private var currentEntries: [WetDiaperEntry] {
+        if let baby = viewModel?.baby {
+            return baby.wetDiaperEntries.wetDiaperEntries
+        }
+        return entries
+    }
+
     var body: some View {
         NavigationStack {
             // Display the full Wet Diaper chart with entries
-            WetDiaperChart(entries: entries, isMini: false)
+            WetDiaperChart(entries: currentEntries, isMini: false)
                 .frame(height: 300)  // Set the height of the chart
                 .padding()  // Add padding around the chart
 
@@ -34,7 +45,7 @@ struct WetDiapersView: View {
 
     /// A view that displays a list of Wet Diaper Entries
     private var wetDiaperEntriesList: some View {
-        List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
+        List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
                 // Display the volume and color of the wet diaper entry
                 Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
@@ -45,12 +56,14 @@ struct WetDiapersView: View {
                     .font(.subheadline)  // Smaller text for the date and time
                     .foregroundColor(.gray)  // Make the text gray
                     .swipeActions {
-                        Button(role: .destructive) { Task {
-                            print("Delete wet diaper entry with id: \(entry.id ?? "")")
-                            print("Baby: \(babyId)")
-                            try await standard.deleteWetDiaperEntry(babyId: babyId, entryId: entry.id ?? "")
-                            self.entries.removeAll { $0.id == entry.id }
-                        } } label: {
+                        Button(role: .destructive) {
+                            Task {
+                                print("Delete wet diaper entry with id: \(entry.id ?? "")")
+                                print("Baby: \(babyId)")
+                                try await standard.deleteWetDiaperEntry(babyId: babyId, entryId: entry.id ?? "")
+                                self.entries.removeAll { $0.id == entry.id }
+                            }
+                        } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }

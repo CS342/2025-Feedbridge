@@ -27,13 +27,26 @@ struct WeightsView: View {
 
     let babyId: String
 
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+
     @AppStorage(UserDefaults.weightUnitPreference) var weightUnitPreference: WeightUnit = .kilograms
+
+    // Use the latest data from viewModel if available
+    private var currentEntries: [WeightEntry] {
+        if let baby = viewModel?.baby {
+            return baby.weightEntries.weightEntries
+        }
+        return entries
+    }
 
     var body: some View {
         NavigationStack {
-            WeightChart(entries: entries, isMini: false, weightUnitPreference: $weightUnitPreference)
-                .frame(height: 300)
-                .padding()
+            WeightChart(
+                entries: currentEntries, isMini: false, weightUnitPreference: $weightUnitPreference
+            )
+            .frame(height: 300)
+            .padding()
             weightEntriesList
         }
         .navigationTitle("Weights")
@@ -66,7 +79,9 @@ struct WeightsView: View {
             ForEach(averagedEntries) { entry in
                 LineMark(
                     x: .value("Date", entry.date),
-                    y: .value(weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)", entry.averageWeight)
+                    y: .value(
+                        weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)", entry.averageWeight
+                    )
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.indigo)
@@ -79,23 +94,28 @@ struct WeightsView: View {
 
     /// Displays a list of weight entries sorted by most recent.
     private var weightEntriesList: some View {
-        List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
+        List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
                 // Weight entry with correct unit
-                Text("\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")")
-                    .font(.headline)
+                Text(
+                    "\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")"
+                )
+                .font(.headline)
 
                 // Display the formatted date of the entry
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }.swipeActions {
-                Button(role: .destructive) { Task {
-                    print("Delete weight entry with id: \(entry.id ?? "")")
-                    print("Baby: \(babyId)")
-                    try await standard.deleteWeightEntry(babyId: babyId, entryId: entry.id ?? "")
-                    self.entries.removeAll { $0.id == entry.id }
-                } } label: {
+                Button(role: .destructive) {
+                    Task {
+                        print("Delete weight entry with id: \(entry.id ?? "")")
+                        print("Baby: \(babyId)")
+                        try await standard.deleteWeightEntry(babyId: babyId, entryId: entry.id ?? "")
+                        // Remove from local state
+                        self.entries.removeAll { $0.id == entry.id }
+                    }
+                } label: {
                     Label("Delete", systemImage: "trash")
                 }
             }
@@ -104,7 +124,7 @@ struct WeightsView: View {
 
     /// Averages the weights per day
     private func averageWeightsPerDay() -> [DailyAverageWeight] {
-        let grouped = Dictionary(grouping: entries) { entry in
+        let grouped = Dictionary(grouping: currentEntries) { entry in
             Calendar.current.startOfDay(for: entry.dateTime)
         }
 
@@ -113,7 +133,8 @@ struct WeightsView: View {
         // Calculate average weight per day
         for (date, entries) in grouped {
             let totalWeight = entries.reduce(0) { result, entry in
-                result + (weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value)
+                result
+                    + (weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value)
             }
             let averageWeight = totalWeight / Double(entries.count)
             dailyAverages.append(DailyAverageWeight(date: date, averageWeight: averageWeight))
