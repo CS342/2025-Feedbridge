@@ -47,14 +47,13 @@ struct WetDiapersView: View {
     private var wetDiaperEntriesList: some View {
         List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
+                // Display the formatted date and time of the entry
+                Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
+                    .font(.subheadline)  // Smaller text for the date and time
+                    .foregroundColor(.gray)  // Make the text gray
                 // Display the volume and color of the wet diaper entry
                 Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
                     .font(.headline)  // Make the text bold and larger for the volume and color
-
-                // Display the formatted date and time of the entry
-                Text(entry.dateTime.formattedString())
-                    .font(.subheadline)  // Smaller text for the date and time
-                    .foregroundColor(.gray)  // Make the text gray
                     .swipeActions {
                         Button(role: .destructive) {
                             Task {

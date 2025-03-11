@@ -44,11 +44,11 @@ struct StoolsView: View {
     private var stoolEntriesList: some View {
         List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
-                Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
-                    .font(.headline)
-                Text(entry.dateTime.formattedString())
+                Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
+                    .font(.headline)
                     .swipeActions {
                         Button(role: .destructive) {
                             Task {

@@ -21,6 +21,12 @@
         }
       }
     },
+    "%lld min" : {
+
+    },
+    "%lld ml" : {
+
+    },
     "⚠️ Alert" : {
 
     },
@@ -111,7 +117,7 @@
     "Age" : {
 
     },
-    "Alert" : {
+    "Alert present" : {
 
     },
     "Allow Notifications" : {
@@ -151,16 +157,16 @@
     "Bottle" : {
 
     },
-    "Bottle (Breastmilk): %lld ml" : {
-
-    },
-    "Bottle (Formula): %lld ml" : {
+    "Bottle (%@)" : {
 
     },
     "Bottle volume (ml)" : {
 
     },
     "Bottle: %lld ml" : {
+
+    },
+    "Breastfeeding" : {
 
     },
     "Breastfeeding: %lld min" : {
@@ -543,6 +549,9 @@
 
     },
     "No data added" : {
+
+    },
+    "Normal" : {
 
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {

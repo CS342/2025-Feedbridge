@@ -37,34 +37,37 @@ struct DehydrationView: View {
         .navigationTitle("Dehydration Symptoms")
     }
     
+    /// List of dehydration check entries sorted by date, showing symptoms and alert status.
     private var dehydrationChecksList: some View {
-        List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
-            VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                    Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    Spacer()
-                    if entry.dehydrationAlert {
-                        Text("⚠️ Alert")
-                            .font(.headline)
-                            .foregroundColor(.red)
-                    } else {
-                        Text("✅ Normal")
-                            .font(.headline)
-                            .foregroundColor(.green)
-                    }
-                }
-
-                Divider()
-
+        List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
+            VStack(alignment: .leading) {
+                Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                Text(entry.dehydrationAlert ? "⚠️ Alert" : "✅ Normal")
+                    .font(.headline)
+                    .foregroundColor(entry.dehydrationAlert ? .red : .green)
+                    
                 HStack {
                     dehydrationSymptomView(title: "Skin Elasticity", isPresent: entry.poorSkinElasticity)
                     Spacer()
                     dehydrationSymptomView(title: "Dry Mucous Membranes", isPresent: entry.dryMucousMembranes)
                 }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        Task {
+                            print("Delete dehydration check entry with id: \(entry.id ?? "")")
+                            print("Baby: \(babyId)")
+                            try await standard.deleteDehydrationCheck(babyId: babyId, entryId: entry.id ?? "")
+                            // Remove from local state
+                            self.entries.removeAll { $0.id == entry.id }
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
-            .padding(.vertical, 6)
         }
     }
 
@@ -73,9 +76,9 @@ struct DehydrationView: View {
         HStack {
             Text(title)
                 .font(.subheadline)
-            Spacer(minLength: 8)
+            Spacer(minLength: 2)
             Image(systemName: isPresent ? "exclamationmark.triangle.fill" : "checkmark.circle.fill")
-                .accessibilityLabel("Alert")
+                .accessibilityLabel(isPresent ? "Alert present" : "Normal")
                 .foregroundColor(isPresent ? .red : .green)
         }
     }
