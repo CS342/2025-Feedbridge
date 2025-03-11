@@ -104,7 +104,7 @@ private struct WetDiaperEntriesSection: View {
     let entries: [WetDiaperEntry]
 
     var body: some View {
-        Section("Wet Diaper Entries") {
+        Section("Void Entries") {
             ForEach(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
                 VStack(alignment: .leading) {
                     Text(entry.dateTime.formatted())
