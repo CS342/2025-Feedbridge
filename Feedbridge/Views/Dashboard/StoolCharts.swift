@@ -9,6 +9,7 @@ import SwiftUI
 /// View displaying a summary of stool entries.
 struct StoolsSummaryView: View {
     let entries: [StoolEntry]
+    let babyId: String
 
     private var lastEntry: StoolEntry? {
         entries.max(by: { $0.dateTime < $1.dateTime })
@@ -19,7 +20,7 @@ struct StoolsSummaryView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: StoolsView(entries: entries)) {
+        NavigationLink(destination: StoolsView(entries: entries, babyId: babyId)) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())

@@ -10,7 +10,6 @@
 //
 // swiftlint:disable closure_body_length
 // swiftlint:disable file_length
-// swiftlint:disable function_body_length
 
 import FirebaseFirestore
 import SwiftUI
@@ -228,38 +227,6 @@ extension AddEntryView {
         .padding(.horizontal)
     }
 
-    /// Decides which subview to show for the selected entryKind
-    @ViewBuilder
-    private func dynamicFields(for kind: EntryKind) -> some View {
-        switch kind {
-        case .weight:
-            weightEntryView
-        case .feeding:
-            feedingEntryView
-        case .wetDiaper:
-            wetDiaperView
-        case .stool:
-            stoolView
-        case .dehydration:
-            dehydrationView
-        }
-    }
-
-    /// A function that returns a specific background color depending on the entry kind
-    private func accentColor(for kind: EntryKind) -> Color {
-        switch kind {
-        case .weight:
-            return Color.indigo
-        case .feeding:
-            return Color.pink
-        case .wetDiaper:
-            return Color.orange
-        case .stool:
-            return Color.brown
-        case .dehydration:
-            return Color.green
-        }
-    }
 
   // MARK: - Weight UI
 
@@ -292,9 +259,10 @@ extension AddEntryView {
               .onSubmit {
                 focusedField = .weightLb
               }
-              .textFieldStyle(.roundedBorder).onAppear {
+              .textFieldStyle(.roundedBorder)
+              .onAppear {
                   focusedField = .weightKg
-                }
+              }
         } else {
             HStack {
                 TextField("Pounds", text: $weightLb)
@@ -501,16 +469,8 @@ extension AddEntryView {
     poorSkinElasticity = false
     dryMucousMembranes = false
   }
-
-  private func saveEntry() async {
-    guard let babyId = selectedBabyId else {
-      errorMessage = "Please select a baby."
-      return
-    }
-
-    do {
-      switch entryKind {
-      case .weight:
+    
+    private func handleWeightEntry(babyId: String) async throws {
         if let weightKg = Double(weightKg), weightKg > 0 {
           let entry = WeightEntry(kilograms: weightKg, dateTime: date)
           try await standard.addWeightEntry(entry, toBabyWithId: babyId)
@@ -524,8 +484,9 @@ extension AddEntryView {
         } else {
           throw ValidationError("Invalid weight values")
         }
-
-      case .feeding:
+    }
+    
+    private func handleFeedingEntry(babyId: String) async throws {
         if feedType == .directBreastfeeding {
           guard let minutes = Int(feedTimeInMinutes), minutes > 0 else {
             throw ValidationError("Invalid feed time")
@@ -539,23 +500,45 @@ extension AddEntryView {
           let entry = FeedEntry(bottle: volume, milkType: milkType, dateTime: date)
           try await standard.addFeedEntry(entry, toBabyWithId: babyId)
         }
-
-      case .wetDiaper:
+    }
+    
+    private func handleWetDiaperEntry(babyId: String) async throws {
         let entry = WetDiaperEntry(dateTime: date, volume: wetVolume, color: wetColor)
         try await standard.addWetDiaperEntry(entry, toBabyWithId: babyId)
-
-      case .stool:
+    }
+    
+    private func handleStoolEntry(babyId: String) async throws {
         let entry = StoolEntry(dateTime: date, volume: stoolVolume, color: stoolColor)
         try await standard.addStoolEntry(entry, toBabyWithId: babyId)
-
-      case .dehydration:
+    }
+    
+    private func handleDehydrationEntry(babyId: String) async throws {
         let entry = DehydrationCheck(
           dateTime: date,
           poorSkinElasticity: poorSkinElasticity,
           dryMucousMembranes: dryMucousMembranes
         )
         try await standard.addDehydrationCheck(entry, toBabyWithId: babyId)
+    }
 
+  private func saveEntry() async {
+    guard let babyId = selectedBabyId else {
+      errorMessage = "Please select a baby."
+      return
+    }
+
+    do {
+      switch entryKind {
+      case .weight:
+        try await handleWeightEntry(babyId: babyId)
+      case .feeding:
+        try await handleFeedingEntry(babyId: babyId)
+      case .wetDiaper:
+        try await handleWetDiaperEntry(babyId: babyId)
+      case .stool:
+        try await handleStoolEntry(babyId: babyId)
+      case .dehydration:
+        try await handleDehydrationEntry(babyId: babyId)
       case .none:
         return
       }
@@ -601,6 +584,46 @@ extension View {
 
 // MARK: - [ Preview Provider ]
 
+#Preview {
+  AddEntryView()
+    .previewWith(standard: FeedbridgeStandard()) {}
+}
+// MARK: - [ Helper Methods ]
+/// A function that returns a specific background color depending on the entry kind
+extension AddEntryView {
+  /// Decides which subview to show for the selected entryKind
+    @ViewBuilder
+    private func dynamicFields(for kind: EntryKind) -> some View {
+        switch kind {
+        case .weight:
+            weightEntryView
+        case .feeding:
+            feedingEntryView
+        case .wetDiaper:
+            wetDiaperView
+        case .stool:
+            stoolView
+        case .dehydration:
+            dehydrationView
+        }
+    }
+    private func accentColor(for kind: EntryKind) -> Color {
+        switch kind {
+        case .weight:
+            return Color.indigo
+        case .feeding:
+            return Color.pink
+        case .wetDiaper:
+            return Color.orange
+        case .stool:
+            return Color.brown
+        case .dehydration:
+            return Color.green
+        }
+    }
+}
+
+// MARK: - [ Preview Provider ]
 #Preview {
   AddEntryView()
     .previewWith(standard: FeedbridgeStandard()) {}

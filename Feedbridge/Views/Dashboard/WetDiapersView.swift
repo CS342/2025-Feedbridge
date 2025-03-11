@@ -9,8 +9,10 @@ import SwiftUI
 
 /// A view that displays a chart of wet diaper entries and a list of detailed entries.
 struct WetDiapersView: View {
+    @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.presentationMode) var presentationMode
-    let entries: [WetDiaperEntry]
+    @State var entries: [WetDiaperEntry]
+    let babyId: String
 
     var body: some View {
         NavigationStack {
@@ -37,6 +39,16 @@ struct WetDiapersView: View {
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)  // Smaller text for the date and time
                     .foregroundColor(.gray)  // Make the text gray
+                    .swipeActions {
+                        Button(role: .destructive) { Task {
+                            print("Delete wet diaper entry with id: \(entry.id ?? "")")
+                        print("Baby: \(babyId)")
+                            try await standard.deleteWetDiaperEntry(babyId: babyId, entryId: entry.id ?? "")
+                            self.entries.removeAll { $0.id == entry.id }
+                        } } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
             }
         }
     }

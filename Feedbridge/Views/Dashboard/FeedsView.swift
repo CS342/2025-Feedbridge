@@ -9,8 +9,10 @@ import SwiftUI
 
 /// View displaying detailed feed chart and a list of feed entries.
 struct FeedsView: View {
+    @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.presentationMode) var presentationMode
-    let entries: [FeedEntry]
+    @State var entries: [FeedEntry]
+    let babyId: String
 
     var body: some View {
         NavigationStack {
@@ -47,6 +49,16 @@ struct FeedsView: View {
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                    .swipeActions {
+                        Button(role: .destructive) { Task {
+                            print("Delete feed entry with id: \(entry.id ?? "")")
+                        print("Baby: \(babyId)")
+                            try await standard.deleteFeedEntry(babyId: babyId, entryId: entry.id ?? "")
+                            self.entries.removeAll { $0.id == entry.id }
+                        } } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
             }
         }
     }

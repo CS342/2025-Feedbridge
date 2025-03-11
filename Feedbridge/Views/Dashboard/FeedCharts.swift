@@ -10,6 +10,7 @@ import SwiftUI
 /// View displaying a summary of feed data.
 struct FeedsSummaryView: View {
     let entries: [FeedEntry]
+    let babyId: String
 
     private var lastEntry: FeedEntry? {
         entries.max(by: { $0.dateTime < $1.dateTime })
@@ -20,7 +21,7 @@ struct FeedsSummaryView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: FeedsView(entries: entries)) {
+        NavigationLink(destination: FeedsView(entries: entries, babyId: babyId)) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
