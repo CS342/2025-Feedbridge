@@ -13,44 +13,58 @@ import SwiftUI
 
 /// View displaying dehydration check entries with detailed symptoms and an alert grid.
 struct DehydrationView: View {
-    var entries: [DehydrationCheck]
+    @Environment(FeedbridgeStandard.self) private var standard
+    @Environment(\.presentationMode) var presentationMode
+    @State var entries: [DehydrationCheck]
+    let babyId: String
 
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+
+    private var currentEntries: [DehydrationCheck] {
+        if let baby = viewModel?.baby {
+            return baby.dehydrationChecks.dehydrationChecks
+        }
+        return entries
+    }
+    
     var body: some View {
         NavigationStack {
-            VStack {
-                AlertGridView(entries: entries)
-                    .padding()
-
-                List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                            Spacer()
-                            if entry.dehydrationAlert {
-                                Text("⚠️ Alert")
-                                    .font(.headline)
-                                    .foregroundColor(.red)
-                            } else {
-                                Text("✅ Normal")
-                                    .font(.headline)
-                                    .foregroundColor(.green)
-                            }
-                        }
-
-                        Divider()
-
-                        HStack {
-                            dehydrationSymptomView(title: "Skin Elasticity", isPresent: entry.poorSkinElasticity)
-                            Spacer()
-                            dehydrationSymptomView(title: "Dry Mucous Membranes", isPresent: entry.dryMucousMembranes)
-                        }
+            AlertGridView(entries: currentEntries)
+                .padding()
+            dehydrationChecksList
+        }
+        .navigationTitle("Dehydration Symptoms")
+    }
+    
+    private var dehydrationChecksList: some View {
+        List(entries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    Spacer()
+                    if entry.dehydrationAlert {
+                        Text("⚠️ Alert")
+                            .font(.headline)
+                            .foregroundColor(.red)
+                    } else {
+                        Text("✅ Normal")
+                            .font(.headline)
+                            .foregroundColor(.green)
                     }
-                    .padding(.vertical, 6)
+                }
+
+                Divider()
+
+                HStack {
+                    dehydrationSymptomView(title: "Skin Elasticity", isPresent: entry.poorSkinElasticity)
+                    Spacer()
+                    dehydrationSymptomView(title: "Dry Mucous Membranes", isPresent: entry.dryMucousMembranes)
                 }
             }
-            .navigationTitle("Dehydration Symptoms")
+            .padding(.vertical, 6)
         }
     }
 

@@ -11,15 +11,36 @@
 
 import SwiftUI
 
-struct DehydrationAlertSummaryView: View {
+struct DehydrationSummaryView: View {
     var entries: [DehydrationCheck]
-
+    let babyId: String
+    
+    // Optional viewModel for real-time data
+    var viewModel: DashboardViewModel?
+    
+    private var currentEntries: [DehydrationCheck] {
+        // Use viewModel data if available, otherwise fall back to passed entries
+        if let baby = viewModel?.baby {
+            return baby.dehydrationChecks.dehydrationChecks
+        }
+        return entries
+    }
+    
     var body: some View {
+        NavigationLink(
+            destination: DehydrationView(entries: currentEntries, babyId: babyId, viewModel: viewModel)
+        ) {
+            summaryCard()
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+    
+    private func summaryCard() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(.systemGray6))
                 .opacity(0.8)
-
+            
             VStack {
                 header()
                 Spacer()
@@ -29,32 +50,31 @@ struct DehydrationAlertSummaryView: View {
         }
         .frame(height: 130)
     }
-
+    
     /// Creates the header view for the summary card.
     private func header() -> some View {
-        NavigationLink(destination: DehydrationView(entries: entries)) {
-            HStack {
-                Image(systemName: "heart.fill")
-                    .accessibilityLabel("Heart icon")
-                    .font(.title3)
-                    .foregroundColor(.green)
-
-                Text("Dehydration Symptoms")
-                    .font(.title3.bold())
-                    .foregroundColor(.green)
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .accessibilityLabel("Next page")
-                    .foregroundColor(.gray)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-            }
+        HStack {
+            Image(systemName: "heart.fill")
+                .accessibilityLabel("Heart icon")
+                .font(.title3)
+                .foregroundColor(.green)
+            
+            Text("Dehydration Symptoms")
+                .font(.title3.bold())
+                .foregroundColor(.green)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .accessibilityLabel("Next page")
+                .foregroundColor(.gray)
+                .font(.caption)
+                .fontWeight(.semibold)
         }
         .padding()
     }
 }
+    
 
 /// Grid displaying dehydration alerts over the past 5 days.
 struct AlertGridView: View {
@@ -95,4 +115,3 @@ struct AlertGridView: View {
         }
     }
 }
-
