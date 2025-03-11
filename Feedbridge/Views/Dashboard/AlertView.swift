@@ -52,7 +52,7 @@ struct AlertView: View {
                     .padding(.top, 4)
             } else {
                 // Display unique alerts
-                Text("⚠️ Signs of dehydration detected. Seek medical care!")
+                Text("⚠️ Seek medical care!")
                     .foregroundColor(.white)
                     .font(.headline)
                 ForEach(recentAlerts, id: \.self) { alert in
@@ -69,6 +69,6 @@ struct AlertView: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(recentAlerts.isEmpty ? .green.opacity(0.8) : .red.opacity(0.8)) // Green if no alerts, red otherwise
         )
-        .frame(height: 120) 
+        .frame(height: 120)
     }
 }
