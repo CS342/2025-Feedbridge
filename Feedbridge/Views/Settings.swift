@@ -7,6 +7,7 @@
 //
 // SPDX-License-Identifier: MIT
 //
+
 import SwiftUI
 
 private struct BabyDetailsList: View {

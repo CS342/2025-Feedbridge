@@ -4,6 +4,11 @@
 //
 //  Created by Shreya D'Souza on 3/5/25.
 //
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import Charts
 import SwiftUI
 
