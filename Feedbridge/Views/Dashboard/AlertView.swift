@@ -26,7 +26,7 @@ struct AlertView: View {
 
         // Check for dehydration risk from wet diaper entries
         if baby.wetDiaperEntries.wetDiaperEntries.contains(where: { $0.dateTime >= oneWeekAgo && $0.dehydrationAlert }) {
-            alerts.insert("⚠️ Dehydration Risk")
+            alerts.insert("⚠️ Void Issue Detected")
         }
 
         // Check for dehydration symptoms from dehydration checks
