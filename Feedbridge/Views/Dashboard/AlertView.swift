@@ -39,13 +39,13 @@ struct AlertView: View {
             if recentAlerts.isEmpty {
                 // Display message when no alerts are present
                 Text("✅ No alerts in the past week")
+                    .foregroundColor(.white)
                     .font(.headline)
-                    .foregroundColor(.green)
                 
                 // Motivational message for parents
                 Text("Great job taking care of your little one! 💕 Keep up the amazing work!")
                     .font(.subheadline)
-                    .foregroundColor(.green)
+                    .foregroundColor(.white)
                     .padding(.top, 4)
             } else {
                 // Display unique alerts

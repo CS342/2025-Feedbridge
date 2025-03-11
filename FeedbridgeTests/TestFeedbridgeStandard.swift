@@ -9,9 +9,9 @@
 // SPDX-License-Identifier: MIT
 //
 
+import FirebaseAuth
 import Foundation
 import Testing
-import FirebaseAuth
 
 @testable import Feedbridge
 /**
@@ -323,7 +323,10 @@ struct TestFeedbridgeStandard {
 
         // 5) Delete the dehydration check
         guard let checkDocId = fetchedBaby?.dehydrationChecks.dehydrationChecks.first?.id else {
-            #expect(Bool(false), "DehydrationCheck has no Firestore ID; cannot delete.")
+            #expect(
+                Bool(false),
+                "DehydrationCheck has no Firestore ID; cannot delete."
+            )
             return
         }
         try await standard.deleteDehydrationCheck(babyId: babyId, entryId: checkDocId)

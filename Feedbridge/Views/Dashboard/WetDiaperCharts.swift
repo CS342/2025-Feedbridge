@@ -11,6 +11,7 @@ import SwiftUI
 /// Displays the summary view for wet diaper entries.
 struct WetDiapersSummaryView: View {
     let entries: [WetDiaperEntry]
+    let babyId: String
 
     private var lastEntry: WetDiaperEntry? {
         entries.max(by: { $0.dateTime < $1.dateTime })
@@ -21,7 +22,7 @@ struct WetDiapersSummaryView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: WetDiapersView(entries: entries)) {
+        NavigationLink(destination: WetDiapersView(entries: entries, babyId: babyId)) {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())

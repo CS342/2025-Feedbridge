@@ -53,9 +53,9 @@ struct DashboardView: View {
                 if let baby {
                     AlertView(baby: baby)
                     WeightsSummaryView(entries: baby.weightEntries.weightEntries, babyId: baby.id ?? "")
-                    FeedsSummaryView(entries: baby.feedEntries.feedEntries)
-                    WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries)
-                    StoolsSummaryView(entries: baby.stoolEntries.stoolEntries)
+                    FeedsSummaryView(entries: baby.feedEntries.feedEntries, babyId: baby.id ?? "")
+                    WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries, babyId: baby.id ?? "")
+                    StoolsSummaryView(entries: baby.stoolEntries.stoolEntries, babyId: baby.id ?? "")
                 }
             }
             .padding()

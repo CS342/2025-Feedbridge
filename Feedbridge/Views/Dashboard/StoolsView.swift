@@ -9,8 +9,10 @@ import SwiftUI
 
 /// View displaying stool entries in a list and chart.
 struct StoolsView: View {
+    @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.presentationMode) var presentationMode
-    let entries: [StoolEntry]
+    @State var entries: [StoolEntry]
+    let babyId: String
 
     var body: some View {
         NavigationStack {
@@ -31,6 +33,16 @@ struct StoolsView: View {
                 Text(entry.dateTime.formattedString())
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                    .swipeActions {
+                        Button(role: .destructive) { Task {
+                            print("Delete stool entry with id: \(entry.id ?? "")")
+                        print("Baby: \(babyId)")
+                            try await standard.deleteStoolEntry(babyId: babyId, entryId: entry.id ?? "")
+                            self.entries.removeAll { $0.id == entry.id }
+                        } } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
             }
         }
     }
