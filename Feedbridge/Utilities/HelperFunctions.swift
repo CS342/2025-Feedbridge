@@ -4,6 +4,11 @@
 //
 //  Created by Shreya D'Souza on 3/7/25.
 //
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
+
 import Foundation
 
 /// Returns a date range representing the last 7 days with half a day of visual padding.

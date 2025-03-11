@@ -50,6 +50,7 @@
 		2FE5DC9C29EDD9EF004B9AB4 /* XCTHealthKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9B29EDD9EF004B9AB4 /* XCTHealthKit */; };
 		2FE5DCB129EE6107004B9AB4 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DCAC29EE6107004B9AB4 /* AccountOnboarding.swift */; };
 		2FF53D8D2A8729D600042B76 /* FeedbridgeStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */; };
+		53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */; };
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
@@ -136,6 +137,7 @@
 		35E52E012D7971EC005A6BB7 /* WetDiaperCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiaperCharts.swift; sourceTree = "<group>"; };
 		35E52E032D79727C005A6BB7 /* WetDiapersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiapersView.swift; sourceTree = "<group>"; };
 		53C427AB2D76496100EC9E29 /* WeightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsView.swift; sourceTree = "<group>"; };
+		53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
 		5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsTest.swift; sourceTree = "<group>"; };
 		5B0E57712D5C311B002AC4BB /* AddDehydrationCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDehydrationCheckView.swift; sourceTree = "<group>"; };
 		5B0E57722D5C311B002AC4BB /* AddFeedEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedEntryView.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 		653A256A28338800005D4D48 /* FeedbridgeUITests */ = {
 			isa = PBXGroup;
 			children = (
+				53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */,
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
@@ -670,6 +673,7 @@
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
+				53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */,
 				2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,
 			);

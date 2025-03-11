@@ -4,6 +4,10 @@
 //
 //  Created by Shreya D'Souza on 2/11/25.
 //
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
 
 import XCTest
 
