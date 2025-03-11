@@ -76,6 +76,9 @@ struct DashboardView: View {
         ScrollView {
             VStack(spacing: 16) {
                 AlertView(baby: baby)
+                DehydrationAlertSummaryView(
+                    entries: baby.dehydrationChecks.dehydrationChecks
+                )
                 WeightsSummaryView(
                     entries: baby.weightEntries.weightEntries,
                     babyId: baby.id ?? "",
