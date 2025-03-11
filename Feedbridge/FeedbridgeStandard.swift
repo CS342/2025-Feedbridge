@@ -114,7 +114,7 @@ actor FeedbridgeStandard: Standard,
           for: .documentDirectory, in: .userDomainMask
         ).first
       else {
-        await logger.error(
+        logger.error(
           "Could not create path for writing consent form to user document directory."
           )
         return
@@ -128,7 +128,7 @@ actor FeedbridgeStandard: Standard,
 
     do {
       guard let consentData = await consent.pdf.dataRepresentation() else {
-        await logger.error("Could not store consent form.")
+        logger.error("Could not store consent form.")
         return
       }
 
@@ -138,13 +138,13 @@ actor FeedbridgeStandard: Standard,
         .child("consent/\(dateString).pdf")
         .putDataAsync(consentData, metadata: metadata) { @Sendable _ in }
     } catch {
-      await logger.error("Could not store consent form: \(error)")
+      logger.error("Could not store consent form: \(error)")
     }
   }
 
   func addBabies(babies: [Baby]) async throws {
     guard let id = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return
     }
     let fireStore = Firestore.firestore()
@@ -156,7 +156,7 @@ actor FeedbridgeStandard: Standard,
       do {
         try await babyDocument.setData(from: baby)
       } catch {
-        await logger.error("Could not store baby: \(error)")
+        logger.error("Could not store baby: \(error)")
         return
       }
     }
@@ -164,7 +164,7 @@ actor FeedbridgeStandard: Standard,
 
   func getBabies() async throws -> [Baby] {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return []
     }
 
@@ -176,19 +176,19 @@ actor FeedbridgeStandard: Standard,
         let snapshot = try await babiesCollection.getDocuments()
         return try snapshot.documents.map { try $0.data(as: Baby.self) }
       } catch {
-        await logger.error("Could not fetch babies: \(error)")
+        logger.error("Could not fetch babies: \(error)")
         throw error
       }
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func getBaby(id: String) async throws -> Baby? {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return nil
     }
 
@@ -241,19 +241,19 @@ actor FeedbridgeStandard: Standard,
 
         return baby
       } catch {
-        await logger.error("Could not fetch baby: \(error)")
+        logger.error("Could not fetch baby: \(error)")
         throw error
       }
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func addWeightEntry(_ entry: WeightEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return
     }
 
@@ -270,14 +270,14 @@ actor FeedbridgeStandard: Standard,
       try await entriesCollection.document().setData(from: entry)
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func addFeedEntry(_ entry: FeedEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return
     }
 
@@ -294,14 +294,14 @@ actor FeedbridgeStandard: Standard,
       try await entriesCollection.document().setData(from: entry)
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func addStoolEntry(_ entry: StoolEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return
     }
 
@@ -318,14 +318,14 @@ actor FeedbridgeStandard: Standard,
       try await entriesCollection.document().setData(from: entry)
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func addWetDiaperEntry(_ entry: WetDiaperEntry, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return
     }
 
@@ -342,14 +342,14 @@ actor FeedbridgeStandard: Standard,
       try await entriesCollection.document().setData(from: entry)
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func addDehydrationCheck(_ check: DehydrationCheck, toBabyWithId babyId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       return
     }
 
@@ -366,14 +366,14 @@ actor FeedbridgeStandard: Standard,
       try await checksCollection.document().setData(from: check)
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func deleteWeightEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       throw NSError(
         domain: "FeedbridgeStandard",
         code: 401,
@@ -395,14 +395,14 @@ actor FeedbridgeStandard: Standard,
       try await entryRef.delete()
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func deleteFeedEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       throw NSError(
         domain: "FeedbridgeStandard",
         code: 401,
@@ -424,14 +424,14 @@ actor FeedbridgeStandard: Standard,
       try await entryRef.delete()
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func deleteStoolEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       throw NSError(
         domain: "FeedbridgeStandard",
         code: 401,
@@ -453,14 +453,14 @@ actor FeedbridgeStandard: Standard,
       try await entryRef.delete()
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func deleteWetDiaperEntry(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       throw NSError(
         domain: "FeedbridgeStandard",
         code: 401,
@@ -482,14 +482,14 @@ actor FeedbridgeStandard: Standard,
       try await entryRef.delete()
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func deleteDehydrationCheck(babyId: String, entryId: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       throw NSError(
         domain: "FeedbridgeStandard",
         code: 401,
@@ -511,14 +511,14 @@ actor FeedbridgeStandard: Standard,
       try await entryRef.delete()
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
 
   func deleteBaby(id: String) async throws {
     guard let userId = Auth.auth().currentUser?.uid else {
-      await logger.error("Could not get current user id")
+      logger.error("Could not get current user id")
       throw NSError(
         domain: "FeedbridgeStandard",
         code: 401,
@@ -570,7 +570,7 @@ actor FeedbridgeStandard: Standard,
       try await babyRef.delete()
     } catch {
       print("Firestore error: \(error)")
-      await logger.error("Detailed error: \(error)")
+      logger.error("Detailed error: \(error)")
       throw error
     }
   }
