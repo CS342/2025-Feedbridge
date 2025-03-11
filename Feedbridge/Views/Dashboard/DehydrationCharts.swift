@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DehydrationCharts: View {
+struct DehydrationAlertSummaryView: View {
     var entries: [DehydrationCheck]
 
     var body: some View {
@@ -18,11 +18,12 @@ struct DehydrationCharts: View {
 
             VStack {
                 header()
+                Spacer()
                 AlertGridView(entries: entries) // Embedded struct usage
+                    .padding(.bottom, 16)
             }
-            .padding()
         }
-        .frame(height: 120)
+        .frame(height: 130)
     }
 
     /// Creates the header view for the summary card.
@@ -46,9 +47,8 @@ struct DehydrationCharts: View {
                     .font(.caption)
                     .fontWeight(.semibold)
             }
-            .padding()
         }
-        .buttonStyle(PlainButtonStyle()) // Ensures the navigation link looks like a regular view
+        .padding()
     }
 }
 
@@ -58,7 +58,7 @@ struct AlertGridView: View {
 
     private var pastWeekAlerts: [(date: String, hasAlert: Bool)] {
         let today = Calendar.current.startOfDay(for: Date())
-        let fiveDaysAgo = Calendar.current.date(byAdding: .day, value: -4, to: today)!
+        let fiveDaysAgo = Calendar.current.date(byAdding: .day, value: -4, to: today) ?? today
 
         let filteredChecks = entries.filter { $0.dateTime >= fiveDaysAgo }
 

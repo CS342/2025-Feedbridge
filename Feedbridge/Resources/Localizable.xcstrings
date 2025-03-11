@@ -30,7 +30,7 @@
     "⚠️ Medical Alert" : {
 
     },
-    "⚠️ Signs of dehydration detected. Seek medical care!" : {
+    "⚠️ Seek medical care!" : {
 
     },
     "✅ No alerts in the past week" : {
@@ -109,6 +109,9 @@
 
     },
     "Age" : {
+
+    },
+    "Alert" : {
 
     },
     "Allow Notifications" : {
