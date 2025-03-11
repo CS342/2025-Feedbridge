@@ -21,17 +21,17 @@ struct AlertView: View {
 
         // Check for stool-related medical alerts
         if baby.stoolEntries.stoolEntries.contains(where: { $0.dateTime >= oneWeekAgo && $0.medicalAlert }) {
-            alerts.insert("⚠️ Stool Issue Detected")
+            alerts.insert("Beige stool detected")
         }
 
         // Check for dehydration risk from wet diaper entries
         if baby.wetDiaperEntries.wetDiaperEntries.contains(where: { $0.dateTime >= oneWeekAgo && $0.dehydrationAlert }) {
-            alerts.insert("⚠️ Dehydration Risk")
+            alerts.insert("Pink or red-tinged void detected")
         }
 
         // Check for dehydration symptoms from dehydration checks
         if baby.dehydrationChecks.dehydrationChecks.contains(where: { $0.dateTime >= oneWeekAgo && $0.dehydrationAlert }) {
-            alerts.insert("⚠️ Dehydration Symptoms")
+            alerts.insert("Dehydration symptoms detected")
         }
 
         return Array(alerts) // Convert Set back to an Array for SwiftUI rendering
@@ -46,16 +46,20 @@ struct AlertView: View {
                     .font(.headline)
 
                 // Motivational message for parents
-                Text("Great job taking care of your little one! 💕 Keep up the amazing work!")
-                    .font(.subheadline)
+                Text("Great job taking care of your little one! Keep up the amazing work!")
+                    .font(.headline)
                     .foregroundColor(.white)
                     .padding(.top, 4)
             } else {
                 // Display unique alerts
+                Text("⚠️ Seek medical care!")
+                    .foregroundColor(.white)
+                    .font(.headline)
                 ForEach(recentAlerts, id: \.self) { alert in
                     Text(alert)
                         .font(.headline)
-                        .foregroundColor(.white) // Ensures contrast with red background
+                        .foregroundColor(.white)
+                        .padding(.top, 4)
                 }
             }
         }
@@ -63,8 +67,8 @@ struct AlertView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(recentAlerts.isEmpty ? Color.green.opacity(0.8) : Color.red.opacity(0.8)) // Green if no alerts, red otherwise
+                .fill(recentAlerts.isEmpty ? .green.opacity(0.8) : .red.opacity(0.8)) // Green if no alerts, red otherwise
         )
-        .frame(height: 120) // Fixed height for consistent UI
+    .frame(height: 120)
     }
 }

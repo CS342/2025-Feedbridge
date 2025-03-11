@@ -18,10 +18,10 @@ struct FeedsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var entries: [FeedEntry]
     let babyId: String
-
+    
     // Optional viewModel for real-time data
     var viewModel: DashboardViewModel?
-
+    
     // Use the latest data from viewModel if available
     private var currentEntries: [FeedEntry] {
         if let baby = viewModel?.baby {
@@ -29,7 +29,7 @@ struct FeedsView: View {
         }
         return entries
     }
-
+    
     var body: some View {
         NavigationStack {
             FeedChart(entries: currentEntries, isMini: false)
@@ -39,37 +39,19 @@ struct FeedsView: View {
         }
         .navigationTitle("Feeds")
     }
-
-    /// Creates the list of feed entries, displaying their type and volume/time.
+    
+    /// List of feed entries sorted by date, displaying feed type and volume/time.
     private var feedEntriesList: some View {
         List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
-                if entry.feedType == .bottle, let volume = entry.feedVolumeInML {
-                    // Displays bottle feeding information based on milk type
-                    if entry.milkType == .breastmilk {
-                        Text("Bottle (Breastmilk): \(volume) ml")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                    } else {
-                        Text("Bottle (Formula): \(volume) ml")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                    }
-                } else if entry.feedType == .directBreastfeeding, let time = entry.feedTimeInMinutes {
-                    // Displays breastfeeding time
-                    Text("Breastfeeding: \(time) min")
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                }
-                // Displays the formatted feed entry date
-                Text(entry.dateTime.formattedString())
+                Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                
+                feedEntryView(entry: entry)
                     .swipeActions {
                         Button(role: .destructive) {
                             Task {
-                                print("Delete feed entry with id: \(entry.id ?? "")")
-                                print("Baby: \(babyId)")
                                 try await standard.deleteFeedEntry(babyId: babyId, entryId: entry.id ?? "")
                                 self.entries.removeAll { $0.id == entry.id }
                             }
@@ -78,6 +60,24 @@ struct FeedsView: View {
                         }
                     }
             }
+        }
+    }
+    
+    /// Generates the appropriate feed entry view based on feed type.
+    @ViewBuilder
+    private func feedEntryView(entry: FeedEntry) -> some View {
+        if entry.feedType == .bottle, let volume = entry.feedVolumeInML {
+            Text("Bottle (\(entry.milkType == .breastmilk ? "Breastmilk" : "Formula"))")
+                .font(.headline)
+                .foregroundColor(.primary)
+            Text("\(volume) ml")
+                .font(.subheadline)
+        } else if entry.feedType == .directBreastfeeding, let time = entry.feedTimeInMinutes {
+            Text("Breastfeeding")
+                .font(.headline)
+                .foregroundColor(.primary)
+            Text("\(time) min")
+                .font(.subheadline)
         }
     }
 }

@@ -32,10 +32,6 @@ struct FeedsSummaryView: View {
         currentEntries.max(by: { $0.dateTime < $1.dateTime })
     }
 
-    private var formattedTime: String {
-        formatDate(lastEntry?.dateTime)
-    }
-
     var body: some View {
         NavigationLink(
             destination: FeedsView(entries: currentEntries, babyId: babyId, viewModel: viewModel)
@@ -95,11 +91,11 @@ struct FeedsSummaryView: View {
         HStack {
             if entry.feedType == .bottle, let volume = entry.feedVolumeInML {
                 Text("Bottle: \(volume) ml")
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundColor(.primary)
             } else if entry.feedType == .directBreastfeeding, let time = entry.feedTimeInMinutes {
                 Text("Breastfeeding: \(time) min")
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundColor(.primary)
             }
             Spacer()

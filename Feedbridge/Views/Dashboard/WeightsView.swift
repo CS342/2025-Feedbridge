@@ -96,16 +96,16 @@ struct WeightsView: View {
     private var weightEntriesList: some View {
         List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
             VStack(alignment: .leading) {
+                // Display the formatted date of the entry
+                Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
                 // Weight entry with correct unit
                 Text(
                     "\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")"
                 )
                 .font(.headline)
-
-                // Display the formatted date of the entry
-                Text(entry.dateTime.formattedString())
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
             }.swipeActions {
                 Button(role: .destructive) {
                     Task {
