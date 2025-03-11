@@ -1,5 +1,5 @@
 //
-//  DehydrationAlertGridView.swift
+//  DehydrationCharts.swift
 //  Feedbridge
 //
 //  Created by Shreya D'Souza on 3/10/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DehydrationAlertGridView: View {
+struct DehydrationCharts: View {
     var entries: [DehydrationCheck]
 
     var body: some View {
@@ -27,7 +27,7 @@ struct DehydrationAlertGridView: View {
 
     /// Creates the header view for the summary card.
     private func header() -> some View {
-        NavigationLink(destination: DehydrationDetailView(entries: entries)) {
+        NavigationLink(destination: DehydrationView(entries: entries)) {
             HStack {
                 Image(systemName: "heart.fill")
                     .accessibilityLabel("Heart icon")

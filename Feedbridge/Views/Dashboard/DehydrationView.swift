@@ -1,5 +1,5 @@
 //
-//  DehydrationDetailView.swift
+//  DehydrationView.swift
 //  Feedbridge
 //
 //  Created by Shreya D'Souza on 3/10/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// View displaying dehydration check entries with detailed symptoms and an alert grid.
-struct DehydrationDetailView: View {
+struct DehydrationView: View {
     var entries: [DehydrationCheck]
 
     var body: some View {
