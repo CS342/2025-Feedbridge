@@ -16,10 +16,10 @@ import Testing
 @testable import Feedbridge
 /**
  These tests demonstrate integration with Firestore using the `FeedbridgeStandard` actor.
- 
+
  1. Firestore must be configured in the test environment (emulator or real Firebase project).
  2. A test user must be signed in for these tests to succeed.
-    - This file automatically creates and signs in a new test user if none is available.
+ - This file automatically creates and signs in a new test user if none is available.
  3. Make sure `FeatureFlags.disableFirebase` is set to `false` if you want the Firestore writes.
  4. If using an emulator, confirm your `FeedbridgeDelegate` is configured to point to your emulator settings.
  */

@@ -41,7 +41,7 @@ struct StoolsView: View {
                     .swipeActions {
                         Button(role: .destructive) { Task {
                             print("Delete stool entry with id: \(entry.id ?? "")")
-                        print("Baby: \(babyId)")
+                            print("Baby: \(babyId)")
                             try await standard.deleteStoolEntry(babyId: babyId, entryId: entry.id ?? "")
                             self.entries.removeAll { $0.id == entry.id }
                         } } label: {

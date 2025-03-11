@@ -79,16 +79,16 @@ struct TestModels {
 
         var weightEntries = WeightEntries(weightEntries: [])
         weightEntries.weightEntries.append(WeightEntry(
-                grams: 3000,
-                dateTime: Date(timeIntervalSinceNow: -3600)
+            grams: 3000,
+            dateTime: Date(timeIntervalSinceNow: -3600)
         ))
         weightEntries.weightEntries.append(WeightEntry(
-                grams: 3500,
-                dateTime: Date(timeIntervalSinceNow: -1800)
+            grams: 3500,
+            dateTime: Date(timeIntervalSinceNow: -1800)
         ))
         weightEntries.weightEntries.append(WeightEntry(
-                grams: 3600,
-                dateTime: Date(timeIntervalSinceNow: -60)
+            grams: 3600,
+            dateTime: Date(timeIntervalSinceNow: -60)
         ))
 
         var modifiableBaby = baby
@@ -105,14 +105,14 @@ struct TestModels {
 
         var dehydrationChecks = DehydrationChecks(dehydrationChecks: [])
         let oldCheck = DehydrationCheck(
-                dateTime: Date(timeIntervalSinceNow: -3600),
-                poorSkinElasticity: false,
-                dryMucousMembranes: false
+            dateTime: Date(timeIntervalSinceNow: -3600),
+            poorSkinElasticity: false,
+            dryMucousMembranes: false
         )
         let recentCheck = DehydrationCheck(
-                dateTime: Date(timeIntervalSinceNow: -300),
-                poorSkinElasticity: true,
-                dryMucousMembranes: true
+            dateTime: Date(timeIntervalSinceNow: -300),
+            poorSkinElasticity: true,
+            dryMucousMembranes: true
         )
 
         dehydrationChecks.dehydrationChecks.append(oldCheck)
@@ -134,9 +134,9 @@ struct TestModels {
         // Baby with an active dehydration check
         var babyDehydrationAlert = babyNoAlerts
         let dehydratedCheck = DehydrationCheck(
-                dateTime: .now,
-                poorSkinElasticity: true,
-                dryMucousMembranes: false
+            dateTime: .now,
+            poorSkinElasticity: true,
+            dryMucousMembranes: false
         )
         babyDehydrationAlert.dehydrationChecks = DehydrationChecks(dehydrationChecks: [dehydratedCheck])
         #expect(babyDehydrationAlert.hasActiveAlerts, "Should have an active alert from dehydration check.")
@@ -144,20 +144,20 @@ struct TestModels {
         // Baby with an active wet diaper alert
         var babyWetDiaperAlert = babyNoAlerts
         let wetDiaperAlert = WetDiaperEntry(
-                dateTime: .now,
-                volume: .heavy,
-                color: .redTinged
-                )
+            dateTime: .now,
+            volume: .heavy,
+            color: .redTinged
+        )
         babyWetDiaperAlert.wetDiaperEntries = WetDiaperEntries(wetDiaperEntries: [wetDiaperAlert])
         #expect(babyWetDiaperAlert.hasActiveAlerts, "Should have an active alert from wet diaper entry.")
 
         // Baby with an active stool alert
         var babyStoolAlert = babyNoAlerts
         let stoolAlert = StoolEntry(
-                dateTime: .now,
-                volume: .heavy,
-                color: .beige
-                )
+            dateTime: .now,
+            volume: .heavy,
+            color: .beige
+        )
         babyStoolAlert.stoolEntries = StoolEntries(stoolEntries: [stoolAlert])
         #expect(babyStoolAlert.hasActiveAlerts, "Should have an active alert from stool entry.")
     }
@@ -167,18 +167,18 @@ struct TestModels {
     @Test
     func testDehydrationCheckAlert() async throws {
         let noAlertCheck = DehydrationCheck(
-                dateTime: .now,
-                poorSkinElasticity: false,
-                dryMucousMembranes: false
-                )
+            dateTime: .now,
+            poorSkinElasticity: false,
+            dryMucousMembranes: false
+        )
         #expect(!noAlertCheck.dehydrationAlert,
                 "No alert should be triggered if both poorSkinElasticity and dryMucousMembranes are false.")
 
         let alertCheck = DehydrationCheck(
-                dateTime: .now,
-                poorSkinElasticity: true,
-                dryMucousMembranes: false
-                )
+            dateTime: .now,
+            poorSkinElasticity: true,
+            dryMucousMembranes: false
+        )
         #expect(alertCheck.dehydrationAlert,
                 "Alert should be triggered if poorSkinElasticity is true.")
     }
@@ -220,18 +220,18 @@ struct TestModels {
     @Test
     func testStoolEntryMedicalAlert() async throws {
         let entryNormal = StoolEntry(
-                dateTime: .now,
-                volume: .heavy,
-                color: .yellow
-                )
+            dateTime: .now,
+            volume: .heavy,
+            color: .yellow
+        )
         #expect(!entryNormal.medicalAlert,
                 "medicalAlert should be false for non-'beige' stool color.")
 
         let entryAlert = StoolEntry(
-                dateTime: .now,
-                volume: .medium,
-                color: .beige
-                )
+            dateTime: .now,
+            volume: .medium,
+            color: .beige
+        )
         #expect(entryAlert.medicalAlert,
                 "medicalAlert should be true if the stool color is 'beige'.")
     }
@@ -284,18 +284,18 @@ struct TestModels {
     @Test
     func testWetDiaperEntryDehydrationAlert() async throws {
         let normalWet = WetDiaperEntry(
-                dateTime: .now,
-                volume: .medium,
-                color: .yellow
-                )
+            dateTime: .now,
+            volume: .medium,
+            color: .yellow
+        )
         #expect(!normalWet.dehydrationAlert,
                 "dehydrationAlert should be false for normal color diapers.")
 
         let pinkWet = WetDiaperEntry(
-                dateTime: .now,
-                volume: .heavy,
-                color: .pink
-                )
+            dateTime: .now,
+            volume: .heavy,
+            color: .pink
+        )
         #expect(pinkWet.dehydrationAlert,
                 "dehydrationAlert should be true for pink diapers.")
     }
@@ -373,14 +373,14 @@ struct TestModels {
                 dateTime: .now,
                 poorSkinElasticity: false,
                 dryMucousMembranes: true
-                )
+            )
         )
         dehydrationChecks.dehydrationChecks.append(
             DehydrationCheck(
                 dateTime: .now,
                 poorSkinElasticity: true,
                 dryMucousMembranes: false
-                )
+            )
         )
 
         #expect(dehydrationChecks.dehydrationChecks.count == 2,

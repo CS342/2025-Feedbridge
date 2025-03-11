@@ -79,7 +79,7 @@ struct Baby: Identifiable, Codable, Sendable, Equatable {
         }
 
         return lhs.name == rhs.name &&
-               lhs.dateOfBirth == rhs.dateOfBirth
+            lhs.dateOfBirth == rhs.dateOfBirth
     }
 }
 

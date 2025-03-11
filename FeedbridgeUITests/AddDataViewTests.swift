@@ -15,12 +15,12 @@ class AddDataAViewUITests: XCTestCase {
     @MainActor
     override func setUp() async throws {
         continueAfterFailure = false
-        
+
         let app = XCUIApplication()
         app.launchArguments = ["--setupTestAccount", "--skipOnboarding"]
         app.deleteAndLaunch(withSpringboardAppName: "Feedbridge")
     }
-    
+
     /// Tests if all data entry buttons exist in the view
     @MainActor
     func testDataEntryButtonsExist() {
@@ -30,19 +30,19 @@ class AddDataAViewUITests: XCTestCase {
         let stoolEntryButton = app.buttons["Stool Entry"]
         let dehydrationCheckButton = app.buttons["Dehydration Check"]
         let weightEntryButton = app.buttons["Weight Entry"]
-        
+
         XCTAssertTrue(feedEntryButton.exists, "Feed Entry button should exist")
         XCTAssertTrue(wetDiaperButton.exists, "Wet Diaper Entry button should exist")
         XCTAssertTrue(stoolEntryButton.exists, "Stool Entry button should exist")
         XCTAssertTrue(dehydrationCheckButton.exists, "Dehydration Check button should exist")
         XCTAssertTrue(weightEntryButton.exists, "Weight Entry button should exist")
     }
-    
+
     /// Tests tapping each button
     @MainActor
     func testTapDataEntryButtons() {
         let buttons = ["Feed Entry", "Wet Diaper Entry", "Stool Entry", "Dehydration Check", "Weight Entry"]
-        
+
         for buttonLabel in buttons {
             let app = XCUIApplication()
             let button = app.buttons[buttonLabel]
@@ -51,7 +51,7 @@ class AddDataAViewUITests: XCTestCase {
             // Assert any expected behavior after tapping
         }
     }
-    
+
     /// Tests if the navigation title is correct
     @MainActor
     func testNavigationTitle() {

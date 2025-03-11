@@ -148,7 +148,7 @@ struct WetDiaperChart: View {
 
     /// Determines the color of the point based on the entry's color and whether it's a mini chart.
     private func miniColor(entry: WetDiaperEntry, isMini: Bool, lastDay: String) -> Color {
-         isMini ? (dateString(entry.dateTime) == lastDay ? .orange : Color(.greyChart)) : diaperColor(entry.color)
+        isMini ? (dateString(entry.dateTime) == lastDay ? .orange : Color(.greyChart)) : diaperColor(entry.color)
     }
 
     /// Get the last recorded date as a string.

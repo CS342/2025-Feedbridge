@@ -130,9 +130,9 @@ struct WeightChart: View {
                     PointMark(
                         x: .value("Date", day),
                         y: .value(
-                                weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
-                                weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
-                            )
+                            weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
+                            weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
+                        )
                     )
                     .foregroundStyle(.gray)
                     .symbol {

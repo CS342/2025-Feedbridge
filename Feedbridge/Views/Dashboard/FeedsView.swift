@@ -57,7 +57,7 @@ struct FeedsView: View {
                     .swipeActions {
                         Button(role: .destructive) { Task {
                             print("Delete feed entry with id: \(entry.id ?? "")")
-                        print("Baby: \(babyId)")
+                            print("Baby: \(babyId)")
                             try await standard.deleteFeedEntry(babyId: babyId, entryId: entry.id ?? "")
                             self.entries.removeAll { $0.id == entry.id }
                         } } label: {

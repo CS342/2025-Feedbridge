@@ -57,9 +57,9 @@ struct NotificationPermissions: View {
                 )
             }
         )
-            .navigationBarBackButtonHidden(notificationProcessing)
-            // Small fix as otherwise "Login" or "Sign up" is still shown in the nav bar
-            .navigationTitle(Text(verbatim: ""))
+        .navigationBarBackButtonHidden(notificationProcessing)
+        // Small fix as otherwise "Login" or "Sign up" is still shown in the nav bar
+        .navigationTitle(Text(verbatim: ""))
     }
 }
 
@@ -68,8 +68,8 @@ struct NotificationPermissions: View {
     OnboardingStack {
         NotificationPermissions()
     }
-        .previewWith {
-            FeedbridgeScheduler()
-        }
+    .previewWith {
+        FeedbridgeScheduler()
+    }
 }
 #endif

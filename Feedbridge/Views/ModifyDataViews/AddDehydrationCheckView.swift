@@ -7,7 +7,7 @@
 // SPDX-FileCopyrightText: 2025 Stanford University
 //
 // SPDX-License-Identifier: MIT
-// 
+//
 import FirebaseFirestore
 import SwiftUI
 

@@ -16,10 +16,10 @@ import Foundation
 func last7DaysRange() -> ClosedRange<Date> {
     let today = Date()
     let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today) ?? today
-    
+
     let calendar = Calendar.current
     let paddedStart = calendar.date(byAdding: .hour, value: -3, to: sevenDaysAgo) ?? sevenDaysAgo
     let paddedEnd = calendar.date(byAdding: .hour, value: 12, to: today) ?? today
-    
+
     return paddedStart...paddedEnd
 }

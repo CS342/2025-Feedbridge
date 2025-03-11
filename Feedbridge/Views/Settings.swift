@@ -30,13 +30,13 @@ private struct BasicInfoSection: View {
     var body: some View {
         Section("Basic Info") {
             LabeledContent("Name", value: baby.name)
-//            LabeledContent("ID", value: baby.id ?? "N/A")
+            //            LabeledContent("ID", value: baby.id ?? "N/A")
             LabeledContent("Date of Birth", value: baby.dateOfBirth.formatted())
             LabeledContent("Age", value: "\(baby.ageInMonths) months")
-//            if let weight = baby.currentWeight {
-//                LabeledContent("Current Weight", value: String(format: "%.2f", weightUnitPreference == .kilograms ? weight.asKilograms.value : weight.asPounds.value) + " \(weightUnitPreference == .kilograms ? "kg" : "lb")")
-//            }
-//            LabeledContent("Has Active Alerts", value: baby.hasActiveAlerts ? "Yes" : "No")
+            //            if let weight = baby.currentWeight {
+            //                LabeledContent("Current Weight", value: String(format: "%.2f", weightUnitPreference == .kilograms ? weight.asKilograms.value : weight.asPounds.value) + " \(weightUnitPreference == .kilograms ? "kg" : "lb")")
+            //            }
+            //            LabeledContent("Has Active Alerts", value: baby.hasActiveAlerts ? "Yes" : "No")
         }
     }
 }

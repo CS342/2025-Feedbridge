@@ -14,12 +14,12 @@ class SchedulerTests: XCTestCase {
     @MainActor
     override func setUp() async throws {
         continueAfterFailure = false
-        
+
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding"]
         app.deleteAndLaunch(withSpringboardAppName: "Feedbridge")
     }
-    
+
 
     @MainActor
     func testScheduler() throws {
@@ -29,10 +29,10 @@ class SchedulerTests: XCTestCase {
 
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].exists)
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
-        
+
         XCTAssertTrue(app.buttons["Start Questionnaire"].waitForExistence(timeout: 2))
         app.buttons["Start Questionnaire"].tap()
-        
+
         XCTAssertTrue(app.staticTexts["Social Support"].waitForExistence(timeout: 2))
         XCTAssertTrue(app.navigationBars.buttons["Cancel"].exists)
 

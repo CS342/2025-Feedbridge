@@ -8,80 +8,102 @@
 //
 // SPDX-License-Identifier: MIT
 //
+// swiftlint:disable closure_body_length
 
-import Charts
 import SpeziAccount
 import SwiftUI
 
-/// Dashboard view displaying baby data such as weights, feeds, wet diapers, and stools.
 struct DashboardView: View {
-    @Environment(Account.self) private var account: Account?
-    @Environment(FeedbridgeStandard.self) private var standard
-    @Binding var presentingAccount: Bool
-    @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
-    @State private var isLoading = true
-    @State private var errorMessage: String?
-    @State private var baby: Baby?
+  @Environment(Account.self) private var account: Account?
+  @Environment(FeedbridgeStandard.self) private var standard
 
-    var body: some View {
-        NavigationStack {
-            Group {
-                // Show loading, error, or main content
-                if isLoading {
-                    ProgressView()
-                } else if let error = errorMessage {
-                    Text(error)
-                        .foregroundColor(.red)
-                } else {
-                    mainContent.refreshable {
-                        await loadBaby()
-                    }
-                }
-            }
-            .navigationTitle("Dashboard")
-            .toolbar {
-                if account != nil {
-                    AccountButton(isPresented: $presentingAccount)
-                }
-            }
-            .task {
-                await loadBaby()
-            }
-        }
-    }
+  @State private var viewModel = DashboardViewModel()
 
-    /// Main content of the dashboard, displaying summary views.
-    @ViewBuilder private var mainContent: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                if let baby {
-                    AlertView(baby: baby)
-                    WeightsSummaryView(entries: baby.weightEntries.weightEntries, babyId: baby.id ?? "")
-                    FeedsSummaryView(entries: baby.feedEntries.feedEntries, babyId: baby.id ?? "")
-                    WetDiapersSummaryView(entries: baby.wetDiaperEntries.wetDiaperEntries, babyId: baby.id ?? "")
-                    StoolsSummaryView(entries: baby.stoolEntries.stoolEntries, babyId: baby.id ?? "")
-                }
+  @Binding var presentingAccount: Bool
+  @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
+
+  var body: some View {
+    NavigationStack {
+      Group {
+        if viewModel.isLoading {
+          ProgressView()
+        } else if let error = viewModel.errorMessage {
+          Text(error)
+            .foregroundColor(.red)
+        } else if let baby = viewModel.baby {
+          mainContent(for: baby)
+        } else {
+          VStack(spacing: 16) {
+            VStack {
+              Text("No babies found")
+                .font(.headline)
+              Text("Please add a baby in Settings before adding entries.")
+                .multilineTextAlignment(.leading)
+                .foregroundColor(.secondary)
             }
             .padding()
+            Spacer()
+          }
         }
+      }
+      .navigationTitle("Dashboard")
+      .toolbar {
+        if account != nil {
+          AccountButton(isPresented: $presentingAccount)
+        }
+      }
+      // Make sure to call these on the main actor:
+      .task {
+        // If no baby is selected, try to select the first one
+        if selectedBabyId == nil {
+          do {
+            let babies = try await standard.getBabies()
+            if !babies.isEmpty {
+              selectedBabyId = babies.first?.id
+              UserDefaults.standard.selectedBabyId = selectedBabyId
+            }
+          } catch {
+            viewModel.errorMessage = "Failed to load babies: \(error.localizedDescription)"
+          }
+        }
+
+        // Only start listening if we have a baby selected
+        if let id = selectedBabyId {
+          viewModel.startListening(babyId: id)
+        }
+      }
+      .onDisappear {
+        // Also ensure main actor for the same reason:
+        Task { @MainActor in
+          viewModel.stopListening()
+        }
+      }
     }
+  }
 
-    /// Loads baby data asynchronously.
-    private func loadBaby() async {
-        guard let babyId = selectedBabyId else {
-            baby = nil
-            return
-        }
-
-        isLoading = true
-        errorMessage = nil
-
-        do {
-            baby = try await standard.getBaby(id: babyId)
-        } catch {
-            errorMessage = "Failed to load baby: \(error.localizedDescription)"
-        }
-
-        isLoading = false
+  @ViewBuilder
+  private func mainContent(for baby: Baby) -> some View {
+    ScrollView {
+      VStack(spacing: 16) {
+        AlertView(baby: baby)
+        WeightsSummaryView(
+          entries: baby.weightEntries.weightEntries,
+          babyId: baby.id ?? ""
+        )
+        FeedsSummaryView(
+          entries: baby.feedEntries.feedEntries,
+          babyId: baby.id ?? ""
+        )
+        WetDiapersSummaryView(
+          entries: baby.wetDiaperEntries.wetDiaperEntries,
+          babyId: baby.id ?? ""
+        )
+        StoolsSummaryView(
+          entries: baby.stoolEntries.stoolEntries,
+          babyId: baby.id ?? ""
+        )
+      }
+      .padding()
     }
+  }
 }

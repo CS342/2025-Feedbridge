@@ -30,16 +30,16 @@ struct ScheduleView: View {
                     }
                 }
             }
-                .navigationTitle("Schedule")
-                .viewStateAlert(state: $scheduler.viewState)
-                .sheet(item: $presentedEvent) { event in
-                    EventView(event)
+            .navigationTitle("Schedule")
+            .viewStateAlert(state: $scheduler.viewState)
+            .sheet(item: $presentedEvent) { event in
+                EventView(event)
+            }
+            .toolbar {
+                if account != nil {
+                    AccountButton(isPresented: $presentingAccount)
                 }
-                .toolbar {
-                    if account != nil {
-                        AccountButton(isPresented: $presentingAccount)
-                    }
-                }
+            }
         }
     }
 
