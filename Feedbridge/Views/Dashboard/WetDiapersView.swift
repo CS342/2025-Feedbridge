@@ -42,7 +42,7 @@ struct WetDiapersView: View {
                     .swipeActions {
                         Button(role: .destructive) { Task {
                             print("Delete wet diaper entry with id: \(entry.id ?? "")")
-                        print("Baby: \(babyId)")
+                            print("Baby: \(babyId)")
                             try await standard.deleteWetDiaperEntry(babyId: babyId, entryId: entry.id ?? "")
                             self.entries.removeAll { $0.id == entry.id }
                         } } label: {

@@ -56,9 +56,9 @@ struct HealthKitPermissions: View {
                 )
             }
         )
-            .navigationBarBackButtonHidden(healthKitProcessing)
-            // Small fix as otherwise "Login" or "Sign up" is still shown in the nav bar
-            .navigationTitle(Text(verbatim: ""))
+        .navigationBarBackButtonHidden(healthKitProcessing)
+        // Small fix as otherwise "Login" or "Sign up" is still shown in the nav bar
+        .navigationTitle(Text(verbatim: ""))
     }
 }
 
@@ -67,8 +67,8 @@ struct HealthKitPermissions: View {
     OnboardingStack {
         HealthKitPermissions()
     }
-        .previewWith(standard: FeedbridgeStandard()) {
-            HealthKit()
-        }
+    .previewWith(standard: FeedbridgeStandard()) {
+        HealthKit()
+    }
 }
 #endif

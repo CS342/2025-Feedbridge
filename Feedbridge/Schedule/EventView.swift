@@ -36,11 +36,11 @@ struct EventView: View {
                     systemImage: "list.bullet.clipboard",
                     description: Text("This type of event is currently unsupported. Please contact the developer of this app.")
                 )
-                    .toolbar {
-                        Button("Close") {
-                            dismiss()
-                        }
+                .toolbar {
+                    Button("Close") {
+                        dismiss()
                     }
+                }
             }
         }
     }

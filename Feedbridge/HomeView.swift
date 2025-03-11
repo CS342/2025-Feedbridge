@@ -33,14 +33,14 @@ struct HomeView: View {
                 Settings()
             }
         }
-            .tabViewStyle(.sidebarAdaptable)
-            .tabViewCustomization($tabViewCustomization)
-            .sheet(isPresented: $presentingAccount) {
-                AccountSheet(dismissAfterSignIn: false) // presentation was user initiated, do not automatically dismiss
-            }
-            .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
-                AccountSheet()
-            }
+        .tabViewStyle(.sidebarAdaptable)
+        .tabViewCustomization($tabViewCustomization)
+        .sheet(isPresented: $presentingAccount) {
+            AccountSheet(dismissAfterSignIn: false) // presentation was user initiated, do not automatically dismiss
+        }
+        .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
+            AccountSheet()
+        }
     }
 }
 

@@ -88,7 +88,7 @@ struct WeightsView: View {
             }.swipeActions {
                 Button(role: .destructive) { Task {
                     print("Delete weight entry with id: \(entry.id ?? "")")
-                print("Baby: \(babyId)")
+                    print("Baby: \(babyId)")
                     try await standard.deleteWeightEntry(babyId: babyId, entryId: entry.id ?? "")
                     self.entries.removeAll { $0.id == entry.id }
                 } } label: {

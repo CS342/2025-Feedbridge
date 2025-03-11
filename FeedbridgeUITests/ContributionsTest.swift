@@ -13,7 +13,7 @@ final class ContributionsTest: XCTestCase {
     @MainActor
     override func setUp() async throws {
         continueAfterFailure = false
-        
+
         let app = XCUIApplication()
         app.launchArguments = ["--setupTestAccount", "--skipOnboarding"]
         app.deleteAndLaunch(withSpringboardAppName: "Feedbridge")
@@ -22,15 +22,15 @@ final class ContributionsTest: XCTestCase {
     @MainActor
     func testLicenseInformationPage() async throws {
         let app = XCUIApplication()
-        
+
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
-        
+
         // Waiting until the setup test accounts actions have been finished & sheets are dismissed.
         try await Task.sleep(for: .seconds(5))
-        
+
         XCTAssertTrue(app.navigationBars.buttons["Your Account"].waitForExistence(timeout: 6.0))
         app.navigationBars.buttons["Your Account"].tap()
-        
+
         XCTAssertTrue(app.buttons["License Information"].waitForExistence(timeout: 2))
         app.buttons["License Information"].tap()
         // Test if the sheet opens by checking if the title of the sheet is present

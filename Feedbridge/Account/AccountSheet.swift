@@ -39,14 +39,14 @@ struct AccountSheet: View {
                     } header: {
                         AccountSetupHeader()
                     }
-                        .onAppear {
-                            isInSetup = true
+                    .onAppear {
+                        isInSetup = true
+                    }
+                    .toolbar {
+                        if !accountRequired {
+                            closeButton
                         }
-                        .toolbar {
-                            if !accountRequired {
-                                closeButton
-                            }
-                        }
+                    }
                 }
             }
         }

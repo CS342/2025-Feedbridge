@@ -38,8 +38,8 @@ struct Consent: View {
     OnboardingStack {
         Consent()
     }
-        .previewWith(standard: FeedbridgeStandard()) {
-            OnboardingDataSource()
-        }
+    .previewWith(standard: FeedbridgeStandard()) {
+        OnboardingDataSource()
+    }
 }
 #endif

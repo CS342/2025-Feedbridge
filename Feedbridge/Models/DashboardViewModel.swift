@@ -38,11 +38,11 @@ class DashboardViewModel {
     private var dehydrationChecksListener: ListenerRegistration?
 
     // MARK: - Lifecycle
-    
-//    deinit {
-//        // Clean up all listeners if for some reason the VM goes out of scope
-//        stopListening()
-//    }
+
+    //    deinit {
+    //        // Clean up all listeners if for some reason the VM goes out of scope
+    //        stopListening()
+    //    }
 
     // MARK: - Public methods
 
