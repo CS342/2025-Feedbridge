@@ -4,6 +4,10 @@
 //
 //  Created by Calvin Xu on 2/4/25.
 //
+// SPDX-FileCopyrightText: 2025 Stanford University
+//
+// SPDX-License-Identifier: MIT
+//
 // swiftlint:disable closure_body_length
 
 import FirebaseFirestore

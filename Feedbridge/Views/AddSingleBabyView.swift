@@ -9,6 +9,7 @@
 // SPDX-License-Identifier: MIT
 //
 // swiftlint:disable closure_body_length
+
 import SwiftUI
 
 struct AddSingleBabyView: View {
