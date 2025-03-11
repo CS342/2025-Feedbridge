@@ -80,7 +80,7 @@ struct WeightsSummaryView: View {
     private func entryDetails(_ entry: WeightEntry) -> some View {
         HStack {
             Text(formattedWeightText(entry: entry, weightUnitPreference: weightUnitPreference))
-                .font(.title2)
+                .font(.title3)
                 .foregroundColor(.primary)
 
             Spacer()

@@ -80,7 +80,7 @@ struct StoolsSummaryView: View {
     private func entryDetails(_ entry: StoolEntry) -> some View {
         HStack {
             Text("\(entry.volume.rawValue.capitalized) and \(entry.color.rawValue.capitalized)")
-                .font(.title2)
+                .font(.title3)
                 .foregroundColor(.primary)
             Spacer()
             MiniStoolChart(entries: entries)

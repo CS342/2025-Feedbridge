@@ -79,7 +79,7 @@ struct WetDiapersSummaryView: View {
     private func entryDetails(_ entry: WetDiaperEntry) -> some View {
         HStack {
             Text(wetDiaperText(entry))
-                .font(.title2)
+                .font(.title3)
                 .foregroundColor(.primary)
 
             Spacer()

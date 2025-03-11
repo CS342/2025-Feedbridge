@@ -81,11 +81,11 @@ struct FeedsSummaryView: View {
         HStack {
             if entry.feedType == .bottle, let volume = entry.feedVolumeInML {
                 Text("Bottle: \(volume) ml")
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundColor(.primary)
             } else if entry.feedType == .directBreastfeeding, let time = entry.feedTimeInMinutes {
                 Text("Breastfeeding: \(time) min")
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundColor(.primary)
             }
             Spacer()

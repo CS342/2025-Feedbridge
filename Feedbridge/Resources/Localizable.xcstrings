@@ -21,13 +21,22 @@
         }
       }
     },
+    "⚠️ Alert" : {
+
+    },
     "⚠️ Dehydration Alert" : {
 
     },
     "⚠️ Medical Alert" : {
 
     },
+    "⚠️ Signs of dehydration detected. Seek medical care!" : {
+
+    },
     "✅ No alerts in the past week" : {
+
+    },
+    "✅ Normal" : {
 
     },
     "About Us" : {
@@ -325,7 +334,7 @@
         }
       }
     },
-    "Great job taking care of your little one! 💕 Keep up the amazing work!" : {
+    "Great job taking care of your little one! Keep up the amazing work!" : {
 
     },
     "Green" : {
@@ -373,6 +382,9 @@
           }
         }
       }
+    },
+    "Heart icon" : {
+
     },
     "Heavy" : {
 
