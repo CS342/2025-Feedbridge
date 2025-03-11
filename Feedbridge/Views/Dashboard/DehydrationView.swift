@@ -46,7 +46,7 @@ struct DehydrationView: View {
                     .padding(.vertical, 6)
                 }
             }
-            .navigationTitle("Dehydration Symptoms")
+            .navigationTitle("Dehydration Checks")
         }
     }
 
@@ -57,7 +57,6 @@ struct DehydrationView: View {
                 .font(.subheadline)
             Spacer(minLength: 8)
             Image(systemName: isPresent ? "exclamationmark.triangle.fill" : "checkmark.circle.fill")
-                .accessibilityLabel("Alert status")
                 .foregroundColor(isPresent ? .red : .green)
         }
     }
