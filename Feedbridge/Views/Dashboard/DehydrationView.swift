@@ -49,11 +49,13 @@ struct DehydrationView: View {
                     .font(.headline)
                     .foregroundColor(entry.dehydrationAlert ? .red : .green)
 
-                HStack {
+                VStack {
                     dehydrationSymptomView(title: "Skin Elasticity", isPresent: entry.poorSkinElasticity)
-                    Spacer()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     dehydrationSymptomView(title: "Dry Mucous Membranes", isPresent: entry.dryMucousMembranes)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
+
                 .swipeActions {
                     Button(role: .destructive) {
                         Task {
@@ -76,7 +78,6 @@ struct DehydrationView: View {
         HStack {
             Text(title)
                 .font(.subheadline)
-            Spacer(minLength: 2)
             Image(systemName: isPresent ? "exclamationmark.triangle.fill" : "checkmark.circle.fill")
                 .accessibilityLabel(isPresent ? "Alert present" : "Normal")
                 .foregroundColor(isPresent ? .red : .green)
