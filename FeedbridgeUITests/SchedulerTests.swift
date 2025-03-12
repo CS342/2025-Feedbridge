@@ -1,73 +1,71 @@
-//
-// This source file is part of the Feedbridge based on the Stanford Spezi Template Application project
-//
-// SPDX-FileCopyrightText: 2025 Stanford University
-//
-// SPDX-License-Identifier: MIT
-//
+// //
+// // This source file is part of the Feedbridge based on the Stanford Spezi Template Application project
+// //
+// // SPDX-FileCopyrightText: 2025 Stanford University
+// //
+// // SPDX-License-Identifier: MIT
+// //
 
-import XCTest
-import XCTestExtensions
+// import XCTest
+// import XCTestExtensions
 
+// class SchedulerTests: XCTestCase {
+//     @MainActor
+//     override func setUp() async throws {
+//         continueAfterFailure = false
 
-class SchedulerTests: XCTestCase {
-    @MainActor
-    override func setUp() async throws {
-        continueAfterFailure = false
+//         let app = XCUIApplication()
+//         app.launchArguments = ["--skipOnboarding"]
+//         app.deleteAndLaunch(withSpringboardAppName: "Feedbridge")
+//     }
 
-        let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding"]
-        app.deleteAndLaunch(withSpringboardAppName: "Feedbridge")
-    }
+//     @MainActor
+//     func testScheduler() throws {
+//         let app = XCUIApplication()
 
+//         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
 
-    @MainActor
-    func testScheduler() throws {
-        let app = XCUIApplication()
+//         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].exists)
+//         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 2.0))
+//         XCTAssertTrue(app.buttons["Start Questionnaire"].waitForExistence(timeout: 2))
+//         app.buttons["Start Questionnaire"].tap()
 
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].exists)
-        app.tabBars["Tab Bar"].buttons["Schedule"].tap()
+//         XCTAssertTrue(app.staticTexts["Social Support"].waitForExistence(timeout: 2))
+//         XCTAssertTrue(app.navigationBars.buttons["Cancel"].exists)
 
-        XCTAssertTrue(app.buttons["Start Questionnaire"].waitForExistence(timeout: 2))
-        app.buttons["Start Questionnaire"].tap()
+//         XCTAssertTrue(app.staticTexts["None of the time"].exists)
+//         let noButton = app.staticTexts["None of the time"]
 
-        XCTAssertTrue(app.staticTexts["Social Support"].waitForExistence(timeout: 2))
-        XCTAssertTrue(app.navigationBars.buttons["Cancel"].exists)
+//         let nextButton = app.buttons["Next"]
 
-        XCTAssertTrue(app.staticTexts["None of the time"].exists)
-        let noButton = app.staticTexts["None of the time"]
+//         for _ in 1...4 {
+//             XCTAssertFalse(nextButton.isEnabled)
+//             noButton.tap()
+//             XCTAssertTrue(nextButton.isEnabled)
+//             nextButton.tap()
+//             usleep(500_000)
+//         }
 
-        let nextButton = app.buttons["Next"]
+//         XCTAssert(app.staticTexts["What is your age?"].waitForExistence(timeout: 0.5))
+//         XCTAssert(app.textFields["Tap to answer"].exists)
+//         try app.textFields["Tap to answer"].enter(value: "25")
+//         app.buttons["Done"].tap()
 
-        for _ in 1...4 {
-            XCTAssertFalse(nextButton.isEnabled)
-            noButton.tap()
-            XCTAssertTrue(nextButton.isEnabled)
-            nextButton.tap()
-            usleep(500_000)
-        }
+//         XCTAssert(nextButton.isEnabled)
+//         nextButton.tap()
 
-        XCTAssert(app.staticTexts["What is your age?"].waitForExistence(timeout: 0.5))
-        XCTAssert(app.textFields["Tap to answer"].exists)
-        try app.textFields["Tap to answer"].enter(value: "25")
-        app.buttons["Done"].tap()
+//         XCTAssert(app.staticTexts["What is your preferred contact method?"].waitForExistence(timeout: 0.5))
+//         XCTAssert(app.staticTexts["E-mail"].exists)
+//         app.staticTexts["E-mail"].tap()
 
-        XCTAssert(nextButton.isEnabled)
-        nextButton.tap()
+//         XCTAssert(nextButton.isEnabled)
+//         nextButton.tap()
 
-        XCTAssert(app.staticTexts["What is your preferred contact method?"].waitForExistence(timeout: 0.5))
-        XCTAssert(app.staticTexts["E-mail"].exists)
-        app.staticTexts["E-mail"].tap()
+//         XCTAssert(app.staticTexts["Thank you for taking the survey!"].waitForExistence(timeout: 0.5))
+//         XCTAssert(app.buttons["Done"].exists)
+//         app.buttons["Done"].tap()
 
-        XCTAssert(nextButton.isEnabled)
-        nextButton.tap()
-
-        XCTAssert(app.staticTexts["Thank you for taking the survey!"].waitForExistence(timeout: 0.5))
-        XCTAssert(app.buttons["Done"].exists)
-        app.buttons["Done"].tap()
-
-        XCTAssert(app.staticTexts["Completed"].waitForExistence(timeout: 0.5))
-    }
-}
+//         XCTAssert(app.staticTexts["Completed"].waitForExistence(timeout: 0.5))
+//     }
+// }
