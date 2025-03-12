@@ -186,12 +186,8 @@ struct WeightsSummaryView: View {
             Text(formattedWeightText(entry: entry, weightUnitPreference: weightUnitPreference))
                 .font(.title3)
                 .foregroundColor(.primary)
-
             Spacer()
-
             MiniWeightChart(entries: currentEntries, weightUnitPreference: $weightUnitPreference)
-                .frame(width: 60, height: 40)
-                .opacity(0.5)
         }
         .padding([.bottom, .horizontal])
     }

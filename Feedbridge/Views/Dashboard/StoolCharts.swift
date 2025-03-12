@@ -60,7 +60,7 @@ struct StoolsSummaryView: View {
                 }
             }
         }
-        .frame(height: 120)
+        .frame(height: 130)
     }
 
     /// Header for the summary card
@@ -93,8 +93,7 @@ struct StoolsSummaryView: View {
                 .font(.title3)
                 .foregroundColor(.primary)
             Spacer()
-            MiniStoolChart(entries: entries)
-                .frame(width: 60, height: 40)
+            MiniStoolChart(entries: currentEntries)
         }
         .padding([.bottom, .horizontal])
     }

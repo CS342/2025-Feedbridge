@@ -90,11 +90,8 @@ struct WetDiapersSummaryView: View {
             Text(wetDiaperText(entry))
                 .font(.title3)
                 .foregroundColor(.primary)
-
             Spacer()
-
             MiniWetDiaperChart(entries: currentEntries)
-                .frame(width: 60, height: 40)
         }
         .padding([.bottom, .horizontal])
     }
