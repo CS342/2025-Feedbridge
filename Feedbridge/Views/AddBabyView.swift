@@ -16,7 +16,6 @@ import SpeziViews
 import SwiftUI
 
 struct AddBabyView: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(FeedbridgeStandard.self) private var standard
     @Environment(OnboardingNavigationPath.self) private var onboardingNavigationPath
 

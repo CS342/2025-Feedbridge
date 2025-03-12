@@ -69,6 +69,6 @@ struct AlertView: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(recentAlerts.isEmpty ? .green.opacity(0.8) : .red.opacity(0.8)) // Green if no alerts, red otherwise
         )
-    .frame(height: 120)
+        .frame(height: 120)
     }
 }

@@ -15,8 +15,6 @@ import SwiftUI
 
 /// Displays an multi-step onboarding flow for the Feedbridge.
 struct OnboardingFlow: View {
-    @Environment(HealthKit.self) private var healthKitDataSource
-
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.notificationSettings) private var notificationSettings
 
@@ -24,19 +22,9 @@ struct OnboardingFlow: View {
 
     @State private var localNotificationAuthorization = false
 
-    @MainActor private var healthKitAuthorization: Bool {
-        // As HealthKit not available in preview simulator
-        if ProcessInfo.processInfo.isPreviewSimulator {
-            return false
-        }
-
-        return healthKitDataSource.authorized
-    }
-
     var body: some View {
         OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
             Welcome()
-            // InterestingModules()
 
             if !FeatureFlags.disableFirebase {
                 AccountOnboarding()
@@ -47,14 +35,6 @@ struct OnboardingFlow: View {
             #endif
 
             AddBabyView()
-
-            //            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
-            //                HealthKitPermissions()
-            //            }
-
-            //            if !localNotificationAuthorization {
-            //                NotificationPermissions()
-            //            }
         }
         .interactiveDismissDisabled(!completedOnboardingFlow)
         .onChange(of: scenePhase, initial: true) {
@@ -77,8 +57,6 @@ struct OnboardingFlow: View {
             OnboardingDataSource()
             HealthKit()
             AccountConfiguration(service: InMemoryAccountService())
-
-            FeedbridgeScheduler()
         }
 }
 #endif

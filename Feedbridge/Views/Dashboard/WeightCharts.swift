@@ -128,10 +128,6 @@ struct WeightsSummaryView: View {
         currentEntries.max(by: { $0.dateTime < $1.dateTime })
     }
 
-    private var formattedTime: String {
-        formatDate(lastEntry?.dateTime)
-    }
-
     var body: some View {
         NavigationLink(
             destination: WeightsView(entries: currentEntries, babyId: babyId, viewModel: viewModel)

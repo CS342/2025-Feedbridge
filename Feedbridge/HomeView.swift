@@ -68,7 +68,6 @@ struct HomeView: View {
 
     return HomeView()
         .previewWith(standard: FeedbridgeStandard()) {
-            FeedbridgeScheduler()
             AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
         }
 }

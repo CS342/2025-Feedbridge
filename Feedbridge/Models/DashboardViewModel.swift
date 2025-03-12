@@ -74,8 +74,7 @@ class DashboardViewModel {
                 return
             }
             guard let doc = documentSnapshot, doc.exists else {
-                self.errorMessage = "Baby document does not exist."
-                self.isLoading = false
+                self.baby = nil
                 return
             }
 

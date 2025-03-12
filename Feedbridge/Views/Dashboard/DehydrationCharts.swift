@@ -54,10 +54,10 @@ struct AlertGridView: View {
 struct DehydrationSummaryView: View {
     var entries: [DehydrationCheck]
     let babyId: String
-    
+
     // Optional viewModel for real-time data
     var viewModel: DashboardViewModel?
-    
+
     private var currentEntries: [DehydrationCheck] {
         // Use viewModel data if available, otherwise fall back to passed entries
         if let baby = viewModel?.baby {
@@ -65,7 +65,7 @@ struct DehydrationSummaryView: View {
         }
         return entries
     }
-    
+
     var body: some View {
         NavigationLink(
             destination: DehydrationView(entries: currentEntries, babyId: babyId, viewModel: viewModel)
@@ -74,13 +74,13 @@ struct DehydrationSummaryView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     private func summaryCard() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(.systemGray6))
                 .opacity(0.8)
-            
+
             VStack {
                 header()
                 Spacer()
@@ -90,7 +90,7 @@ struct DehydrationSummaryView: View {
         }
         .frame(height: 130)
     }
-    
+
     /// Creates the header view for the summary card.
     private func header() -> some View {
         HStack {
@@ -98,13 +98,13 @@ struct DehydrationSummaryView: View {
                 .accessibilityLabel("Heart icon")
                 .font(.title3)
                 .foregroundColor(.green)
-            
+
             Text("Dehydration Symptoms")
                 .font(.title3.bold())
                 .foregroundColor(.green)
-            
+
             Spacer()
-            
+
             Image(systemName: "chevron.right")
                 .accessibilityLabel("Next page")
                 .foregroundColor(.gray)

@@ -18,10 +18,10 @@ struct FeedsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var entries: [FeedEntry]
     let babyId: String
-    
+
     // Optional viewModel for real-time data
     var viewModel: DashboardViewModel?
-    
+
     // Use the latest data from viewModel if available
     private var currentEntries: [FeedEntry] {
         if let baby = viewModel?.baby {
@@ -29,7 +29,7 @@ struct FeedsView: View {
         }
         return entries
     }
-    
+
     var body: some View {
         NavigationStack {
             FeedChart(entries: currentEntries, isMini: false)
@@ -39,7 +39,7 @@ struct FeedsView: View {
         }
         .navigationTitle("Feeds")
     }
-    
+
     /// List of feed entries sorted by date, displaying feed type and volume/time.
     private var feedEntriesList: some View {
         List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
@@ -47,7 +47,7 @@ struct FeedsView: View {
                 Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                
+
                 feedEntryView(entry: entry)
                     .swipeActions {
                         Button(role: .destructive) {
@@ -62,7 +62,7 @@ struct FeedsView: View {
             }
         }
     }
-    
+
     /// Generates the appropriate feed entry view based on feed type.
     @ViewBuilder
     private func feedEntryView(entry: FeedEntry) -> some View {

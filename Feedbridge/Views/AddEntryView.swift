@@ -44,8 +44,6 @@ struct AddEntryView: View {
     }
 
     // MARK: [ Environment & Dependencies ]
-
-    @Environment(\.dismiss) private var dismiss
     @Environment(FeedbridgeStandard.self) private var standard
     @Environment(\.colorScheme) private var colorScheme
 
@@ -53,9 +51,7 @@ struct AddEntryView: View {
     var viewModel: DashboardViewModel
 
     // MARK: [ State for Babies Selection ]
-
     @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
-    @State private var hasBabies = false
 
     // MARK: [ Shared Entry Data ]
 

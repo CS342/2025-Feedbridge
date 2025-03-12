@@ -1,1 +1,1 @@
-Spezi can render consent documents in the markdown format: This is a *markdown* **example**.
+Do you consent to **Feedbridge** sharing your data with your doctor?
