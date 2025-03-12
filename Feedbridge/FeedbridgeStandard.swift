@@ -167,70 +167,70 @@ actor FeedbridgeStandard: Standard,
         }
     }
 
-    func getBaby(id: String) async throws -> Baby? {
-        guard let userId = Auth.auth().currentUser?.uid else {
-            logger.error("Could not get current user id")
-            return nil
-        }
+    // func getBaby(id: String) async throws -> Baby? {
+    //     guard let userId = Auth.auth().currentUser?.uid else {
+    //         logger.error("Could not get current user id")
+    //         return nil
+    //     }
 
-        do {
-            let fireStore = Firestore.firestore()
-            let babyRef =
-                fireStore
-                .collection("users")
-                .document(userId)
-                .collection("babies")
-                .document(id)
+    //     do {
+    //         let fireStore = Firestore.firestore()
+    //         let babyRef =
+    //             fireStore
+    //             .collection("users")
+    //             .document(userId)
+    //             .collection("babies")
+    //             .document(id)
 
-            do {
-                var baby = try await babyRef.getDocument(as: Baby.self)
+    //         do {
+    //             var baby = try await babyRef.getDocument(as: Baby.self)
 
-                // Get weight entries
-                let weightSnapshot = try? await babyRef.collection("weightEntries").getDocuments()
-                if let documents = weightSnapshot?.documents {
-                    let entries = try documents.map { try $0.data(as: WeightEntry.self) }
-                    baby.weightEntries = WeightEntries(weightEntries: entries)
-                }
+    //             // Get weight entries
+    //             let weightSnapshot = try? await babyRef.collection("weightEntries").getDocuments()
+    //             if let documents = weightSnapshot?.documents {
+    //                 let entries = try documents.map { try $0.data(as: WeightEntry.self) }
+    //                 baby.weightEntries = WeightEntries(weightEntries: entries)
+    //             }
 
-                // Get feed entries
-                let feedSnapshot = try? await babyRef.collection("feedEntries").getDocuments()
-                if let documents = feedSnapshot?.documents {
-                    let entries = try documents.map { try $0.data(as: FeedEntry.self) }
-                    baby.feedEntries = FeedEntries(feedEntries: entries)
-                }
+    //             // Get feed entries
+    //             let feedSnapshot = try? await babyRef.collection("feedEntries").getDocuments()
+    //             if let documents = feedSnapshot?.documents {
+    //                 let entries = try documents.map { try $0.data(as: FeedEntry.self) }
+    //                 baby.feedEntries = FeedEntries(feedEntries: entries)
+    //             }
 
-                // Get stool entries
-                let stoolSnapshot = try? await babyRef.collection("stoolEntries").getDocuments()
-                if let documents = stoolSnapshot?.documents {
-                    let entries = try documents.map { try $0.data(as: StoolEntry.self) }
-                    baby.stoolEntries = StoolEntries(stoolEntries: entries)
-                }
+    //             // Get stool entries
+    //             let stoolSnapshot = try? await babyRef.collection("stoolEntries").getDocuments()
+    //             if let documents = stoolSnapshot?.documents {
+    //                 let entries = try documents.map { try $0.data(as: StoolEntry.self) }
+    //                 baby.stoolEntries = StoolEntries(stoolEntries: entries)
+    //             }
 
-                // Get wet diaper entries
-                let wetDiaperSnapshot = try? await babyRef.collection("wetDiaperEntries").getDocuments()
-                if let documents = wetDiaperSnapshot?.documents {
-                    let entries = try documents.map { try $0.data(as: WetDiaperEntry.self) }
-                    baby.wetDiaperEntries = WetDiaperEntries(wetDiaperEntries: entries)
-                }
+    //             // Get wet diaper entries
+    //             let wetDiaperSnapshot = try? await babyRef.collection("wetDiaperEntries").getDocuments()
+    //             if let documents = wetDiaperSnapshot?.documents {
+    //                 let entries = try documents.map { try $0.data(as: WetDiaperEntry.self) }
+    //                 baby.wetDiaperEntries = WetDiaperEntries(wetDiaperEntries: entries)
+    //             }
 
-                // Get dehydration checks
-                let dehydrationSnapshot = try? await babyRef.collection("dehydrationChecks").getDocuments()
-                if let documents = dehydrationSnapshot?.documents {
-                    let checks = try documents.map { try $0.data(as: DehydrationCheck.self) }
-                    baby.dehydrationChecks = DehydrationChecks(dehydrationChecks: checks)
-                }
+    //             // Get dehydration checks
+    //             let dehydrationSnapshot = try? await babyRef.collection("dehydrationChecks").getDocuments()
+    //             if let documents = dehydrationSnapshot?.documents {
+    //                 let checks = try documents.map { try $0.data(as: DehydrationCheck.self) }
+    //                 baby.dehydrationChecks = DehydrationChecks(dehydrationChecks: checks)
+    //             }
 
-                return baby
-            } catch {
-                logger.error("Could not fetch baby: \(error)")
-                throw error
-            }
-        } catch {
-            print("Firestore error: \(error)")
-            logger.error("Detailed error: \(error)")
-            throw error
-        }
-    }
+    //             return baby
+    //         } catch {
+    //             logger.error("Could not fetch baby: \(error)")
+    //             throw error
+    //         }
+    //     } catch {
+    //         print("Firestore error: \(error)")
+    //         logger.error("Detailed error: \(error)")
+    //         throw error
+    //     }
+    // }
 
     func addWeightEntry(_ entry: WeightEntry, toBabyWithId babyId: String) async throws {
         guard let userId = Auth.auth().currentUser?.uid else {
