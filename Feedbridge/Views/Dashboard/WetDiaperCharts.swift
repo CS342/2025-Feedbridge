@@ -32,10 +32,6 @@ struct WetDiapersSummaryView: View {
         currentEntries.max(by: { $0.dateTime < $1.dateTime })
     }
 
-    private var formattedTime: String {
-        formatDate(lastEntry?.dateTime)
-    }
-
     var body: some View {
         NavigationLink(
             destination: WetDiapersView(entries: currentEntries, babyId: babyId, viewModel: viewModel)
@@ -131,7 +127,6 @@ struct MiniWetDiaperChart: View {
 struct WetDiaperChart: View {
     let entries: [WetDiaperEntry]
     var isMini: Bool
-    @State private var scrollPosition: Date?  // Tracks the initial scroll position
 
     var body: some View {
         let indexedEntries = indexEntriesPerDay(entries)  // Index entries by day

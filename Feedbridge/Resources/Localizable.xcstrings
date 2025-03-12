@@ -87,28 +87,13 @@
     "Add Baby" : {
 
     },
-    "Add Dehydration Check" : {
-
-    },
     "Add Entries" : {
 
     },
     "Add Entry" : {
 
     },
-    "Add Feed Entry" : {
-
-    },
     "Add New Baby" : {
-
-    },
-    "Add Stool Entry" : {
-
-    },
-    "Add Weight Entry" : {
-
-    },
-    "Add Wet Diaper Entry" : {
 
     },
     "Add Your Baby" : {
@@ -121,6 +106,7 @@
 
     },
     "Allow Notifications" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -178,9 +164,6 @@
     "Brown" : {
 
     },
-    "Cancel" : {
-
-    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -211,6 +194,7 @@
       }
     },
     "Contact" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -240,9 +224,6 @@
 
     },
     "Date" : {
-
-    },
-    "Date & Time" : {
 
     },
     "Date of Birth" : {
@@ -276,9 +257,6 @@
 
     },
     "Dry Mucous Membranes: %@" : {
-
-    },
-    "Duration: %lld min" : {
 
     },
     "Duration: %lld minutes" : {
@@ -315,12 +293,6 @@
         }
       }
     },
-    "Feeding Details" : {
-
-    },
-    "Feeding Method" : {
-
-    },
     "Feeding Type" : {
 
     },
@@ -337,6 +309,7 @@
 
     },
     "Grant Access" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -356,6 +329,7 @@
 
     },
     "HealthKit Access" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -366,6 +340,7 @@
       }
     },
     "HealthKit Data Source" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -376,6 +351,7 @@
       }
     },
     "HEALTHKIT_PERMISSIONS_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -386,6 +362,7 @@
       }
     },
     "HEALTHKIT_PERMISSIONS_SUBTITLE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -405,6 +382,7 @@
 
     },
     "HL7 FHIR" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -415,6 +393,7 @@
       }
     },
     "Interesting Modules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -425,6 +404,7 @@
       }
     },
     "INTERESTING_MODULES_AREA1_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -435,6 +415,7 @@
       }
     },
     "INTERESTING_MODULES_AREA2_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -445,6 +426,7 @@
       }
     },
     "INTERESTING_MODULES_AREA3_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -455,6 +437,7 @@
       }
     },
     "INTERESTING_MODULES_AREA4_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -465,6 +448,7 @@
       }
     },
     "INTERESTING_MODULES_SUBTITLE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -555,6 +539,7 @@
 
     },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -565,6 +550,7 @@
       }
     },
     "Notifications" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -578,6 +564,7 @@
 
     },
     "Onboarding" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -600,6 +587,7 @@
 
     },
     "Please fill out the Social Support Questionnaire every day." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -624,9 +612,6 @@
     "Red" : {
 
     },
-    "Red-Tinged" : {
-
-    },
     "Save" : {
 
     },
@@ -634,6 +619,7 @@
 
     },
     "Schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -656,6 +642,7 @@
 
     },
     "Social Support Questionnaire" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -677,6 +664,7 @@
       }
     },
     "Spezi Scheduler Notifications." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -687,6 +675,7 @@
       }
     },
     "Start Questionnaire" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -733,16 +722,11 @@
         }
       }
     },
-    "This color may indicate a medical concern" : {
-
-    },
-    "This color may indicate dehydration" : {
-
-    },
     "This name is already taken" : {
 
     },
     "This type of event is currently unsupported. Please contact the developer of this app." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -762,6 +746,7 @@
 
     },
     "Unsupported Event" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -789,12 +774,6 @@
     "Volume: %@" : {
 
     },
-    "Volume: %lld mL" : {
-
-    },
-    "Warning" : {
-
-    },
     "Weight (kg)" : {
 
     },
@@ -805,9 +784,6 @@
 
     },
     "Weight Entries" : {
-
-    },
-    "Weight in Kilograms" : {
 
     },
     "Weights" : {

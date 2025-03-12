@@ -27,7 +27,7 @@ struct DehydrationView: View {
         }
         return entries
     }
-    
+
     var body: some View {
         NavigationStack {
             AlertGridView(entries: currentEntries)
@@ -36,7 +36,7 @@ struct DehydrationView: View {
         }
         .navigationTitle("Dehydration Symptoms")
     }
-    
+
     /// List of dehydration check entries sorted by date, showing symptoms and alert status.
     private var dehydrationChecksList: some View {
         List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
@@ -44,11 +44,11 @@ struct DehydrationView: View {
                 Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                
+
                 Text(entry.dehydrationAlert ? "⚠️ Alert" : "✅ Normal")
                     .font(.headline)
                     .foregroundColor(entry.dehydrationAlert ? .red : .green)
-                    
+
                 HStack {
                     dehydrationSymptomView(title: "Skin Elasticity", isPresent: entry.poorSkinElasticity)
                     Spacer()

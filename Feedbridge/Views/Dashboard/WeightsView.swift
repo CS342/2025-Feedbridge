@@ -52,46 +52,6 @@ struct WeightsView: View {
         .navigationTitle("Weights")
     }
 
-    /// The full weight chart with points for individual entries and a line for averaged weights.
-    private var fullWeightChart: some View {
-        Chart {
-            let averagedEntries = averageWeightsPerDay()
-
-            // Plot individual weight entries
-            ForEach(entries.sorted(by: { $0.dateTime < $1.dateTime })) { entry in
-                let day = Calendar.current.startOfDay(for: entry.dateTime)
-                PointMark(
-                    x: .value("Date", day),
-                    y: .value(
-                        weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)",
-                        weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value
-                    )
-                )
-                .foregroundStyle(.gray)
-                .symbol {
-                    Circle()
-                        .fill(Color.gray.opacity(0.6))
-                        .frame(width: 8)
-                }
-            }
-
-            // Plot averaged weight data
-            ForEach(averagedEntries) { entry in
-                LineMark(
-                    x: .value("Date", entry.date),
-                    y: .value(
-                        weightUnitPreference == .kilograms ? "Weight (kg)" : "Weight (lb)", entry.averageWeight
-                    )
-                )
-                .interpolationMethod(.catmullRom)
-                .foregroundStyle(.indigo)
-                .lineStyle(StrokeStyle(lineWidth: 2))
-            }
-        }
-        .frame(height: 300)
-        .padding()
-    }
-
     /// Displays a list of weight entries sorted by most recent.
     private var weightEntriesList: some View {
         List(currentEntries.sorted(by: { $0.dateTime > $1.dateTime })) { entry in
@@ -100,7 +60,7 @@ struct WeightsView: View {
                 Text(entry.dateTime.formatted(date: .abbreviated, time: .shortened))
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                
+
                 // Weight entry with correct unit
                 Text(
                     "\(weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value, specifier: "%.2f") \(weightUnitPreference == .kilograms ? "kg" : "lb")"
@@ -120,26 +80,5 @@ struct WeightsView: View {
                 }
             }
         }
-    }
-
-    /// Averages the weights per day
-    private func averageWeightsPerDay() -> [DailyAverageWeight] {
-        let grouped = Dictionary(grouping: currentEntries) { entry in
-            Calendar.current.startOfDay(for: entry.dateTime)
-        }
-
-        var dailyAverages: [DailyAverageWeight] = []
-
-        // Calculate average weight per day
-        for (date, entries) in grouped {
-            let totalWeight = entries.reduce(0) { result, entry in
-                result
-                    + (weightUnitPreference == .kilograms ? entry.asKilograms.value : entry.asPounds.value)
-            }
-            let averageWeight = totalWeight / Double(entries.count)
-            dailyAverages.append(DailyAverageWeight(date: date, averageWeight: averageWeight))
-        }
-
-        return dailyAverages.sorted { $0.date < $1.date }
     }
 }

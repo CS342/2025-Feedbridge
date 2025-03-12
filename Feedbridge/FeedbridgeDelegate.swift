@@ -49,7 +49,6 @@ class FeedbridgeDelegate: SpeziAppDelegate {
                 healthKit
             }
 
-            FeedbridgeScheduler()
             Scheduler()
             OnboardingDataSource()
 
