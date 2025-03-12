@@ -1,5 +1,5 @@
 //
-//  DahsboardViewTests.swift
+//  AddBabyTests.swift
 //  Feedbridge
 //
 //  Created by Shreya D'Souza on 3/11/25.
@@ -7,16 +7,22 @@
 
 import XCTest
 
-class DashboardViewTests: XCTestCase {
+class AddBabyTests: XCTestCase {
     @MainActor
     override func setUp() async throws {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--setupTestAccount", "--skipOnboarding"]
+        app.launchArguments = ["--setupTestAccount", "--skipOnboarding", "--resetBabies"]
         app.deleteAndLaunch(withSpringboardAppName: "Feedbridge")
+
+        // Ensure any existing babies are deleted
+        let deleteButton = app.buttons["Delete Baby, Delete Baby"]
+        while deleteButton.exists {
+            deleteButton.tap()
+            app.alerts.buttons["Delete"].tap()
+        }
     }
-    
     
     @MainActor
     func testDefault() {
@@ -58,9 +64,7 @@ class DashboardViewTests: XCTestCase {
         app.buttons["PopoverDismissRegion"].tap()
         
         app.buttons["Save"].tap()
-        
-        //        XCTAssertTrue(app.staticTexts["Benjamin"].isEmpty, "Should not be displayed")
-        
+                
         XCTAssertTrue(app.buttons["HealthDetails"].exists, "Should be displayed")
         XCTAssertTrue(app.buttons["Baby icon, Benjamin, Menu dropdown"].exists, "Should be displayed")
         XCTAssertTrue(app.buttons["Delete Baby, Delete Baby"].exists, "Should be displayed")
