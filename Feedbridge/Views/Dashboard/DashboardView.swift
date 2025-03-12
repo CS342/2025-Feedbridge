@@ -75,7 +75,10 @@ struct DashboardView: View {
     private func mainContent(for baby: Baby) -> some View {
         ScrollView {
             VStack(spacing: 16) {
-                AlertView(baby: baby)
+                AlertView(
+                    baby: baby,
+                    viewModel: viewModel
+                )
                 WeightsSummaryView(
                     entries: baby.weightEntries.weightEntries,
                     babyId: baby.id ?? "",
