@@ -11,11 +11,24 @@
 
 import SwiftUI
 
+struct AlertData {
+    let date: String
+    let hasData: Bool
+    let hasAlert: Bool
+}
 /// Grid displaying dehydration alerts over the past 5 days.
 struct AlertGridView: View {
+    /// Static date formatter for efficiency
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     var entries: [DehydrationCheck]
 
-    private var pastWeekAlerts: [(date: String, hasAlert: Bool)] {
+    private var pastWeekAlerts: [AlertData] {
         let today = Calendar.current.startOfDay(for: Date())
         let fiveDaysAgo = Calendar.current.date(byAdding: .day, value: -4, to: today) ?? today
 
@@ -26,12 +39,15 @@ struct AlertGridView: View {
         }
 
         return (0..<5).compactMap { offset in
-            if let date = Calendar.current.date(byAdding: .day, value: offset, to: fiveDaysAgo) {
-                let dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
-                let hasAlert = grouped[date]?.contains(where: { $0.dehydrationAlert }) ?? false
-                return (dateString, hasAlert)
+            guard let date = Calendar.current.date(byAdding: .day, value: offset, to: fiveDaysAgo) else {
+                return nil
             }
-            return nil
+
+            let dateString = Self.dateFormatter.string(from: date)
+            let hasData = grouped[date]?.isEmpty == false
+            let hasAlert = grouped[date]?.contains(where: { $0.dehydrationAlert }) ?? false
+
+            return AlertData(date: dateString, hasData: hasData, hasAlert: hasAlert)
         }
     }
 
@@ -43,10 +59,21 @@ struct AlertGridView: View {
                     .frame(width: 60, height: 60)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(data.hasAlert ? Color.red.opacity(0.8) : Color.green.opacity(0.8))
+                            .fill(alertColor(for: data))
                     )
                     .foregroundColor(.white)
             }
+        }
+    }
+
+    /// Function to determine background color
+    private func alertColor(for data: AlertData) -> Color {
+        if !data.hasData {
+            return Color.gray.opacity(0.8)
+        } else if data.hasAlert {
+            return Color.red.opacity(0.8)
+        } else {
+            return Color.green.opacity(0.8)
         }
     }
 }
@@ -64,6 +91,10 @@ struct DehydrationSummaryView: View {
             return baby.dehydrationChecks.dehydrationChecks
         }
         return entries
+    }
+    
+    private var lastEntry: DehydrationCheck? {
+        currentEntries.max(by: { $0.dateTime < $1.dateTime })
     }
 
     var body: some View {
@@ -83,9 +114,16 @@ struct DehydrationSummaryView: View {
 
             VStack {
                 header()
+                if lastEntry != nil {
+                    Spacer()
+                    AlertGridView(entries: entries)
+                        .frame(height: 40)
+                } else {
+                    Text("No data added")
+                        .foregroundColor(.gray)
+                        .padding()
+                }
                 Spacer()
-                AlertGridView(entries: entries) // Embedded struct usage
-                    .padding(.bottom, 16)
             }
         }
         .frame(height: 130)
