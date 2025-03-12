@@ -3,7 +3,7 @@
 //  Feedbridge
 //
 //  Created by Calvin Xu on 3/10/25.
-//
+//UserDefaults.standard.selectedBabyId
 // SPDX-FileCopyrightText: 2025 Stanford University
 //
 // SPDX-License-Identifier: MIT
@@ -74,8 +74,7 @@ class DashboardViewModel {
                 return
             }
             guard let doc = documentSnapshot, doc.exists else {
-                self.errorMessage = "Baby document does not exist."
-                self.isLoading = false
+                self.baby = nil
                 return
             }
 

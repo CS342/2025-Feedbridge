@@ -75,6 +75,10 @@ actor FeedbridgeStandard: Standard,
                 logger.error("Could not delete user document: \(error)")
             }
         }
+        if case let .disassociatingAccount(accountId) = event {
+            print("logout")
+            UserDefaults.standard.selectedBabyId = nil
+        }
     }
 
     /// Stores the given consent form in the user's document directory with a unique timestamped filename.
