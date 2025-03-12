@@ -3,7 +3,7 @@
 //  Feedbridge
 //
 //  Created by Calvin Xu on 3/10/25.
-//UserDefaults.standard.selectedBabyId
+//
 // SPDX-FileCopyrightText: 2025 Stanford University
 //
 // SPDX-License-Identifier: MIT
