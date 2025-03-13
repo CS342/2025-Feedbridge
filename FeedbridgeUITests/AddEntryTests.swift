@@ -98,10 +98,10 @@ final class AddEntryTests: XCTestCase {
 
         // Check that "No babies found" is displayed
         XCTAssertTrue(
-            app.staticTexts["No babies found"].exists,
+            app.staticTexts["No babies found"].waitForExistence(timeout: 5),
             "Should show 'No babies found' message if there are no babies."
         )
-        XCTAssertTrue(app.staticTexts["Please add a baby in Settings before adding entries."].exists)
+        XCTAssertTrue(app.staticTexts["Please add a baby in Settings before adding entries."].waitForExistence(timeout: 5))
     }
 
     /// Tests adding a weight entry in kilograms.
@@ -219,7 +219,7 @@ final class AddEntryTests: XCTestCase {
         // Enter a feed time
         let feedTimeField = app.textFields["Feed time (minutes)"]
         XCTAssertTrue(
-            feedTimeField.exists, "Feed time text field should be present for direct breastfeeding."
+            feedTimeField.waitForExistence(timeout: 5), "Feed time text field should be present for direct breastfeeding."
         )
         feedTimeField.tap()
         feedTimeField.typeText("15")
@@ -362,12 +362,12 @@ final class AddEntryTests: XCTestCase {
 
         // Toggle poor skin elasticity
         let poorSkinSwitch = app.switches["Poor Skin Elasticity"]
-        XCTAssertTrue(poorSkinSwitch.exists, "Poor Skin Elasticity toggle not found.")
+        XCTAssertTrue(poorSkinSwitch.waitForExistence(timeout: 5), "Poor Skin Elasticity toggle not found.")
         poorSkinSwitch.tap()
 
         // Toggle dry mucous membranes
         let dryMucousSwitch = app.switches["Dry Mucous Membranes"]
-        XCTAssertTrue(dryMucousSwitch.exists, "Dry Mucous Membranes toggle not found.")
+        XCTAssertTrue(dryMucousSwitch.waitForExistence(timeout: 5), "Dry Mucous Membranes toggle not found.")
         dryMucousSwitch.tap()
 
         print("DEBUG: Dehydration toggles set on")
@@ -422,7 +422,7 @@ final class AddEntryTests: XCTestCase {
 
         // At this point, the entry won't be saved, so "Entry saved successfully!" should NOT appear
         let successBanner = app.staticTexts["Entry saved successfully!"]
-        XCTAssertFalse(successBanner.exists, "Success banner should not appear with invalid input.")
+        XCTAssertFalse(successBanner.waitForExistence(timeout: 5), "Success banner should not appear with invalid input.")
     }
 
     /// Tests that invalid feeding input (zero or negative time or volume) is handled properly.
@@ -460,7 +460,7 @@ final class AddEntryTests: XCTestCase {
 
         let successBanner = app.staticTexts["Entry saved successfully!"]
         XCTAssertFalse(
-            successBanner.exists, "Success banner should not appear with invalid feeding data."
+            successBanner.waitForExistence(timeout: 5), "Success banner should not appear with invalid feeding data."
         )
     }
 }
