@@ -165,16 +165,6 @@ struct AddBabyView: View {
         }
     }
 
-    private func isDuplicateName(_ name: String, forBabyId id: Int) -> Bool {
-        let lowercaseName = name.lowercased()
-
-        if existingBabies.contains(where: { $0.name.lowercased() == lowercaseName }) {
-            return true
-        }
-
-        return babies.contains(where: { $0.id != id && $0.baby.name.lowercased() == lowercaseName })
-    }
-
     private func loadExistingBabies() async {
         do {
             existingBabies = try await standard.getBabies()
