@@ -26,6 +26,11 @@ class AddBabyTests: XCTestCase {
         // Clear existing babies before each test
         deleteAllBabies(app)
     }
+    
+    override func tearDown() async throws {
+        let app = XCUIApplication()
+        deleteAllBabies(app)
+    }
 
     /// Deletes all babies using the UI delete button, ensuring a clean state before each test.
     /// - Parameter app: The XCUIApplication instance.

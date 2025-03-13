@@ -8,8 +8,6 @@
 //
 // SPDX-License-Identifier: MIT
 //
-// swiftlint:disable closure_body_length
-
 import SpeziAccount
 import SwiftUI
 
@@ -27,24 +25,13 @@ struct DashboardView: View {
         NavigationStack {
             Group {
                 if viewModel.isLoading {
-                    ProgressView()
+                    loadingView
                 } else if let error = viewModel.errorMessage {
-                    Text(error)
-                        .foregroundColor(.red)
+                    errorView(error)
                 } else if let baby = viewModel.baby {
                     mainContent(for: baby)
                 } else {
-                    VStack(spacing: 16) {
-                        VStack {
-                            Text("No babies found")
-                                .font(.headline)
-                            Text("Please add a baby in Settings before adding entries.")
-                                .multilineTextAlignment(.leading)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding()
-                        Spacer()
-                    }
+                    noBabiesFoundView
                 }
             }
             .navigationTitle("Dashboard")
@@ -55,22 +42,79 @@ struct DashboardView: View {
             }
             // Make sure to call these on the main actor:
             .task {
-                // If no baby is selected, try to select the first one
-                if selectedBabyId == nil {
-                    do {
-                        let babies = try await standard.getBabies()
-                        if !babies.isEmpty {
-                            selectedBabyId = babies.first?.id
-                            UserDefaults.standard.selectedBabyId = selectedBabyId
-                        }
-                    } catch {
-                        viewModel.errorMessage = "Failed to load babies: \(error.localizedDescription)"
-                    }
-                }
+                await loadBabyData()
             }
         }
     }
 
+    // Loading state view
+    private var loadingView: some View {
+        ProgressView()
+    }
+
+    // Error state view
+    private func errorView(_ error: String) -> some View {
+        Text(error)
+            .foregroundColor(.red)
+    }
+
+    // No babies found view
+    private var noBabiesFoundView: some View {
+        VStack(spacing: 16) {
+            VStack {
+                Text("No babies found")
+                    .font(.headline)
+                Text("Please add a baby in Settings before adding entries.")
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+            Spacer()
+        }
+    }
+
+    // Task to load baby data or load test data if in testing mode
+    @MainActor
+    private func loadBabyData() async {
+        if selectedBabyId == nil {
+            await selectFirstBabyIfNeeded()
+        }
+        if ProcessInfo.processInfo.arguments.contains("--testingMode") {
+            await loadTestData()
+        }
+    }
+
+    // Select the first baby if none is selected
+    @MainActor
+    private func selectFirstBabyIfNeeded() async {
+        do {
+            let babies = try await standard.getBabies()
+            if !babies.isEmpty {
+                selectedBabyId = babies.first?.id
+                UserDefaults.standard.selectedBabyId = selectedBabyId
+            }
+        } catch {
+            viewModel.errorMessage = "Failed to load babies: \(error.localizedDescription)"
+        }
+    }
+
+    // Mock data loading for testing
+    @MainActor
+    private func loadTestData() async {
+        let testBaby = Baby(name: "Benjamin", dateOfBirth: Date().addingTimeInterval(-30 * 24 * 60 * 60))
+
+        let calendar = Calendar.current
+        let targetDate = calendar.date(from: DateComponents(year: 2025, month: 3, day: 11, hour: 0, minute: 0, second: 0)) ?? Date()
+
+        let mockStoolEntries = [
+            StoolEntry(dateTime: targetDate, volume: .medium, color: .brown)
+        ]
+        // Force a new instance to ensure UI updates
+        viewModel.baby = Baby(name: testBaby.name, dateOfBirth: testBaby.dateOfBirth)
+        viewModel.baby?.stoolEntries.stoolEntries = mockStoolEntries
+    }
+
+    // Main content view for a baby
     @ViewBuilder
     private func mainContent(for baby: Baby) -> some View {
         ScrollView {
