@@ -12,8 +12,8 @@
 import XCTest
 import XCTestExtensions
 
+@MainActor
 class AddBabyTests: XCTestCase {
-    @MainActor
     override func setUp() async throws {
         continueAfterFailure = false
 
@@ -25,7 +25,6 @@ class AddBabyTests: XCTestCase {
         deleteAllBabies(app)
     }
 
-    @MainActor
     /// Deletes all babies using the UI delete button.
     private func deleteAllBabies(_ app: XCUIApplication) {
        app.buttons["Settings"].tap()
@@ -38,19 +37,18 @@ class AddBabyTests: XCTestCase {
        }
     }
 
-    @MainActor
     func testAddBaby() {
         let app = XCUIApplication()
         app.buttons["Settings"].tap()
         
-        XCTAssertTrue(app.staticTexts["Select Baby"].exists, "Should be displayed")
-        XCTAssertTrue(app.staticTexts["No baby selected"].exists, "Should be displayed")
+        XCTAssertTrue(app.staticTexts["Select Baby"].exists, "Select baby dropdown should be visible")
+        XCTAssertTrue(app.staticTexts["No baby selected"].exists, "No babies should exist")
         
         // Select the dropdown menu and add a new baby
         let dropdown = app.buttons["Baby icon, Select Baby, Menu dropdown"]
         dropdown.tap()
         let addNew = app.buttons["Add New Baby"]
-        XCTAssertTrue(addNew.exists, "Should be displayed")
+        XCTAssertTrue(addNew.exists, "Should be an option to add a baby")
         addNew.tap()
 
         // Ensure that the Save button is initially disabled
