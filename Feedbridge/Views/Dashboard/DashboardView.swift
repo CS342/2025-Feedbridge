@@ -36,7 +36,7 @@ struct DashboardView: View {
             Spacer()
         }
     }
-    
+
     var body: some View {
         NavigationStack {
             Group {
@@ -62,7 +62,7 @@ struct DashboardView: View {
             }
         }
     }
-    
+
     // Loading state view
     private var loadingView: some View {
         ProgressView()
