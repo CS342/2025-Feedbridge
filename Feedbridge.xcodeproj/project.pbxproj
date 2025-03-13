@@ -49,6 +49,8 @@
 		35B630462D82A2130096904E /* StoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630452D82A20F0096904E /* StoolTests.swift */; };
 		35B6309B2D82BC670096904E /* FeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6309A2D82BC630096904E /* FeedTests.swift */; };
 		35B6309F2D82BEA00096904E /* WeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6309E2D82BE9B0096904E /* WeightTests.swift */; };
+		35B630A32D82C0BD0096904E /* DehydrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630A22D82C0BA0096904E /* DehydrationTests.swift */; };
+		35B630A62D82C1020096904E /* WetDiaperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630A52D82C0FC0096904E /* WetDiaperTests.swift */; };
 		53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */; };
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
@@ -121,6 +123,8 @@
 		35B630452D82A20F0096904E /* StoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolTests.swift; sourceTree = "<group>"; };
 		35B6309A2D82BC630096904E /* FeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTests.swift; sourceTree = "<group>"; };
 		35B6309E2D82BE9B0096904E /* WeightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTests.swift; sourceTree = "<group>"; };
+		35B630A22D82C0BA0096904E /* DehydrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DehydrationTests.swift; sourceTree = "<group>"; };
+		35B630A52D82C0FC0096904E /* WetDiaperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiaperTests.swift; sourceTree = "<group>"; };
 		35E52D2B2D794472005A6BB7 /* WeightCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCharts.swift; sourceTree = "<group>"; };
 		35E52D302D79475E005A6BB7 /* StoolCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolCharts.swift; sourceTree = "<group>"; };
 		35E52D332D7947D3005A6BB7 /* StoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolsView.swift; sourceTree = "<group>"; };
@@ -346,6 +350,8 @@
 		653A256A28338800005D4D48 /* FeedbridgeUITests */ = {
 			isa = PBXGroup;
 			children = (
+				35B630A22D82C0BA0096904E /* DehydrationTests.swift */,
+				35B630A52D82C0FC0096904E /* WetDiaperTests.swift */,
 				35B6309E2D82BE9B0096904E /* WeightTests.swift */,
 				35B6309A2D82BC630096904E /* FeedTests.swift */,
 				35B62F792D8257E80096904E /* AddBabyTests.swift */,
@@ -622,6 +628,8 @@
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
 				35B6309B2D82BC670096904E /* FeedTests.swift in Sources */,
 				35B630462D82A2130096904E /* StoolTests.swift in Sources */,
+				35B630A32D82C0BD0096904E /* DehydrationTests.swift in Sources */,
+				35B630A62D82C1020096904E /* WetDiaperTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */,
 				35B6309F2D82BEA00096904E /* WeightTests.swift in Sources */,

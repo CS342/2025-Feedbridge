@@ -111,18 +111,30 @@ struct DashboardView: View {
         let mockFeedEntries = [
             FeedEntry(directBreastfeeding: 15, dateTime: targetDate)
         ]
-        
         // Mock weight entries for testing
         let mockWeightEntries: [WeightEntry] = [
             WeightEntry(pounds: 7, ounces: 4, dateTime: targetDate)
         ]
-
-
-        // Force a new instance to ensure UI updates
+        let mockDehydrationChecks: [DehydrationCheck] = [
+            DehydrationCheck(
+                dateTime: targetDate, 
+                poorSkinElasticity: true,
+                dryMucousMembranes: false
+            )
+        ]
+        let mockWetDiaperEntries: [WetDiaperEntry] = [
+            WetDiaperEntry(
+                dateTime: targetDate,
+                volume: .medium,
+                color: .yellow
+            )
+        ]
         viewModel.baby = Baby(name: testBaby.name, dateOfBirth: testBaby.dateOfBirth)
         viewModel.baby?.stoolEntries.stoolEntries = mockStoolEntries
         viewModel.baby?.feedEntries.feedEntries = mockFeedEntries
         viewModel.baby?.weightEntries.weightEntries = mockWeightEntries
+        viewModel.baby?.dehydrationChecks.dehydrationChecks = mockDehydrationChecks
+        viewModel.baby?.wetDiaperEntries.wetDiaperEntries = mockWetDiaperEntries
     }
 
     // Main content view for a baby
