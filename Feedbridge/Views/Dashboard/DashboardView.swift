@@ -21,6 +21,22 @@ struct DashboardView: View {
     @Binding var presentingAccount: Bool
     @AppStorage(UserDefaults.selectedBabyIdKey) private var selectedBabyId: String?
 
+
+    // No babies found view
+    private var noBabiesFoundView: some View {
+        VStack(spacing: 16) {
+            VStack {
+                Text("No babies found")
+                    .font(.headline)
+                Text("Please add a baby in Settings before adding entries.")
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+            Spacer()
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -46,7 +62,7 @@ struct DashboardView: View {
             }
         }
     }
-
+    
     // Loading state view
     private var loadingView: some View {
         ProgressView()
@@ -58,20 +74,6 @@ struct DashboardView: View {
             .foregroundColor(.red)
     }
 
-    // No babies found view
-    private var noBabiesFoundView: some View {
-        VStack(spacing: 16) {
-            VStack {
-                Text("No babies found")
-                    .font(.headline)
-                Text("Please add a baby in Settings before adding entries.")
-                    .multilineTextAlignment(.leading)
-                    .foregroundColor(.secondary)
-            }
-            .padding()
-            Spacer()
-        }
-    }
 
     // Task to load baby data or load test data if in testing mode
     @MainActor
