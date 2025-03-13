@@ -23,7 +23,7 @@ class StoolTests: XCTestCase {
     }
     
     /// Tests that the stool navigation exists and functions correctly.
-    func testStoolNavExists() {
+    func testStoolEntry() {
         let app = XCUIApplication()
         
         // Navigate to the dashboard from settings

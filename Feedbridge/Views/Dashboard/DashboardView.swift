@@ -105,13 +105,24 @@ struct DashboardView: View {
 
         let calendar = Calendar.current
         let targetDate = calendar.date(from: DateComponents(year: 2025, month: 3, day: 11, hour: 0, minute: 0, second: 0)) ?? Date()
-
         let mockStoolEntries = [
             StoolEntry(dateTime: targetDate, volume: .medium, color: .brown)
         ]
+        let mockFeedEntries = [
+            FeedEntry(directBreastfeeding: 15, dateTime: targetDate)
+        ]
+        
+        // Mock weight entries for testing
+        let mockWeightEntries: [WeightEntry] = [
+            WeightEntry(pounds: 7, ounces: 4, dateTime: targetDate)
+        ]
+
+
         // Force a new instance to ensure UI updates
         viewModel.baby = Baby(name: testBaby.name, dateOfBirth: testBaby.dateOfBirth)
         viewModel.baby?.stoolEntries.stoolEntries = mockStoolEntries
+        viewModel.baby?.feedEntries.feedEntries = mockFeedEntries
+        viewModel.baby?.weightEntries.weightEntries = mockWeightEntries
     }
 
     // Main content view for a baby
