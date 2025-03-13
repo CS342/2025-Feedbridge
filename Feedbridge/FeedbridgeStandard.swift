@@ -75,7 +75,7 @@ actor FeedbridgeStandard: Standard,
                 logger.error("Could not delete user document: \(error)")
             }
         }
-        if case let .disassociatingAccount(accountId) = event {
+        if case .disassociatingAccount = event {
             print("logout")
             UserDefaults.standard.selectedBabyId = nil
         }

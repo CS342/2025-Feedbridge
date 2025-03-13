@@ -46,11 +46,17 @@
 		2FF53D8D2A8729D600042B76 /* FeedbridgeStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */; };
 		35B62D5D2D80C20C0096904E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B62D5C2D80C20C0096904E /* SettingsView.swift */; };
 		35B62F7A2D8257EC0096904E /* AddBabyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B62F792D8257E80096904E /* AddBabyTests.swift */; };
+		35B630462D82A2130096904E /* StoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630452D82A20F0096904E /* StoolTests.swift */; };
+		35B6309B2D82BC670096904E /* FeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6309A2D82BC630096904E /* FeedTests.swift */; };
+		35B6309F2D82BEA00096904E /* WeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6309E2D82BE9B0096904E /* WeightTests.swift */; };
+		35B630A32D82C0BD0096904E /* DehydrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630A22D82C0BA0096904E /* DehydrationTests.swift */; };
+		35B630A62D82C1020096904E /* WetDiaperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630A52D82C0FC0096904E /* WetDiaperTests.swift */; };
 		53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */; };
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
 		5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */; };
+		5B8425C82D829FC1009B00BC /* AddEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8425C72D829FC1009B00BC /* AddEntryTests.swift */; };
 		5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */; };
 		5BC74CDA2D6E19320059AA19 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC74CD92D6E19320059AA19 /* AddEntryView.swift */; };
 		5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD66F342D7EC73B0043D295 /* TestModels.swift */; };
@@ -115,6 +121,11 @@
 		358F60B12D73FEE000721B85 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		35B62D5C2D80C20C0096904E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		35B62F792D8257E80096904E /* AddBabyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBabyTests.swift; sourceTree = "<group>"; };
+		35B630452D82A20F0096904E /* StoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolTests.swift; sourceTree = "<group>"; };
+		35B6309A2D82BC630096904E /* FeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTests.swift; sourceTree = "<group>"; };
+		35B6309E2D82BE9B0096904E /* WeightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTests.swift; sourceTree = "<group>"; };
+		35B630A22D82C0BA0096904E /* DehydrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DehydrationTests.swift; sourceTree = "<group>"; };
+		35B630A52D82C0FC0096904E /* WetDiaperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiaperTests.swift; sourceTree = "<group>"; };
 		35E52D2B2D794472005A6BB7 /* WeightCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCharts.swift; sourceTree = "<group>"; };
 		35E52D302D79475E005A6BB7 /* StoolCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolCharts.swift; sourceTree = "<group>"; };
 		35E52D332D7947D3005A6BB7 /* StoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoolsView.swift; sourceTree = "<group>"; };
@@ -125,6 +136,7 @@
 		53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
 		5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsTest.swift; sourceTree = "<group>"; };
 		5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBabyView.swift; sourceTree = "<group>"; };
+		5B8425C72D829FC1009B00BC /* AddEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryTests.swift; sourceTree = "<group>"; };
 		5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSingleBabyView.swift; sourceTree = "<group>"; };
 		5BC74CD92D6E19320059AA19 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		5BD66F342D7EC73B0043D295 /* TestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModels.swift; sourceTree = "<group>"; };
@@ -340,7 +352,13 @@
 		653A256A28338800005D4D48 /* FeedbridgeUITests */ = {
 			isa = PBXGroup;
 			children = (
+				35B630A22D82C0BA0096904E /* DehydrationTests.swift */,
+				35B630A52D82C0FC0096904E /* WetDiaperTests.swift */,
+				35B6309E2D82BE9B0096904E /* WeightTests.swift */,
+				35B6309A2D82BC630096904E /* FeedTests.swift */,
+				5B8425C72D829FC1009B00BC /* AddEntryTests.swift */,
 				35B62F792D8257E80096904E /* AddBabyTests.swift */,
+				35B630452D82A20F0096904E /* StoolTests.swift */,
 				53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */,
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
@@ -611,8 +629,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
+				35B6309B2D82BC670096904E /* FeedTests.swift in Sources */,
+				35B630462D82A2130096904E /* StoolTests.swift in Sources */,
+				35B630A32D82C0BD0096904E /* DehydrationTests.swift in Sources */,
+				35B630A62D82C1020096904E /* WetDiaperTests.swift in Sources */,
+				5B8425C82D829FC1009B00BC /* AddEntryTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */,
+				35B6309F2D82BEA00096904E /* WeightTests.swift in Sources */,
 				2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,
 				35B62F7A2D8257EC0096904E /* AddBabyTests.swift in Sources */,
