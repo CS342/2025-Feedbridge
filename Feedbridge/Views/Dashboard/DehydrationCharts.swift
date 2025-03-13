@@ -25,7 +25,7 @@ struct AlertGridView: View {
         formatter.timeStyle = .none
         return formatter
     }()
-    
+
     var entries: [DehydrationCheck]
 
     private var pastWeekAlerts: [AlertData] {
@@ -92,7 +92,7 @@ struct DehydrationSummaryView: View {
         }
         return entries
     }
-    
+
     private var lastEntry: DehydrationCheck? {
         currentEntries.max(by: { $0.dateTime < $1.dateTime })
     }

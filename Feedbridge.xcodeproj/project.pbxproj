@@ -51,6 +51,7 @@
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
 		56E7083B2BB06F6F00B08F0A /* SwiftPackageList in Frameworks */ = {isa = PBXBuildFile; productRef = 56E7083A2BB06F6F00B08F0A /* SwiftPackageList */; };
 		5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */; };
+		5B8425C82D829FC1009B00BC /* AddEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8425C72D829FC1009B00BC /* AddEntryTests.swift */; };
 		5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */; };
 		5BC74CDA2D6E19320059AA19 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC74CD92D6E19320059AA19 /* AddEntryView.swift */; };
 		5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD66F342D7EC73B0043D295 /* TestModels.swift */; };
@@ -125,6 +126,7 @@
 		53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
 		5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsTest.swift; sourceTree = "<group>"; };
 		5B2B9CB82D52F9BF0047A55C /* AddBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBabyView.swift; sourceTree = "<group>"; };
+		5B8425C72D829FC1009B00BC /* AddEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryTests.swift; sourceTree = "<group>"; };
 		5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSingleBabyView.swift; sourceTree = "<group>"; };
 		5BC74CD92D6E19320059AA19 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		5BD66F342D7EC73B0043D295 /* TestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModels.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 		653A256A28338800005D4D48 /* FeedbridgeUITests */ = {
 			isa = PBXGroup;
 			children = (
+				5B8425C72D829FC1009B00BC /* AddEntryTests.swift */,
 				35B62F792D8257E80096904E /* AddBabyTests.swift */,
 				53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */,
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
@@ -611,6 +614,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */,
+				5B8425C82D829FC1009B00BC /* AddEntryTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */,
 				2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */,

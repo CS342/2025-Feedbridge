@@ -29,7 +29,7 @@ struct HomeView: View {
             Tab("Dashboard", systemImage: "house", value: .dashboard) {
                 DashboardView(viewModel: viewModel, presentingAccount: $presentingAccount)
             }
-            Tab("Add Entries", systemImage: "plus", value: .addEntries) {
+            Tab("Add Entry", systemImage: "plus", value: .addEntries) {
                 AddEntryView(viewModel: viewModel)
             }
             Tab("Settings", systemImage: "gear", value: .debug) {

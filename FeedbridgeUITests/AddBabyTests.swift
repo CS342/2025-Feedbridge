@@ -33,7 +33,7 @@ class AddBabyTests: XCTestCase {
         app.buttons["Settings"].tap()
 
         let deleteButton = app.buttons["Delete Baby, Delete Baby"]
-        
+
         // If the delete button exists, repeatedly tap it to remove all babies
         while deleteButton.waitForExistence(timeout: 2) {
             deleteButton.tap()
@@ -45,11 +45,11 @@ class AddBabyTests: XCTestCase {
     func testAddBaby() {
         let app = XCUIApplication()
         app.buttons["Settings"].tap()
-        
+
         // Verify initial state: No baby should be selected
         XCTAssertTrue(app.staticTexts["Select Baby"].exists, "Select baby dropdown should be visible")
         XCTAssertTrue(app.staticTexts["No baby selected"].exists, "No babies should exist")
-        
+
         // Open the dropdown menu and select "Add New Baby"
         let dropdown = app.buttons["Baby icon, Select Baby, Menu dropdown"]
         dropdown.tap()
@@ -74,13 +74,13 @@ class AddBabyTests: XCTestCase {
         datePickersQuery.tap()
         app.staticTexts["1"].tap()
         app.buttons["PopoverDismissRegion"].tap() // Close the date picker
-        
+
         // Ensure the Save button is enabled now that valid data is entered
         XCTAssertTrue(saveButton.isEnabled, "Save button should be enabled when valid data is entered")
 
         // Save the baby data
         saveButton.tap()
-        
+
         // Verify that the new baby is correctly added and displayed in the UI
         XCTAssertTrue(app.staticTexts["Benjamin"].exists, "Baby's name should be displayed")
         XCTAssertTrue(app.buttons["Baby icon, Benjamin, Menu dropdown"].exists, "Baby dropdown should show new baby")
