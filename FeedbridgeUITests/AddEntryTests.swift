@@ -171,12 +171,14 @@ final class AddEntryTests: XCTestCase {
 
         // Fill in pounds and ounces
         let poundsField = app.textFields["Pounds"]
-        let ouncesField = app.textFields["Ounces"]
+       
         XCTAssertTrue(poundsField.waitForExistence(timeout: 2), "Pounds text field not found.")
-        XCTAssertTrue(ouncesField.waitForExistence(timeout: 2), "Ounces text field not found.")
 
         poundsField.tap()
         poundsField.typeText("7")
+        
+        let ouncesField = app.textFields["Ounces"]
+        XCTAssertTrue(ouncesField.waitForExistence(timeout: 2), "Ounces text field not found.")
         ouncesField.tap()
         ouncesField.typeText("5.5")
 

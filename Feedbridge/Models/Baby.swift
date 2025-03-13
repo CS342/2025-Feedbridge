@@ -9,12 +9,35 @@
 //
 // SPDX-License-Identifier: MIT
 //
-// swiftlint:disable file_types_order
 
 @preconcurrency import FirebaseFirestore
 import Foundation
 
-// periphery:ignore
+struct FeedEntries: Codable, Identifiable, Sendable {
+    @DocumentID var id: String?
+    var feedEntries: [FeedEntry]
+}
+
+struct WeightEntries: Codable, Identifiable, Sendable {
+    @DocumentID var id: String?
+    var weightEntries: [WeightEntry]
+}
+
+struct StoolEntries: Codable, Identifiable, Sendable {
+    @DocumentID var id: String?
+    var stoolEntries: [StoolEntry]
+}
+
+struct WetDiaperEntries: Codable, Identifiable, Sendable {
+    @DocumentID var id: String?
+    var wetDiaperEntries: [WetDiaperEntry]
+}
+
+struct DehydrationChecks: Codable, Identifiable, Sendable {
+    @DocumentID var id: String?
+    var dehydrationChecks: [DehydrationCheck]
+}
+
 /// Represents a baby and their associated health tracking data
 struct Baby: Identifiable, Codable, Sendable, Equatable {
     /// Unique identifier for the baby
@@ -81,29 +104,4 @@ struct Baby: Identifiable, Codable, Sendable, Equatable {
         return lhs.name == rhs.name &&
             lhs.dateOfBirth == rhs.dateOfBirth
     }
-}
-
-struct FeedEntries: Codable, Identifiable, Sendable {
-    @DocumentID var id: String?
-    var feedEntries: [FeedEntry]
-}
-
-struct WeightEntries: Codable, Identifiable, Sendable {
-    @DocumentID var id: String?
-    var weightEntries: [WeightEntry]
-}
-
-struct StoolEntries: Codable, Identifiable, Sendable {
-    @DocumentID var id: String?
-    var stoolEntries: [StoolEntry]
-}
-
-struct WetDiaperEntries: Codable, Identifiable, Sendable {
-    @DocumentID var id: String?
-    var wetDiaperEntries: [WetDiaperEntry]
-}
-
-struct DehydrationChecks: Codable, Identifiable, Sendable {
-    @DocumentID var id: String?
-    var dehydrationChecks: [DehydrationCheck]
 }

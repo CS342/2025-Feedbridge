@@ -8,7 +8,6 @@
 //
 // SPDX-License-Identifier: MIT
 //
-// swiftlint:disable closure_body_length
 
 import SwiftUI
 
@@ -27,48 +26,60 @@ struct AddSingleBabyView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                if isLoading {
-                    ProgressView()
-                } else {
-                    Form {
-                        VStack(alignment: .leading, spacing: 4) {
-                            TextField("Baby's Name", text: $babyName)
-                            if hasDuplicateName {
-                                Text("This name is already taken")
-                                    .foregroundColor(.red)
-                                    .font(.caption)
-                            }
-                        }
-                        DatePicker(
-                            "Date of Birth",
-                            selection: $dateOfBirth,
-                            in: ...Date(),
-                            displayedComponents: [.date, .hourAndMinute]
-                        )
-                    }
+            contentView
+                .navigationTitle("Add Baby")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    toolbarContent
+                }
+                .alert("Error", isPresented: $showAlert) {
+                    Button("OK", role: .cancel) {}
+                } message: {
+                    Text(errorMessage)
+                }
+                .task {
+                    await loadExistingBabies()
+                }
+        }
+    }
+    
+    private var contentView: some View {
+        Group {
+            if isLoading {
+                ProgressView()
+            } else {
+                formContent
+            }
+        }
+    }
+    
+    private var formContent: some View {
+        Form {
+            VStack(alignment: .leading, spacing: 4) {
+                TextField("Baby's Name", text: $babyName)
+                if hasDuplicateName {
+                    Text("This name is already taken")
+                        .foregroundColor(.red)
+                        .font(.caption)
                 }
             }
-            .navigationTitle("Add Baby")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        Task {
-                            await saveBaby()
-                        }
-                    }
-                    .disabled(babyName.isEmpty || isLoading || hasDuplicateName)
+            DatePicker(
+                "Date of Birth",
+                selection: $dateOfBirth,
+                in: ...Date(),
+                displayedComponents: [.date, .hourAndMinute]
+            )
+        }
+    }
+    
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .confirmationAction) {
+            Button("Save") {
+                Task {
+                    await saveBaby()
                 }
             }
-            .alert("Error", isPresented: $showAlert) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text(errorMessage)
-            }
-            .task {
-                await loadExistingBabies()
-            }
+            .disabled(babyName.isEmpty || isLoading || hasDuplicateName)
         }
     }
 

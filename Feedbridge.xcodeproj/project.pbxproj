@@ -10,9 +10,7 @@
 		2F1AC9DF2B4E840E00C24973 /* Feedbridge.docc in Sources */ = {isa = PBXBuildFile; fileRef = 2F1AC9DE2B4E840E00C24973 /* Feedbridge.docc */; };
 		2F3D4ABC2A4E7C290068FB2F /* SpeziScheduler in Frameworks */ = {isa = PBXBuildFile; productRef = 2F3D4ABB2A4E7C290068FB2F /* SpeziScheduler */; };
 		2F49B7762980407C00BCB272 /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = 2F49B7752980407B00BCB272 /* Spezi */; };
-		2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */; };
 		2F4E23832989D51F0013F3D9 /* FeedbridgeTestingSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23822989D51F0013F3D9 /* FeedbridgeTestingSetup.swift */; };
-		2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23862989DB360013F3D9 /* ContactsTests.swift */; };
 		2F5E32BD297E05EA003432F8 /* FeedbridgeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5E32BC297E05EA003432F8 /* FeedbridgeDelegate.swift */; };
 		2F6025CB29BBE70F0045459E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6025CA29BBE70F0045459E /* GoogleService-Info.plist */; };
 		2FA0BFED2ACC977500E0EF83 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0BFEC2ACC977500E0EF83 /* Localizable.xcstrings */; };
@@ -24,7 +22,6 @@
 		2FC3439129EE6349002D773C /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FE5DC2A29EDD78D004B9AB4 /* AppIcon.png */; };
 		2FC3439229EE634B002D773C /* ConsentDocument.md in Resources */ = {isa = PBXBuildFile; fileRef = 2FE5DC2C29EDD78E004B9AB4 /* ConsentDocument.md */; };
 		2FC975A82978F11A00BA99FE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC975A72978F11A00BA99FE /* HomeView.swift */; };
-		2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC2529EDD38A004B9AB4 /* Contacts.swift */; };
 		2FE5DC3529EDD7CA004B9AB4 /* Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC2F29EDD7CA004B9AB4 /* Consent.swift */; };
 		2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3129EDD7CA004B9AB4 /* OnboardingFlow.swift */; };
 		2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3429EDD7CA004B9AB4 /* Welcome.swift */; };
@@ -51,6 +48,8 @@
 		35B6309F2D82BEA00096904E /* WeightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6309E2D82BE9B0096904E /* WeightTests.swift */; };
 		35B630A32D82C0BD0096904E /* DehydrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630A22D82C0BA0096904E /* DehydrationTests.swift */; };
 		35B630A62D82C1020096904E /* WetDiaperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B630A52D82C0FC0096904E /* WetDiaperTests.swift */; };
+		533241962D8392180004F271 /* FeedbridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533241952D8392180004F271 /* FeedbridgeTests.swift */; };
+		5332419A2D8394200004F271 /* HealthDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533241992D83941D0004F271 /* HealthDetailsView.swift */; };
 		53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */; };
 		5680DD3E2AB8CD84004E6D4A /* ContributionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */; };
 		56E708352BB06B7100B08F0A /* SpeziLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 56E708342BB06B7100B08F0A /* SpeziLicense */; };
@@ -60,10 +59,8 @@
 		5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */; };
 		5BC74CDA2D6E19320059AA19 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC74CD92D6E19320059AA19 /* AddEntryView.swift */; };
 		5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD66F342D7EC73B0043D295 /* TestModels.swift */; };
-		5BD66F3E2D7ED0650043D295 /* TestFeedbridgeStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD66F3D2D7ED0630043D295 /* TestFeedbridgeStandard.swift */; };
 		653A2551283387FE005D4D48 /* Feedbridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* Feedbridge.swift */; };
 		653A255528338800005D4D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
-		653A256228338800005D4D48 /* FeedbridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* FeedbridgeTests.swift */; };
 		653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256B28338800005D4D48 /* SchedulerTests.swift */; };
 		9733CFC62A8066DE001B7ABC /* SpeziOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8029EDD91D004B9AB4 /* SpeziOnboarding */; };
 		9739A0C62AD7B5730084BEA5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9739A0C52AD7B5730084BEA5 /* FirebaseStorage */; };
@@ -98,16 +95,13 @@
 
 /* Begin PBXFileReference section */
 		2F1AC9DE2B4E840E00C24973 /* Feedbridge.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Feedbridge.docc; sourceTree = "<group>"; };
-		2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		2F4E23822989D51F0013F3D9 /* FeedbridgeTestingSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbridgeTestingSetup.swift; sourceTree = "<group>"; };
-		2F4E23862989DB360013F3D9 /* ContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTests.swift; sourceTree = "<group>"; };
 		2F5E32BC297E05EA003432F8 /* FeedbridgeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbridgeDelegate.swift; sourceTree = "<group>"; };
 		2F6025CA29BBE70F0045459E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2FA0BFEC2ACC977500E0EF83 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		2FAEC07F297F583900C11C42 /* Feedbridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Feedbridge.entitlements; sourceTree = "<group>"; };
 		2FC94CD4298B0A1D009C8209 /* Feedbridge.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Feedbridge.xctestplan; sourceTree = "<group>"; };
 		2FC975A72978F11A00BA99FE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		2FE5DC2529EDD38A004B9AB4 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		2FE5DC2A29EDD78D004B9AB4 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		2FE5DC2C29EDD78E004B9AB4 /* ConsentDocument.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ConsentDocument.md; sourceTree = "<group>"; };
 		2FE5DC2F29EDD7CA004B9AB4 /* Consent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consent.swift; sourceTree = "<group>"; };
@@ -132,6 +126,8 @@
 		35E52D3E2D794A77005A6BB7 /* FeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsView.swift; sourceTree = "<group>"; };
 		35E52E012D7971EC005A6BB7 /* WetDiaperCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiaperCharts.swift; sourceTree = "<group>"; };
 		35E52E032D79727C005A6BB7 /* WetDiapersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetDiapersView.swift; sourceTree = "<group>"; };
+		533241952D8392180004F271 /* FeedbridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbridgeTests.swift; sourceTree = "<group>"; };
+		533241992D83941D0004F271 /* HealthDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDetailsView.swift; sourceTree = "<group>"; };
 		53C427AB2D76496100EC9E29 /* WeightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsView.swift; sourceTree = "<group>"; };
 		53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDataViewTests.swift; sourceTree = "<group>"; };
 		5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsTest.swift; sourceTree = "<group>"; };
@@ -140,12 +136,10 @@
 		5BB4CE312D5B183200DA4CF7 /* AddSingleBabyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSingleBabyView.swift; sourceTree = "<group>"; };
 		5BC74CD92D6E19320059AA19 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		5BD66F342D7EC73B0043D295 /* TestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModels.swift; sourceTree = "<group>"; };
-		5BD66F3D2D7ED0630043D295 /* TestFeedbridgeStandard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFeedbridgeStandard.swift; sourceTree = "<group>"; };
 		653A254D283387FE005D4D48 /* Feedbridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feedbridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A2550283387FE005D4D48 /* Feedbridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedbridge.swift; sourceTree = "<group>"; };
 		653A255428338800005D4D48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		653A255D28338800005D4D48 /* FeedbridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedbridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		653A256128338800005D4D48 /* FeedbridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbridgeTests.swift; sourceTree = "<group>"; };
 		653A256728338800005D4D48 /* FeedbridgeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedbridgeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A256B28338800005D4D48 /* SchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerTests.swift; sourceTree = "<group>"; };
 		653A258928339462005D4D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -226,14 +220,6 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2FE5DC2729EDD38D004B9AB4 /* Contacts */ = {
-			isa = PBXGroup;
-			children = (
-				2FE5DC2529EDD38A004B9AB4 /* Contacts.swift */,
-			);
-			path = Contacts;
-			sourceTree = "<group>";
-		};
 		2FE5DC2829EDD398004B9AB4 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +271,7 @@
 		5B0E57762D5C311B002AC4BB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				533241992D83941D0004F271 /* HealthDetailsView.swift */,
 				358B23B92D7D974800D60CF6 /* Dashboard */,
 				5BC74CD92D6E19320059AA19 /* AddEntryView.swift */,
 				35B62D5C2D80C20C0096904E /* SettingsView.swift */,
@@ -328,7 +315,6 @@
 				2FF53D8C2A8729D600042B76 /* FeedbridgeStandard.swift */,
 				2F4E23822989D51F0013F3D9 /* FeedbridgeTestingSetup.swift */,
 				A9720E412ABB68B300872D23 /* Account */,
-				2FE5DC2729EDD38D004B9AB4 /* Contacts */,
 				A9A3DCC62C75CB8D00FC9B69 /* Firestore */,
 				2FE5DC2829EDD398004B9AB4 /* Onboarding */,
 				2FE5DC2D29EDD792004B9AB4 /* Resources */,
@@ -342,9 +328,8 @@
 		653A256028338800005D4D48 /* FeedbridgeTests */ = {
 			isa = PBXGroup;
 			children = (
-				5BD66F3D2D7ED0630043D295 /* TestFeedbridgeStandard.swift */,
+				533241952D8392180004F271 /* FeedbridgeTests.swift */,
 				5BD66F342D7EC73B0043D295 /* TestModels.swift */,
-				653A256128338800005D4D48 /* FeedbridgeTests.swift */,
 			);
 			path = FeedbridgeTests;
 			sourceTree = "<group>";
@@ -360,9 +345,7 @@
 				35B62F792D8257E80096904E /* AddBabyTests.swift */,
 				35B630452D82A20F0096904E /* StoolTests.swift */,
 				53F30C272D7FBB670077FD21 /* AddDataViewTests.swift */,
-				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				653A256B28338800005D4D48 /* SchedulerTests.swift */,
-				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
 				5680DD3D2AB8CD84004E6D4A /* ContributionsTest.swift */,
 			);
 			path = FeedbridgeUITests;
@@ -600,6 +583,7 @@
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
 				2F1AC9DF2B4E840E00C24973 /* Feedbridge.docc in Sources */,
 				2FF53D8D2A8729D600042B76 /* FeedbridgeStandard.swift in Sources */,
+				5332419A2D8394200004F271 /* HealthDetailsView.swift in Sources */,
 				5B2B9CB92D52F9BF0047A55C /* AddBabyView.swift in Sources */,
 				5BB4CE322D5B183200DA4CF7 /* AddSingleBabyView.swift in Sources */,
 				A9720E432ABB68CC00872D23 /* AccountSetupHeader.swift in Sources */,
@@ -610,7 +594,6 @@
 				5BC74CDA2D6E19320059AA19 /* AddEntryView.swift in Sources */,
 				35B62D5D2D80C20C0096904E /* SettingsView.swift in Sources */,
 				653A2551283387FE005D4D48 /* Feedbridge.swift in Sources */,
-				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,9 +601,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BD66F3E2D7ED0650043D295 /* TestFeedbridgeStandard.swift in Sources */,
-				653A256228338800005D4D48 /* FeedbridgeTests.swift in Sources */,
 				5BD66F352D7EC73D0043D295 /* TestModels.swift in Sources */,
+				533241962D8392180004F271 /* FeedbridgeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,10 +616,8 @@
 				35B630A32D82C0BD0096904E /* DehydrationTests.swift in Sources */,
 				35B630A62D82C1020096904E /* WetDiaperTests.swift in Sources */,
 				5B8425C82D829FC1009B00BC /* AddEntryTests.swift in Sources */,
-				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				53F30C282D7FBB670077FD21 /* AddDataViewTests.swift in Sources */,
 				35B6309F2D82BEA00096904E /* WeightTests.swift in Sources */,
-				2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */,
 				653A256C28338800005D4D48 /* SchedulerTests.swift in Sources */,
 				35B62F7A2D8257EC0096904E /* AddBabyTests.swift in Sources */,
 			);
@@ -954,7 +934,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Y6WUS7R97A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Feedbridge/Supporting Files/Info.plist";

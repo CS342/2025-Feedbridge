@@ -12,7 +12,6 @@
 import Foundation
 
 // Represents diaper volume classifications
-// periphery:ignore
 enum DiaperVolume: String, Codable {
     case light
     case medium
@@ -20,14 +19,12 @@ enum DiaperVolume: String, Codable {
 }
 
 // Represents color variations for wet diaper entries
-// periphery:ignore
 enum WetDiaperColor: String, Codable {
     case yellow
     case pink
     case redTinged
 }
 
-// periphery:ignore
 /// Stores wet diaper data
 struct WetDiaperEntry: Identifiable, Codable, Sendable {
     @DocumentID var id: String?
