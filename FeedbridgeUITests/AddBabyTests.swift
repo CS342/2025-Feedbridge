@@ -27,11 +27,6 @@ class AddBabyTests: XCTestCase {
         deleteAllBabies(app)
     }
 
-    override func tearDown() async throws {
-        let app = XCUIApplication()
-        deleteAllBabies(app)
-    }
-
     /// Deletes all babies using the UI delete button, ensuring a clean state before each test.
     /// - Parameter app: The XCUIApplication instance.
     private func deleteAllBabies(_ app: XCUIApplication) {
@@ -91,5 +86,36 @@ class AddBabyTests: XCTestCase {
         XCTAssertTrue(app.buttons["Baby icon, Benjamin, Menu dropdown"].exists, "Baby dropdown should show new baby")
         XCTAssertTrue(app.buttons["Delete Baby, Delete Baby"].exists, "Delete button should be displayed for the new baby")
         XCTAssertTrue(app.staticTexts["Use Kilograms"].exists, "The 'Use Kilograms' text should be displayed")
+    }
+
+    func testNavigateToHealthDetails() {
+        let app = XCUIApplication()
+        //        app.buttons["Settings"].tap()
+
+        // Ensure at least one baby
+        if app.staticTexts["No baby selected"].exists {
+            testAddBaby()
+        }
+
+        let healthDetailsCell = app.staticTexts["Health Details"]
+        XCTAssertTrue(
+            healthDetailsCell.exists,
+            "Health Details navigation link not found."
+        )
+        healthDetailsCell.tap()
+
+        let navTitle = app.navigationBars["Health Details"]
+        XCTAssertTrue(
+            navTitle.waitForExistence(timeout: 5),
+            "Did not navigate to Health Details view as expected."
+        )
+        
+        print("DEBUG: Current UI for 'AddEntryView':\n\(app.debugDescription)")
+
+        XCTAssertTrue(app.staticTexts["FEED ENTRIES"].exists, "Feed Entries exists")
+        XCTAssertTrue(app.staticTexts["WEIGHT ENTRIES"].exists, "Weight Entries exists")
+        XCTAssertTrue(app.staticTexts["STOOL ENTRIES"].exists, "Stool Entries exists")
+        XCTAssertTrue(app.staticTexts["VOID ENTRIES"].exists, "Void Entries exists")
+        XCTAssertTrue(app.staticTexts["DEHYDRATION CHECKS"].exists, "Dehydration Checks exists")
     }
 }
