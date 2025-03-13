@@ -10,11 +10,9 @@
 import SpeziOnboarding
 import SwiftUI
 
-
 struct AccountOnboarding: View {
     @Environment(OnboardingNavigationPath.self) private var onboardingNavigationPath
-    
-    
+
     var body: some View {
         AccountSetup { _ in
             Task {
@@ -35,27 +33,26 @@ struct AccountOnboarding: View {
     }
 }
 
-
 #if DEBUG
 #Preview("Account Onboarding SignIn") {
     OnboardingStack {
         AccountOnboarding()
     }
-        .previewWith {
-            AccountConfiguration(service: InMemoryAccountService())
-        }
+    .previewWith {
+        AccountConfiguration(service: InMemoryAccountService())
+    }
 }
 
 #Preview("Account Onboarding") {
     var details = AccountDetails()
     details.userId = "lelandstanford@stanford.edu"
     details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
-    
+
     return OnboardingStack {
         AccountOnboarding()
     }
-        .previewWith {
-            AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
-        }
+    .previewWith {
+        AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
+    }
 }
 #endif

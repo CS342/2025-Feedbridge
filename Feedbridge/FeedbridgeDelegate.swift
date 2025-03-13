@@ -20,7 +20,6 @@ import SpeziOnboarding
 import SpeziScheduler
 import SwiftUI
 
-
 class FeedbridgeDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration(standard: FeedbridgeStandard()) {
@@ -30,11 +29,11 @@ class FeedbridgeDelegate: SpeziAppDelegate {
                     storageProvider: FirestoreAccountStorage(storeIn: FirebaseConfiguration.userCollection),
                     configuration: [
                         .requires(\.userId),
-                        .requires(\.name),
+                        .requires(\.name)
 
                         // additional values stored using the `FirestoreAccountStorage` within our Standard implementation
-                        .collects(\.genderIdentity),
-                        .collects(\.dateOfBirth)
+                        //                        .collects(\.genderIdentity),
+                        //                        .collects(\.dateOfBirth)
                     ]
                 )
 
@@ -49,8 +48,7 @@ class FeedbridgeDelegate: SpeziAppDelegate {
             if HKHealthStore.isHealthDataAvailable() {
                 healthKit
             }
-            
-            FeedbridgeScheduler()
+
             Scheduler()
             OnboardingDataSource()
 
@@ -66,7 +64,6 @@ class FeedbridgeDelegate: SpeziAppDelegate {
         }
     }
 
-    
     private var firestore: Firestore {
         let settings = FirestoreSettings()
         if FeatureFlags.useFirebaseEmulator {
@@ -74,13 +71,12 @@ class FeedbridgeDelegate: SpeziAppDelegate {
             settings.cacheSettings = MemoryCacheSettings()
             settings.isSSLEnabled = false
         }
-        
+
         return Firestore(
             settings: settings
         )
     }
-    
-    
+
     private var healthKit: HealthKit {
         HealthKit {
             CollectSample(

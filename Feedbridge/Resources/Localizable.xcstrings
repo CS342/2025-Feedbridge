@@ -1,6 +1,53 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%.2f %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.2f %2$@"
+          }
+        }
+      }
+    },
+    "%@ and %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ and %2$@"
+          }
+        }
+      }
+    },
+    "%lld min" : {
+
+    },
+    "%lld ml" : {
+
+    },
+    "⚠️ Alert" : {
+
+    },
+    "⚠️ Dehydration Alert" : {
+
+    },
+    "⚠️ Medical Alert" : {
+
+    },
+    "⚠️ Seek medical care!" : {
+
+    },
+    "✅ No alerts in the past week" : {
+
+    },
+    "✅ Normal" : {
+
+    },
+    "About Us" : {
+
+    },
     "ACCOUNT_SETUP_DESCRIPTION" : {
       "localizations" : {
         "en" : {
@@ -26,12 +73,40 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Feedbridge demonstrates the usage of the Firebase Account Module."
+            "value" : "Log in to Feedbridge"
           }
         }
       }
     },
+    "Add Another Baby" : {
+
+    },
+    "Add babies later" : {
+
+    },
+    "Add Baby" : {
+
+    },
+    "Add Entries" : {
+
+    },
+    "Add Entry" : {
+
+    },
+    "Add New Baby" : {
+
+    },
+    "Add Your Baby" : {
+
+    },
+    "Age" : {
+
+    },
+    "Alert present" : {
+
+    },
     "Allow Notifications" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -40,6 +115,54 @@
           }
         }
       }
+    },
+    "Amount: %lldml" : {
+
+    },
+    "Are you sure you want to delete this baby?" : {
+
+    },
+    "Baby icon" : {
+
+    },
+    "Baby Summary" : {
+
+    },
+    "Baby's Name" : {
+
+    },
+    "Basic Info" : {
+
+    },
+    "Beige" : {
+
+    },
+    "Black" : {
+
+    },
+    "Bottle" : {
+
+    },
+    "Bottle (%@)" : {
+
+    },
+    "Bottle volume (ml)" : {
+
+    },
+    "Bottle: %lld ml" : {
+
+    },
+    "Breastfeeding" : {
+
+    },
+    "Breastfeeding: %lld min" : {
+
+    },
+    "Breastmilk" : {
+
+    },
+    "Brown" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -50,6 +173,15 @@
           }
         }
       }
+    },
+    "Color" : {
+
+    },
+    "Color: %@" : {
+
+    },
+    "Confirm" : {
+
     },
     "CONSENT_LOADING_ERROR" : {
       "localizations" : {
@@ -62,6 +194,7 @@
       }
     },
     "Contact" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -81,7 +214,102 @@
         }
       }
     },
+    "Continue" : {
+
+    },
+    "Dark Green" : {
+
+    },
+    "Dashboard" : {
+
+    },
+    "Date" : {
+
+    },
+    "Date of Birth" : {
+
+    },
+    "Dehydration Checks" : {
+
+    },
+    "Dehydration Details" : {
+
+    },
+    "Dehydration Heart" : {
+
+    },
+    "Dehydration Symptoms" : {
+
+    },
+    "Delete" : {
+
+    },
+    "Delete Baby" : {
+
+    },
+    "Diaper #" : {
+
+    },
+    "Direct Breastfeeding" : {
+
+    },
+    "Dry Mucous Membranes" : {
+
+    },
+    "Dry Mucous Membranes: %@" : {
+
+    },
+    "Duration: %lld minutes" : {
+
+    },
+    "Early Alerts" : {
+
+    },
+    "Entry saved successfully!" : {
+
+    },
+    "Error" : {
+
+    },
+    "Feed #" : {
+
+    },
+    "Feed Details" : {
+
+    },
+    "Feed Entries" : {
+
+    },
+    "Feed time (minutes)" : {
+
+    },
+    "Feedbridge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feedbridge"
+          }
+        }
+      }
+    },
+    "Feeding Type" : {
+
+    },
+    "Feeds" : {
+
+    },
+    "Flame" : {
+
+    },
+    "Formula" : {
+
+    },
+    "Get Started" : {
+
+    },
     "Grant Access" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -91,7 +319,17 @@
         }
       }
     },
+    "Great job taking care of your little one! Keep up the amazing work!" : {
+
+    },
+    "Green" : {
+
+    },
+    "Health Details" : {
+
+    },
     "HealthKit Access" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -102,6 +340,7 @@
       }
     },
     "HealthKit Data Source" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -112,6 +351,7 @@
       }
     },
     "HEALTHKIT_PERMISSIONS_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -122,6 +362,7 @@
       }
     },
     "HEALTHKIT_PERMISSIONS_SUBTITLE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -131,7 +372,17 @@
         }
       }
     },
+    "Heart icon" : {
+
+    },
+    "Heavy" : {
+
+    },
+    "Hi! It is now:" : {
+
+    },
     "HL7 FHIR" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -142,6 +393,7 @@
       }
     },
     "Interesting Modules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -152,6 +404,7 @@
       }
     },
     "INTERESTING_MODULES_AREA1_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -162,6 +415,7 @@
       }
     },
     "INTERESTING_MODULES_AREA2_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -172,6 +426,7 @@
       }
     },
     "INTERESTING_MODULES_AREA3_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -182,6 +437,7 @@
       }
     },
     "INTERESTING_MODULES_AREA4_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -192,6 +448,7 @@
       }
     },
     "INTERESTING_MODULES_SUBTITLE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -201,7 +458,11 @@
         }
       }
     },
+    "Kilograms" : {
+
+    },
     "Learn More" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -231,6 +492,27 @@
         }
       }
     },
+    "Light" : {
+
+    },
+    "Medium" : {
+
+    },
+    "Menu dropdown" : {
+
+    },
+    "Milk Type" : {
+
+    },
+    "Milk Type: %@" : {
+
+    },
+    "Monitor Your Baby" : {
+
+    },
+    "Name" : {
+
+    },
     "Next" : {
       "localizations" : {
         "en" : {
@@ -241,7 +523,23 @@
         }
       }
     },
+    "Next page" : {
+
+    },
+    "No babies found" : {
+
+    },
+    "No baby selected" : {
+
+    },
+    "No data added" : {
+
+    },
+    "Normal" : {
+
+    },
     "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -252,6 +550,7 @@
       }
     },
     "Notifications" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -261,7 +560,11 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Onboarding" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -271,7 +574,20 @@
         }
       }
     },
+    "Ounces" : {
+
+    },
+    "Pink" : {
+
+    },
+    "Please add a baby in Settings before adding entries." : {
+
+    },
+    "Please enter your baby's information" : {
+
+    },
     "Please fill out the Social Support Questionnaire every day." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -281,7 +597,29 @@
         }
       }
     },
+    "Poor Skin Elasticity" : {
+
+    },
+    "Poor Skin Elasticity: %@" : {
+
+    },
+    "Pounds" : {
+
+    },
+    "Preferences" : {
+
+    },
+    "Red" : {
+
+    },
+    "Save" : {
+
+    },
+    "Scale" : {
+
+    },
     "Schedule" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -291,7 +629,20 @@
         }
       }
     },
+    "Select baby" : {
+
+    },
+    "Select Date & Time" : {
+
+    },
+    "Selected" : {
+
+    },
+    "Settings" : {
+
+    },
     "Social Support Questionnaire" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -302,6 +653,7 @@
       }
     },
     "Spezi Modules" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -312,6 +664,7 @@
       }
     },
     "Spezi Scheduler Notifications." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -321,17 +674,8 @@
         }
       }
     },
-    "Feedbridge" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spezi\nFeedbridge"
-          }
-        }
-      }
-    },
     "Start Questionnaire" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -341,7 +685,23 @@
         }
       }
     },
+    "Stool #" : {
+
+    },
+    "Stool Details" : {
+
+    },
+    "Stool Drop" : {
+
+    },
+    "Stool Entries" : {
+
+    },
+    "Stools" : {
+
+    },
     "Swift Package Manager" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -352,6 +712,7 @@
       }
     },
     "The Spezi Framework" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -361,7 +722,11 @@
         }
       }
     },
+    "This name is already taken" : {
+
+    },
     "This type of event is currently unsupported. Please contact the developer of this app." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -371,7 +736,17 @@
         }
       }
     },
+    "Track Progress" : {
+
+    },
+    "Type: %@" : {
+
+    },
+    "Unit" : {
+
+    },
     "Unsupported Event" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -381,12 +756,45 @@
         }
       }
     },
+    "Use Kilograms" : {
+
+    },
+    "Void Details" : {
+
+    },
+    "Void Entries" : {
+
+    },
+    "Voids" : {
+
+    },
+    "Volume" : {
+
+    },
+    "Volume: %@" : {
+
+    },
+    "Weight (kg)" : {
+
+    },
+    "Weight (lb)" : {
+
+    },
+    "Weight Details" : {
+
+    },
+    "Weight Entries" : {
+
+    },
+    "Weights" : {
+
+    },
     "WELCOME_AREA1_DESCRIPTION" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Spezi Framework builds the foundation of this application."
+            "value" : "Track your baby's feeds, diapers, and weight to ensure healthy development"
           }
         }
       }
@@ -396,7 +804,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi uses the Swift Package Manager to import it as a dependency."
+            "value" : "Monitor your baby's growth and feeding patterns with easy-to-use tracking tools"
           }
         }
       }
@@ -406,7 +814,17 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spezi offers several modules including HealthKit integration, questionnaires, and more ..."
+            "value" : "Receive timely alerts if your baby shows signs of feeding concerns"
+          }
+        }
+      }
+    },
+    "WELCOME_AREA4_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dr. Meera Sankar, Clinical Professor of Pediatrics.\nPinlin [Calvin] Xu, Shamit Surana, Shreya D'Souza\n2025 Stanford University"
           }
         }
       }
@@ -416,10 +834,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This application demonstrates several Spezi features & modules."
+            "value" : "Supporting healthy feeding for your newborn"
           }
         }
       }
+    },
+    "Wet Diaper Drop" : {
+
+    },
+    "What entry would you like to enter?" : {
+
+    },
+    "Yellow" : {
+
     },
     "Your Account" : {
       "localizations" : {

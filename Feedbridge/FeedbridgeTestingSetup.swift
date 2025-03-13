@@ -8,11 +8,9 @@
 
 import SwiftUI
 
-
 private struct FeedbridgeAppTestingSetup: ViewModifier {
     @AppStorage(StorageKeys.onboardingFlowComplete) var completedOnboardingFlow = false
-    
-    
+
     func body(content: Content) -> some View {
         content
             .onAppear {
@@ -25,7 +23,6 @@ private struct FeedbridgeAppTestingSetup: ViewModifier {
             }
     }
 }
-
 
 extension View {
     func testingSetup() -> some View {

@@ -13,6 +13,7 @@
 .build
 .docs
 !Feedbridge.xcodeproj
+.swift-version
 
 # IDE related folders
 .idea

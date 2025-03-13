@@ -9,12 +9,10 @@
 import SpeziOnboarding
 import SwiftUI
 
-
 /// - Note: The `OnboardingConsentView` exports the signed consent form as PDF to the Spezi `Standard`, necessitating the conformance of the `Standard` to the `OnboardingConstraint`.
 struct Consent: View {
     @Environment(OnboardingNavigationPath.self) private var onboardingNavigationPath
-    
-    
+
     private var consentDocument: Data {
         guard let path = Bundle.main.url(forResource: "ConsentDocument", withExtension: "md"),
               let data = try? Data(contentsOf: path) else {
@@ -22,8 +20,7 @@ struct Consent: View {
         }
         return data
     }
-    
-    
+
     var body: some View {
         OnboardingConsentView(
             markdown: {
@@ -36,14 +33,13 @@ struct Consent: View {
     }
 }
 
-
 #if DEBUG
 #Preview {
     OnboardingStack {
         Consent()
     }
-        .previewWith(standard: FeedbridgeStandard()) {
-            OnboardingDataSource()
-        }
+    .previewWith(standard: FeedbridgeStandard()) {
+        OnboardingDataSource()
+    }
 }
 #endif

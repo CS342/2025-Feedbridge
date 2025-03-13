@@ -11,13 +11,11 @@ import SpeziFirebaseAccount
 import SpeziViews
 import SwiftUI
 
-
 @main
 struct Feedbridge: App {
     @UIApplicationDelegateAdaptor(FeedbridgeDelegate.self) var appDelegate
     @AppStorage(StorageKeys.onboardingFlowComplete) var completedOnboardingFlow = false
 
-    
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -27,11 +25,11 @@ struct Feedbridge: App {
                     EmptyView()
                 }
             }
-                .sheet(isPresented: !$completedOnboardingFlow) {
-                    OnboardingFlow()
-                }
-                .testingSetup()
-                .spezi(appDelegate)
+            .sheet(isPresented: !$completedOnboardingFlow) {
+                OnboardingFlow()
+            }
+            .testingSetup()
+            .spezi(appDelegate)
         }
     }
 }

@@ -13,63 +13,42 @@ import SpeziNotifications
 import SpeziOnboarding
 import SwiftUI
 
-
 /// Displays an multi-step onboarding flow for the Feedbridge.
 struct OnboardingFlow: View {
-    @Environment(HealthKit.self) private var healthKitDataSource
-
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.notificationSettings) private var notificationSettings
 
     @AppStorage(StorageKeys.onboardingFlowComplete) private var completedOnboardingFlow = false
 
     @State private var localNotificationAuthorization = false
-    
-    
-    @MainActor private var healthKitAuthorization: Bool {
-        // As HealthKit not available in preview simulator
-        if ProcessInfo.processInfo.isPreviewSimulator {
-            return false
-        }
-        
-        return healthKitDataSource.authorized
-    }
-    
-    
+
     var body: some View {
         OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
             Welcome()
-            InterestingModules()
-            
+
             if !FeatureFlags.disableFirebase {
                 AccountOnboarding()
             }
-            
+
             #if !(targetEnvironment(simulator) && (arch(i386) || arch(x86_64)))
-                Consent()
+            Consent()
             #endif
-            
-            if HKHealthStore.isHealthDataAvailable() && !healthKitAuthorization {
-                HealthKitPermissions()
+
+            AddBabyView()
+        }
+        .interactiveDismissDisabled(!completedOnboardingFlow)
+        .onChange(of: scenePhase, initial: true) {
+            guard case .active = scenePhase else {
+                return
             }
-            
-            if !localNotificationAuthorization {
-                NotificationPermissions()
+
+            Task {
+                localNotificationAuthorization =
+                    await notificationSettings().authorizationStatus == .authorized
             }
         }
-            .interactiveDismissDisabled(!completedOnboardingFlow)
-            .onChange(of: scenePhase, initial: true) {
-                guard case .active = scenePhase else {
-                    return
-                }
-
-                Task {
-                    localNotificationAuthorization = await notificationSettings().authorizationStatus == .authorized
-                }
-            }
     }
 }
-
 
 #if DEBUG
 #Preview {
@@ -78,8 +57,6 @@ struct OnboardingFlow: View {
             OnboardingDataSource()
             HealthKit()
             AccountConfiguration(service: InMemoryAccountService())
-
-            FeedbridgeScheduler()
         }
 }
 #endif

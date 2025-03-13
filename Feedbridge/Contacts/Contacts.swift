@@ -11,7 +11,6 @@ import SpeziAccount
 import SpeziContact
 import SwiftUI
 
-
 /// Displays the contacts for the Feedbridge.
 struct Contacts: View {
     let contacts = [
@@ -53,8 +52,7 @@ struct Contacts: View {
     @Environment(Account.self) private var account: Account?
 
     @Binding var presentingAccount: Bool
-    
-    
+
     var body: some View {
         NavigationStack {
             ContactsList(contacts: contacts)
@@ -66,13 +64,11 @@ struct Contacts: View {
                 }
         }
     }
-    
-    
+
     init(presentingAccount: Binding<Bool>) {
         self._presentingAccount = presentingAccount
     }
 }
-
 
 #if DEBUG
 #Preview {
