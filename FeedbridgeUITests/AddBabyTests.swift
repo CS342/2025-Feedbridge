@@ -47,14 +47,14 @@ class AddBabyTests: XCTestCase {
         app.buttons["Settings"].tap()
 
         // Verify initial state: No baby should be selected
-        XCTAssertTrue(app.staticTexts["Select Baby"].exists, "Select baby dropdown should be visible")
-        XCTAssertTrue(app.staticTexts["No baby selected"].exists, "No babies should exist")
+        XCTAssertTrue(app.staticTexts["Select Baby"].waitForExistence(timeout: 5), "Select baby dropdown should be visible")
+        XCTAssertTrue(app.staticTexts["No baby selected"].waitForExistence(timeout: 5), "No babies should exist")
 
         // Open the dropdown menu and select "Add New Baby"
         let dropdown = app.buttons["Baby icon, Select Baby, Menu dropdown"]
         dropdown.tap()
         let addNew = app.buttons["Add New Baby"]
-        XCTAssertTrue(addNew.exists, "Should be an option to add a baby")
+        XCTAssertTrue(addNew.waitForExistence(timeout: 5), "Should be an option to add a baby")
         addNew.tap()
 
         // Ensure that the Save button is initially disabled
@@ -67,7 +67,7 @@ class AddBabyTests: XCTestCase {
         nameField.typeText("Benjamin")
 
         // Verify that a duplicate name warning is not displayed
-        XCTAssertFalse(app.staticTexts["This name is already taken"].exists, "Duplicate name warning should not appear")
+        XCTAssertFalse(app.staticTexts["This name is already taken"].waitForExistence(timeout: 5), "Duplicate name warning should not appear")
 
         // Date Picker: Select March 2025 (valid past date)
         let datePickersQuery = app.datePickers.firstMatch
@@ -82,24 +82,14 @@ class AddBabyTests: XCTestCase {
         saveButton.tap()
 
         // Verify that the new baby is correctly added and displayed in the UI
-        XCTAssertTrue(app.staticTexts["Benjamin"].exists, "Baby's name should be displayed")
-        XCTAssertTrue(app.buttons["Baby icon, Benjamin, Menu dropdown"].exists, "Baby dropdown should show new baby")
-        XCTAssertTrue(app.buttons["Delete Baby, Delete Baby"].exists, "Delete button should be displayed for the new baby")
-        XCTAssertTrue(app.staticTexts["Use Kilograms"].exists, "The 'Use Kilograms' text should be displayed")
-    }
-
-    func testNavigateToHealthDetails() {
-        let app = XCUIApplication()
-        //        app.buttons["Settings"].tap()
-
-        // Ensure at least one baby
-        if app.staticTexts["No baby selected"].exists {
-            testAddBaby()
-        }
-
+        XCTAssertTrue(app.staticTexts["Benjamin"].waitForExistence(timeout: 5), "Baby's name should be displayed")
+        XCTAssertTrue(app.buttons["Baby icon, Benjamin, Menu dropdown"].waitForExistence(timeout: 5), "Baby dropdown should show new baby")
+        XCTAssertTrue(app.buttons["Delete Baby, Delete Baby"].waitForExistence(timeout: 5), "Delete button should be displayed for the new baby")
+        XCTAssertTrue(app.staticTexts["Use Kilograms"].waitForExistence(timeout: 5), "The 'Use Kilograms' text should be displayed")
+        
         let healthDetailsCell = app.staticTexts["Health Details"]
         XCTAssertTrue(
-            healthDetailsCell.exists,
+            healthDetailsCell.waitForExistence(timeout: 5),
             "Health Details navigation link not found."
         )
         healthDetailsCell.tap()
@@ -112,10 +102,10 @@ class AddBabyTests: XCTestCase {
         
         print("DEBUG: Current UI for 'AddEntryView':\n\(app.debugDescription)")
 
-        XCTAssertTrue(app.staticTexts["FEED ENTRIES"].exists, "Feed Entries exists")
-        XCTAssertTrue(app.staticTexts["WEIGHT ENTRIES"].exists, "Weight Entries exists")
-        XCTAssertTrue(app.staticTexts["STOOL ENTRIES"].exists, "Stool Entries exists")
-        XCTAssertTrue(app.staticTexts["VOID ENTRIES"].exists, "Void Entries exists")
-        XCTAssertTrue(app.staticTexts["DEHYDRATION CHECKS"].exists, "Dehydration Checks exists")
+        XCTAssertTrue(app.staticTexts["FEED ENTRIES"].waitForExistence(timeout: 5), "Feed Entries exists")
+        XCTAssertTrue(app.staticTexts["WEIGHT ENTRIES"].waitForExistence(timeout: 5), "Weight Entries exists")
+        XCTAssertTrue(app.staticTexts["STOOL ENTRIES"].waitForExistence(timeout: 5), "Stool Entries exists")
+        XCTAssertTrue(app.staticTexts["VOID ENTRIES"].waitForExistence(timeout: 5), "Void Entries exists")
+        XCTAssertTrue(app.staticTexts["DEHYDRATION CHECKS"].waitForExistence(timeout: 5), "Dehydration Checks exists")
     }
 }
