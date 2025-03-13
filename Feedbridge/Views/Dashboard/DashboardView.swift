@@ -116,18 +116,10 @@ struct DashboardView: View {
             WeightEntry(pounds: 7, ounces: 4, dateTime: targetDate)
         ]
         let mockDehydrationChecks: [DehydrationCheck] = [
-            DehydrationCheck(
-                dateTime: targetDate, 
-                poorSkinElasticity: true,
-                dryMucousMembranes: false
-            )
+            DehydrationCheck(dateTime: targetDate, poorSkinElasticity: true, dryMucousMembranes: false)
         ]
         let mockWetDiaperEntries: [WetDiaperEntry] = [
-            WetDiaperEntry(
-                dateTime: targetDate,
-                volume: .medium,
-                color: .yellow
-            )
+            WetDiaperEntry(dateTime: targetDate, volume: .medium, color: .yellow)
         ]
         viewModel.baby = Baby(name: testBaby.name, dateOfBirth: testBaby.dateOfBirth)
         viewModel.baby?.stoolEntries.stoolEntries = mockStoolEntries

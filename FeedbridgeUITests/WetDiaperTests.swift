@@ -3,11 +3,12 @@
 //  Feedbridge
 //
 //  Created by Shreya D'Souza on 3/13/25.
-//
-// SPDX-License-Identifier: 2025 Stanford University
+
+// SPDX-FileCopyrightText: 2025 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
+
 import XCTest
 import XCTestExtensions
 
