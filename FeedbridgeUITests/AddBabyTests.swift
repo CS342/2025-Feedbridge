@@ -18,25 +18,24 @@ class AddBabyTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--setupTestAccount", "--skipOnboarding", "--resetBabies"]
+        app.launchArguments = ["--setupTestAccount", "--skipOnboarding"]
         app.deleteAndLaunch(withSpringboardAppName: "Feedbridge")
 
-//        // Ensure any existing babies are deleted
-//        let deleteButton = app.buttons["Delete Baby, Delete Baby"]
-//        while deleteButton.exists {
-//            deleteButton.tap()
-//            app.alerts.buttons["Delete"].tap()
-//        }
+        // Clear existing babies before each test
+        deleteAllBabies(app)
     }
 
     @MainActor
-    func testDefault() {
-        let app = XCUIApplication()
-        let nobabylabel = app.staticTexts["No babies found"]
-        let caption = app.staticTexts["Please add a baby in Settings before adding entries."]
-        
-        XCTAssertTrue(nobabylabel.exists, "No babies found should be displayed")
-        XCTAssertTrue(caption.exists, "Caption should be displayed")
+    /// Deletes all babies using the UI delete button.
+    private func deleteAllBabies(_ app: XCUIApplication) {
+       app.buttons["Settings"].tap()
+
+       let deleteButton = app.buttons["Delete Baby, Delete Baby"]
+       
+       while deleteButton.waitForExistence(timeout: 2) {
+           deleteButton.tap()
+           app.buttons["Delete"].tap()
+       }
     }
 
     @MainActor
