@@ -13,7 +13,7 @@ import SwiftUI
 
 struct AlertView: View {
     let baby: Baby  // Baby object containing health-related entries
-    
+
     // Optional viewModel for real-time data
     var viewModel: DashboardViewModel?
 
@@ -29,7 +29,7 @@ struct AlertView: View {
     private var recentAlerts: [String] {
         let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         var alerts: Set<String> = [] // Using Set to store unique alerts
-        
+
         // Check for dehydration risk from wet diaper entries
         if currentBaby.wetDiaperEntries.wetDiaperEntries.contains(where: { $0.dateTime >= oneWeekAgo && $0.dehydrationAlert }) {
             alerts.insert("Pink or red-tinged void detected.")
