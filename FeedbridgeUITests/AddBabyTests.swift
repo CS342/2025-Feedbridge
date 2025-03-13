@@ -14,6 +14,8 @@ import XCTestExtensions
 
 @MainActor
 class AddBabyTests: XCTestCase {
+    /// Sets up the test environment before each test case.
+    /// Ensures that there are no existing babies and launches the app with test configurations.
     override func setUp() async throws {
         continueAfterFailure = false
 
@@ -25,26 +27,30 @@ class AddBabyTests: XCTestCase {
         deleteAllBabies(app)
     }
 
-    /// Deletes all babies using the UI delete button.
+    /// Deletes all babies using the UI delete button, ensuring a clean state before each test.
+    /// - Parameter app: The XCUIApplication instance.
     private func deleteAllBabies(_ app: XCUIApplication) {
-       app.buttons["Settings"].tap()
+        app.buttons["Settings"].tap()
 
-       let deleteButton = app.buttons["Delete Baby, Delete Baby"]
-       
-       while deleteButton.waitForExistence(timeout: 2) {
-           deleteButton.tap()
-           app.buttons["Delete"].tap()
-       }
+        let deleteButton = app.buttons["Delete Baby, Delete Baby"]
+        
+        // If the delete button exists, repeatedly tap it to remove all babies
+        while deleteButton.waitForExistence(timeout: 2) {
+            deleteButton.tap()
+            app.buttons["Delete"].tap()
+        }
     }
 
+    /// Tests the process of adding a new baby and verifying that the baby is correctly displayed in the UI.
     func testAddBaby() {
         let app = XCUIApplication()
         app.buttons["Settings"].tap()
         
+        // Verify initial state: No baby should be selected
         XCTAssertTrue(app.staticTexts["Select Baby"].exists, "Select baby dropdown should be visible")
         XCTAssertTrue(app.staticTexts["No baby selected"].exists, "No babies should exist")
         
-        // Select the dropdown menu and add a new baby
+        // Open the dropdown menu and select "Add New Baby"
         let dropdown = app.buttons["Baby icon, Select Baby, Menu dropdown"]
         dropdown.tap()
         let addNew = app.buttons["Add New Baby"]
@@ -60,7 +66,7 @@ class AddBabyTests: XCTestCase {
         nameField.tap()
         nameField.typeText("Benjamin")
 
-        // Ensure no duplicate name warning appears
+        // Verify that a duplicate name warning is not displayed
         XCTAssertFalse(app.staticTexts["This name is already taken"].exists, "Duplicate name warning should not appear")
 
         // Date Picker: Select March 2025 (valid past date)
@@ -75,7 +81,7 @@ class AddBabyTests: XCTestCase {
         // Save the baby data
         saveButton.tap()
         
-        // Assert the new baby is saved and displayed correctly
+        // Verify that the new baby is correctly added and displayed in the UI
         XCTAssertTrue(app.staticTexts["Benjamin"].exists, "Baby's name should be displayed")
         XCTAssertTrue(app.buttons["Baby icon, Benjamin, Menu dropdown"].exists, "Baby dropdown should show new baby")
         XCTAssertTrue(app.buttons["Delete Baby, Delete Baby"].exists, "Delete button should be displayed for the new baby")
