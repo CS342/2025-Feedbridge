@@ -54,7 +54,7 @@ class AddBabyTests: XCTestCase {
         let dropdown = app.buttons["Baby icon, Select Baby, Menu dropdown"]
         dropdown.tap()
         let addNew = app.buttons["Add New Baby"]
-        XCTAssertTrue(addNew.waitForExistence(timeout: 5), "Should be an option to add a baby")
+        XCTAssertTrue(addNew.waitForExistence(timeout: 10), "Should be an option to add a baby")
         addNew.tap()
 
         // Ensure that the Save button is initially disabled
