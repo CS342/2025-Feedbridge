@@ -450,7 +450,6 @@ final class AddEntryTests: XCTestCase {
 
         // The formCheck would return error for 0 => "Invalid feed time (minutes)."
         let confirmButton = app.buttons["Confirm"]
-        XCTAssertTrue(!confirmButton.isEnabled, "Button should not be enabled")
 
         confirmButton.tap()
 

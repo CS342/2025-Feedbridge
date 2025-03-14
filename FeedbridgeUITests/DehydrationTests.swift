@@ -35,7 +35,7 @@ class DehydrationTests: XCTestCase {
         XCTAssertTrue(nav.exists, "Dehydration symptoms navigation should exist")
 
         // Tap on the first dehydration entry
-        let button = app.buttons["Heart icon, Dehydration Symptoms, Next page, 3/9/25, 3/10/25, 3/11/25, 3/12/25, 3/13/25"]
+        let button = app.buttons["dehydrationSummaryView"]
         button.tap()
 
         // Check if "Dehydration Symptoms" title and sample dehydration alert exist

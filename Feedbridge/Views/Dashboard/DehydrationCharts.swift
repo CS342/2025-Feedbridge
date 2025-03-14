@@ -104,6 +104,7 @@ struct DehydrationSummaryView: View {
             summaryCard()
         }
         .buttonStyle(PlainButtonStyle())
+        .accessibilityIdentifier("dehydrationSummaryView")
     }
 
     private func summaryCard() -> some View {
