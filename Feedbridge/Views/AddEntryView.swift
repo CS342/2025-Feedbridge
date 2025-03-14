@@ -10,6 +10,8 @@
 //
 // swiftlint:disable closure_body_length
 // swiftlint:disable file_length
+//
+// Reaoning for swiftlint disable rules: https://github.com/orgs/CS342/discussions/181
 
 import FirebaseFirestore
 import SwiftUI
